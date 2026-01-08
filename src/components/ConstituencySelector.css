@@ -1,0 +1,151 @@
+.constituency-selector {
+  position: relative;
+  z-index: 1000;
+}
+
+.constituency-selector-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 18px;
+  background: linear-gradient(to bottom, #ffffff, #f9fafb);
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  font-family:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 240px;
+  height: 44px;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.constituency-selector-toggle:hover {
+  border-color: #0f766e;
+  background: linear-gradient(to bottom, #ffffff, #f0fdfa);
+  box-shadow: 0 2px 6px rgba(15, 118, 110, 0.12);
+}
+
+.constituency-selector-toggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
+}
+
+.constituency-selector-toggle svg {
+  color: #0f766e;
+  flex-shrink: 0;
+}
+
+.constituency-selector-label {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #374151;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.constituency-selector-icon {
+  font-size: 0.7rem;
+  color: #6b7280;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 2px;
+}
+
+.constituency-selector-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 320px;
+  max-height: 400px;
+  overflow: hidden;
+  animation: dropdownSlideIn 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes dropdownSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.constituency-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.constituency-search svg {
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+.constituency-search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #374151;
+}
+
+.constituency-search input::placeholder {
+  color: #9ca3af;
+}
+
+.constituency-list {
+  overflow-y: auto;
+  max-height: 320px;
+  padding: 4px;
+}
+
+.constituency-item {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #374151;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.15s ease;
+}
+
+.constituency-item:hover {
+  background: #f9fafb;
+}
+
+.constituency-item.selected {
+  background: #f0fdfa;
+  color: #0f766e;
+  font-weight: 500;
+}
+
+.constituency-no-results {
+  padding: 16px 12px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.9rem;
+}

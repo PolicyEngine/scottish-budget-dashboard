@@ -1,0 +1,56 @@
+.chart-container {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.chart-container h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 8px 0;
+}
+
+.chart-description {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
+.chart-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 350px;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.demographic-tooltip {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.demographic-tooltip .tooltip-label {
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 8px 0;
+  font-size: 0.95rem;
+}
+
+.demographic-tooltip p {
+  margin: 4px 0;
+  font-size: 0.9rem;
+}
+
+.demographic-tooltip .tooltip-households {
+  color: #9ca3af;
+  font-size: 0.8rem;
+  margin-left: 4px;
+}

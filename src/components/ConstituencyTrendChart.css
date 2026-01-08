@@ -1,0 +1,19 @@
+.trend-tooltip {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.trend-tooltip .tooltip-label {
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 8px 0;
+  font-size: 0.95rem;
+}
+
+.trend-tooltip p {
+  margin: 4px 0;
+  font-size: 0.9rem;
+}

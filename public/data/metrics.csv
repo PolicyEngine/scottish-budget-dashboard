@@ -1,0 +1,6 @@
+reform_id,reform_name,year,people_affected,gini_change,poverty_change_pp,poverty_change_pct
+scottish_threshold_freeze,Scottish threshold freeze,2026,2.5036305908500434,-0.0001282790199965691,0.0,0.0
+scottish_threshold_freeze,Scottish threshold freeze,2027,2.5982883832002868,-0.00017166318004290025,0.0,0.0
+scottish_threshold_freeze,Scottish threshold freeze,2028,2.6767593532365677,-0.00021505030246751612,0.0,0.0
+scottish_threshold_freeze,Scottish threshold freeze,2029,2.75355016132633,-0.00025418096933727013,0.0,0.0
+scottish_threshold_freeze,Scottish threshold freeze,2030,2.87592918927581,-0.0002867498784044822,0.0,0.0

@@ -1,0 +1,175 @@
+/* Policy Breakdown Table - Matches App.css patterns */
+
+.policy-breakdown-table {
+  background: var(--pe-surface);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 8px 32px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+  animation-delay: 0.25s;
+}
+
+.policy-breakdown-table h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--pe-gray-900);
+  margin: 0 0 8px 0;
+  letter-spacing: -0.02em;
+}
+
+.table-description {
+  font-size: 0.95rem;
+  color: var(--pe-gray-600);
+  margin: 0 0 20px 0;
+  line-height: 1.6;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.policy-breakdown-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.policy-breakdown-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 600;
+  color: var(--pe-gray-500);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.policy-breakdown-table td {
+  padding: 16px;
+  color: var(--pe-gray-700);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.policy-breakdown-table tbody tr {
+  transition: background 0.15s ease;
+}
+
+.policy-breakdown-table tbody tr:hover {
+  background: var(--pe-gray-50);
+}
+
+.col-policy {
+  min-width: 200px;
+  font-weight: 500;
+  color: var(--pe-gray-800);
+}
+
+.col-category {
+  min-width: 140px;
+}
+
+.col-number {
+  min-width: 120px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+}
+
+.col-number.positive {
+  color: var(--pe-teal-700);
+}
+
+.col-number.negative {
+  color: #dc2626;
+}
+
+/* Category badges */
+.category-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.category-badge.spending {
+  background: rgba(16, 185, 129, 0.1);
+  color: #059669;
+}
+
+.category-badge.tax_cut {
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563eb;
+}
+
+.category-badge.tax_rise {
+  background: rgba(245, 158, 11, 0.1);
+  color: #d97706;
+}
+
+.category-badge.other {
+  background: var(--pe-gray-100);
+  color: var(--pe-gray-600);
+}
+
+/* Totals row */
+.totals-row {
+  border-top: 2px solid var(--pe-teal-600);
+}
+
+.totals-row td {
+  font-weight: 600;
+  padding-top: 18px;
+  border-bottom: none;
+  background: transparent;
+}
+
+.totals-row .col-policy {
+  color: var(--pe-teal-700);
+  font-size: 1rem;
+}
+
+.totals-row .col-number {
+  font-size: 1.1rem;
+}
+
+/* Header styling */
+.policy-breakdown-table th.col-number {
+  text-align: right;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .policy-breakdown-table {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .policy-breakdown-table th,
+  .policy-breakdown-table td {
+    padding: 12px 10px;
+  }
+
+  .col-policy {
+    min-width: 150px;
+  }
+
+  .col-category {
+    min-width: 100px;
+  }
+
+  .col-number {
+    min-width: 80px;
+  }
+
+  .policy-breakdown-table h3 {
+    font-size: 1.1rem;
+  }
+}

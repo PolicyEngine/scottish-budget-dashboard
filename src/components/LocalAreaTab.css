@@ -1,0 +1,173 @@
+/* Local Area Tab - Uses App.css patterns */
+
+.local-area-tab {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.local-area-intro {
+  font-size: 1.125rem;
+  color: var(--pe-gray-600);
+  line-height: 1.7;
+  margin: 0 0 32px 0;
+  animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+  animation-delay: 0.1s;
+}
+
+.local-area-results {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+/* Year slider section */
+.local-year-slider {
+  background: var(--pe-surface);
+  border-radius: 16px;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 4px 16px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  margin-bottom: 24px;
+  overflow: hidden;
+  animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+  animation-delay: 0.15s;
+}
+
+.local-year-slider .year-slider {
+  border-radius: 16px;
+  border-top: none;
+  background: transparent;
+}
+
+/* Loading state */
+.loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  color: var(--pe-gray-500);
+  font-size: 1rem;
+}
+
+/* Empty state - matches App.css */
+.local-area-tab .empty-state {
+  text-align: center;
+  padding: 100px 40px;
+  max-width: 560px;
+  margin: 0 auto;
+  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  background: none;
+  border: none;
+}
+
+.local-area-tab .empty-state-icon {
+  color: var(--pe-gray-400);
+  margin-bottom: 24px;
+}
+
+.local-area-tab .empty-state p {
+  font-size: 1.2rem;
+  color: var(--pe-gray-500);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Charts grid - uses App.css patterns */
+.local-charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.local-charts-grid > div {
+  background: var(--pe-surface);
+  border-radius: 20px;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 8px 32px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+}
+
+.local-charts-grid > div:nth-child(1) {
+  animation-delay: 0.3s;
+}
+
+.local-charts-grid > div:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.local-charts-grid > div:hover {
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 12px 40px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+/* UK-wide section */
+.uk-wide-section {
+  margin-top: 24px;
+  animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+  animation-delay: 0.5s;
+}
+
+.uk-wide-section .section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--pe-gray-900);
+  margin: 0 0 8px 0;
+  letter-spacing: -0.02em;
+}
+
+.uk-wide-section .section-description {
+  font-size: 1rem;
+  color: var(--pe-gray-600);
+  margin: 0 0 24px 0;
+  line-height: 1.6;
+}
+
+.household-chart-section {
+  margin-top: 24px;
+}
+
+.household-chart-section > div {
+  background: var(--pe-surface);
+  border-radius: 20px;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 8px 32px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+  animation-delay: 0.7s;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .local-charts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .local-area-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .local-area-header > * {
+    width: 100%;
+  }
+
+  .local-area-intro {
+    font-size: 1rem;
+  }
+
+  .local-area-tab .empty-state {
+    padding: 60px 20px;
+  }
+}
