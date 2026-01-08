@@ -64,7 +64,111 @@ const POLICIES = [
       },
     ],
   },
-  // Future Scottish Budget policies will be added here
+  {
+    id: "two_child_limit_removal",
+    name: "Two Child Limit removal",
+    description: "UK Government abolishes two-child limit on Universal Credit from April 2026",
+    explanation:
+      "The UK Government announced on 26 November 2025 they will end the two-child limit from April 2026. This affects Universal Credit and Tax Credits, allowing families to claim the child element (£3,647/year) for all children, not just the first two born after April 2017. This lifts an estimated 450,000 children out of poverty - the biggest reduction at any Budget this century.",
+    priority: 2,
+    probability: "100% (Announced)",
+    policyEngineCapability: "Strong (UC child elements modeled)",
+    status: "ready",
+    peStatus: "FULLY MODELED",
+    peLocation: "parameters/gov/dwp/universal_credit/elements/child/",
+    whatToModel: "Impact of UK-wide abolition of the two-child limit on Universal Credit child elements",
+    scenarios: [
+      "Baseline: Two-child limit in place (current)",
+      "Reform: Two-child limit removed (April 2026)",
+    ],
+    keyMetrics: [
+      "Number of UK households affected (~250,000 children UK-wide)",
+      "Poverty reduction from UK abolition",
+      "Average gain per affected family (~£5,310/year)",
+    ],
+    implementationSteps: [
+      "UC child elements already modeled - use uc_child_element variable",
+      "Model removal of two-child limit as reform",
+      "Calculate poverty reduction impact UK-wide and Scotland",
+      "Compare costs and distributional impacts",
+    ],
+    howToModel: "Remove the two-child limit by setting gov.dwp.universal_credit.elements.child.limit to a high number (e.g., 10). The limit affects 3rd+ children born after 6 April 2017.",
+    outreachTargets: ["Glenn Campbell (BBC Scotland)", "Child poverty charities", "UK-wide media"],
+    officialSource: "https://www.gov.uk/government/news/over-half-a-million-children-to-be-lifted-out-of-poverty",
+    evidenceSources: [
+      {
+        title: "UK Government abolishes two-child limit from April 2026",
+        url: "https://www.gov.uk/government/news/over-half-a-million-children-to-be-lifted-out-of-poverty-as-government-unveils-historic-child-poverty-strategy",
+        quote: "450,000 children lifted out of poverty - biggest reduction at any Budget this century",
+      },
+      {
+        title: "Which? confirms two-child cap ends April 2026",
+        url: "https://www.which.co.uk/news/article/two-child-benefit-cap-to-be-lifted-from-april-2026-aQoDS6V3hCwV",
+        quote: "Families will receive £3,647 for each child born after April 2017",
+      },
+      {
+        title: "MoneyHelper: Two-child benefit limit has ended",
+        url: "https://www.moneyhelper.org.uk/en/blog/benefits-entitlements/two-child-benefit-limit-ends",
+        quote: "560,000 families will see average increase of £5,310/year",
+      },
+    ],
+  },
+  {
+    id: "scottish_child_payment_increase",
+    name: "Scottish Child Payment increase",
+    description: "Increase Scottish Child Payment from £27.15/week",
+    explanation:
+      "The Scottish Child Payment (SCP) is currently £27.15/week (£108.60/4 weeks), supporting 322,000 children with a 94% take-up rate. It keeps approximately 40,000 children out of poverty. The Scottish Fiscal Commission forecasts a 2.7% CPI-based uprating for 2026-27. CPAG Scotland has called for an increase to £40/week by end of Parliament.",
+    priority: 4,
+    probability: "50%",
+    policyEngineCapability: "Partial",
+    status: "needs_verification",
+    peStatus: "PARTIALLY MODELED",
+    peLocation: "variables/gov/social_security_scotland/",
+    whatToModel: "Impact of potential SCP increases on child poverty in Scotland",
+    scenarios: [
+      "Baseline: £27.15/week (current)",
+      "Reform A: £28.15/week (+£1, 1.7% inflation uprating)",
+      "Reform B: £30/week (+£2.85)",
+      "Reform C: £35/week (+£7.85, CPAG proposal)",
+    ],
+    keyMetrics: [
+      "Cost per scenario (330,000 children eligible)",
+      "Poverty reduction per £1 increase",
+      "Marginal effectiveness of each £1",
+    ],
+    implementationSteps: [
+      "Verify SCP parameters in PolicyEngine UK",
+      "Model different increase scenarios",
+      "Calculate poverty reduction impacts for Scotland",
+      "Compare cost-effectiveness with other anti-poverty measures",
+    ],
+    howToModel: "Modify scottish_child_payment parameters. Eligibility: UC/legacy benefit recipients, child under 16, Scotland resident. Current amount: £27.15/week = £1,411.80/year per eligible child.",
+    outreachTargets: ["Poverty & Inequality Commission", "CPAG Scotland", "Scottish Government"],
+    officialSource: "https://www.socialsecurity.gov.scot/scottish-child-payment",
+    evidenceSources: [
+      {
+        title: "Gov.scot: 1.7% uprating for 2025-26",
+        url: "https://www.gov.scot/publications/social-security-assistance-scotland-up-rating-inflation-2025-26/",
+        quote: "All Scottish benefits uprated by 1.7% from April 2025",
+      },
+      {
+        title: "SFC forecast: 2.7% uprating for 2026-27",
+        url: "https://fiscalcommission.scot/wp-content/uploads/2025/01/Mitigating-the-two-child-limit-and-the-Scottish-Budget-January-2025-1.pdf",
+        quote: "SFC forecasts 2.7% CPI-based uprating for 2026-27",
+      },
+      {
+        title: "CPAG calls for £40/week by end of Parliament",
+        url: "https://cpag.org.uk/sites/default/files/2024-08/CPAG%20in%20Scotland%20-%20Programme%20for%20Government%202024-25.pdf",
+        quote: "Increase to £40 would reduce child poverty by further 15,000",
+      },
+      {
+        title: "Social Security Scotland: 322,000 children supported",
+        url: "https://www.socialsecurity.gov.scot/publications/2025/08/scottish-child-payment-statistics-to-30-june-2025",
+        quote: "94% take-up rate, keeps 40,000 children out of poverty",
+      },
+    ],
+  },
 ];
 
 // Preset policy combinations

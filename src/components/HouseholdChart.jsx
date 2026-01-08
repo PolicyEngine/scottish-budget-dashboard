@@ -399,7 +399,7 @@ function HouseholdChart({ rawData, selectedPolicies, selectedYear = 2029 }) {
   const policyNames = {
     scottish_threshold_freeze: "Scottish threshold freeze",
     scottish_child_payment_increase: "Scottish Child Payment increase",
-    two_child_limit_payment: "Two Child Limit Payment",
+    two_child_limit_removal: "Two Child Limit removal",
     scottish_budget_2026_combined: "Scottish Budget (combined)",
   };
 

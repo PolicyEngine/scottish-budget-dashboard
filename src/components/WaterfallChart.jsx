@@ -25,7 +25,7 @@ const ALL_POLICY_NAMES = [
   "Scottish threshold freeze",
   // Future spending policies (positive for households, teal)
   "Scottish Child Payment increase",
-  "Two Child Limit Payment",
+  "Two Child Limit removal",
 ];
 
 // Chart metadata for export
@@ -43,7 +43,7 @@ function WaterfallChart({ rawData, selectedPolicies, selectedYear = 2029 }) {
     { id: "scottish_threshold_freeze", name: "Scottish threshold freeze" },
     // Future policies
     { id: "scottish_child_payment_increase", name: "Scottish Child Payment increase" },
-    { id: "two_child_limit_payment", name: "Two Child Limit Payment" },
+    { id: "two_child_limit_removal", name: "Two Child Limit removal" },
   ];
 
   const waterfallDeciles = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];

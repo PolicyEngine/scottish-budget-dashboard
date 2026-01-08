@@ -40,3 +40,4 @@ coverage/
 
 # Large data files (keep only sampled version)
 public/data/household_scatter_full.csv
+.vercel

@@ -14,7 +14,7 @@ export const POLICY_COLORS = {
 
   // Future Scottish Budget policies (costs to treasury - teal spectrum)
   "Scottish Child Payment increase": "#0D9488", // Teal 600
-  "Two Child Limit Payment": "#14B8A6", // Teal 500
+  "Two Child Limit removal": "#14B8A6", // Teal 500
   "Council tax freeze": "#2DD4BF", // Teal 400
 };
 
@@ -27,7 +27,7 @@ export const POLICY_COLORS_BY_KEY = {
   // Future policies (costs to treasury)
   scottish_child_payment_increase: "#0D9488", // Teal 600
   impact_scottish_child_payment: "#0D9488",
-  two_child_limit_payment: "#14B8A6", // Teal 500
+  two_child_limit_removal: "#14B8A6", // Teal 500
   council_tax_rise: "#D97706", // Amber 600 - revenue for councils
 };
 
@@ -37,7 +37,7 @@ export const ALL_POLICY_NAMES = [
   "Scottish threshold freeze",
   // Costs to treasury (negative for gov) - future policies
   "Scottish Child Payment increase",
-  "Two Child Limit Payment",
+  "Two Child Limit removal",
 ];
 
 // Lifecycle calculator reform configuration

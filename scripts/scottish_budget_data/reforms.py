@@ -133,15 +133,88 @@ def _create_scottish_threshold_freeze() -> Reform:
 
 
 # =============================================================================
-# SPENDING MEASURES (future - costs to treasury)
+# SPENDING MEASURES (costs to treasury)
 # =============================================================================
 
-# Placeholder for future Scottish Budget spending measures:
-# - Scottish Child Payment increase
-# - Two Child Limit Payment (if UK doesn't abolish)
-# - Council Tax changes
-# - NHS funding
-# - Education spending
+
+def _years_dict(value, years: list[int] = None) -> dict[str, any]:
+    """Create a {year: value} dict for parameter changes."""
+    years = years or DEFAULT_YEARS
+    return {str(y): value for y in years}
+
+
+def _create_two_child_limit_removal() -> Reform:
+    """Create the two-child limit removal reform.
+
+    The UK Government announced on 26 November 2025 they will end the two-child
+    limit from April 2026. This affects Universal Credit and Tax Credits,
+    allowing families to claim the child element for all children.
+
+    Since policyengine-uk v2.63.0+, the two-child limit removal is in current law
+    (child_count = infinity from April 2026). This reform compares against
+    the pre-budget baseline where the limit was 2.
+
+    Impact: 450,000 children lifted out of poverty - biggest reduction this century.
+    Average gain per affected family: ~£5,310/year
+
+    Returns:
+        Reform object for the two-child limit removal.
+    """
+    return Reform(
+        id="two_child_limit_removal",
+        name="Two Child Limit removal",
+        description=(
+            "Removes the two-child limit on Universal Credit and Tax Credits from "
+            "April 2026. The limit restricted child-related payments to the first "
+            "two children in a family. Compares UK Government policy (limit removed) "
+            "against previous baseline (limit of 2). Lifts 450,000 children out of "
+            "poverty, with average gains of £5,310/year per affected family."
+        ),
+        # Baseline: Pre-budget (limit of 2)
+        baseline_parameter_changes={
+            "gov.dwp.tax_credits.child_tax_credit.limit.child_count": (
+                _years_dict(2)
+            ),
+            "gov.dwp.universal_credit.elements.child.limit.child_count": (
+                _years_dict(2)
+            ),
+        },
+        # Reform: Use current law (pe-uk with repeal/infinity)
+        parameter_changes={},
+    )
+
+
+def _create_scottish_child_payment_increase() -> Reform:
+    """Create the Scottish Child Payment increase reform.
+
+    Models a £5/week increase to the Scottish Child Payment from £27.15 to £32.15.
+    The SCP is paid to eligible families in Scotland with children under 16.
+
+    Current SCP: £27.15/week (£1,411.80/year)
+    Reform SCP: £32.15/week (£1,671.80/year)
+    Increase: £5/week = £260/year per eligible child
+
+    322,000 children are currently supported with 94% take-up rate.
+    The SCP keeps approximately 40,000 children out of poverty.
+
+    Note: This uses the scottish_child_payment parameter in PolicyEngine UK.
+    """
+    return Reform(
+        id="scottish_child_payment_increase",
+        name="Scottish Child Payment increase",
+        description=(
+            "Increases Scottish Child Payment by £5/week from £27.15 to £32.15. "
+            "The SCP supports 322,000 children in Scotland with a 94% take-up rate, "
+            "keeping 40,000 children out of poverty. This £260/year increase per "
+            "child would further reduce child poverty in Scotland."
+        ),
+        # Baseline: Current SCP rate (£27.15/week = £1,411.80/year)
+        baseline_parameter_changes={},
+        # Reform: Increased SCP rate (£32.15/week = £1,671.80/year)
+        parameter_changes={
+            "gov.social_security_scotland.scottish_child_payment.amount": _years_dict(32.15),
+        },
+    )
 
 
 # =============================================================================
@@ -159,9 +232,8 @@ def _get_scottish_budget_2026_reforms() -> list[Reform]:
     if _SCOTTISH_BUDGET_2026_REFORMS_CACHE is None:
         _SCOTTISH_BUDGET_2026_REFORMS_CACHE = [
             _create_scottish_threshold_freeze(),
-            # Future reforms will be added here:
-            # _create_scottish_child_payment_increase(),
-            # _create_council_tax_reform(),
+            _create_two_child_limit_removal(),
+            _create_scottish_child_payment_increase(),
         ]
     return _SCOTTISH_BUDGET_2026_REFORMS_CACHE
 
