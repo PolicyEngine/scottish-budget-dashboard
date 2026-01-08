@@ -398,7 +398,6 @@ function HouseholdChart({ rawData, selectedPolicies, selectedYear = 2029 }) {
   // Policy name mapping for tooltip - Scottish Budget policies
   const policyNames = {
     scottish_threshold_freeze: "Scottish threshold freeze",
-    scottish_child_payment_increase: "Scottish Child Payment increase",
     two_child_limit_removal: "Two Child Limit removal",
     scottish_budget_2026_combined: "Scottish Budget (combined)",
   };

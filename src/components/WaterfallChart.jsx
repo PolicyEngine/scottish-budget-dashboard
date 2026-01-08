@@ -23,8 +23,7 @@ import "./ChartExport.css";
 const ALL_POLICY_NAMES = [
   // Revenue raisers (negative for households, amber)
   "Scottish threshold freeze",
-  // Future spending policies (positive for households, teal)
-  "Scottish Child Payment increase",
+  // Spending policies (positive for households, teal)
   "Two Child Limit removal",
 ];
 
@@ -41,8 +40,6 @@ function WaterfallChart({ rawData, selectedPolicies, selectedYear = 2029 }) {
   // Build chart data for internal year - Scottish Budget policies
   const POLICIES = [
     { id: "scottish_threshold_freeze", name: "Scottish threshold freeze" },
-    // Future policies
-    { id: "scottish_child_payment_increase", name: "Scottish Child Payment increase" },
     { id: "two_child_limit_removal", name: "Two Child Limit removal" },
   ];
 

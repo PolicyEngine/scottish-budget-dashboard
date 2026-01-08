@@ -233,7 +233,8 @@ def _get_scottish_budget_2026_reforms() -> list[Reform]:
         _SCOTTISH_BUDGET_2026_REFORMS_CACHE = [
             _create_scottish_threshold_freeze(),
             _create_two_child_limit_removal(),
-            _create_scottish_child_payment_increase(),
+            # Scottish Child Payment not yet in PolicyEngine UK
+            # _create_scottish_child_payment_increase(),
         ]
     return _SCOTTISH_BUDGET_2026_REFORMS_CACHE
 

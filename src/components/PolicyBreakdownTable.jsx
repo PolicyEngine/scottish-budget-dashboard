@@ -3,7 +3,6 @@ import "./PolicyBreakdownTable.css";
 // Policy metadata for categorization - Scottish Budget policies
 const POLICY_CATEGORIES = {
   scottish_threshold_freeze: { category: "Scottish Income Tax", type: "tax_rise" },
-  scottish_child_payment_increase: { category: "Benefits", type: "spending" },
   two_child_limit_removal: { category: "Benefits", type: "spending" },
 };
 

@@ -113,62 +113,8 @@ const POLICIES = [
       },
     ],
   },
-  {
-    id: "scottish_child_payment_increase",
-    name: "Scottish Child Payment increase",
-    description: "Increase Scottish Child Payment from £27.15/week",
-    explanation:
-      "The Scottish Child Payment (SCP) is currently £27.15/week (£108.60/4 weeks), supporting 322,000 children with a 94% take-up rate. It keeps approximately 40,000 children out of poverty. The Scottish Fiscal Commission forecasts a 2.7% CPI-based uprating for 2026-27. CPAG Scotland has called for an increase to £40/week by end of Parliament.",
-    priority: 4,
-    probability: "50%",
-    policyEngineCapability: "Partial",
-    status: "needs_verification",
-    peStatus: "PARTIALLY MODELED",
-    peLocation: "variables/gov/social_security_scotland/",
-    whatToModel: "Impact of potential SCP increases on child poverty in Scotland",
-    scenarios: [
-      "Baseline: £27.15/week (current)",
-      "Reform A: £28.15/week (+£1, 1.7% inflation uprating)",
-      "Reform B: £30/week (+£2.85)",
-      "Reform C: £35/week (+£7.85, CPAG proposal)",
-    ],
-    keyMetrics: [
-      "Cost per scenario (330,000 children eligible)",
-      "Poverty reduction per £1 increase",
-      "Marginal effectiveness of each £1",
-    ],
-    implementationSteps: [
-      "Verify SCP parameters in PolicyEngine UK",
-      "Model different increase scenarios",
-      "Calculate poverty reduction impacts for Scotland",
-      "Compare cost-effectiveness with other anti-poverty measures",
-    ],
-    howToModel: "Modify scottish_child_payment parameters. Eligibility: UC/legacy benefit recipients, child under 16, Scotland resident. Current amount: £27.15/week = £1,411.80/year per eligible child.",
-    outreachTargets: ["Poverty & Inequality Commission", "CPAG Scotland", "Scottish Government"],
-    officialSource: "https://www.socialsecurity.gov.scot/scottish-child-payment",
-    evidenceSources: [
-      {
-        title: "Gov.scot: 1.7% uprating for 2025-26",
-        url: "https://www.gov.scot/publications/social-security-assistance-scotland-up-rating-inflation-2025-26/",
-        quote: "All Scottish benefits uprated by 1.7% from April 2025",
-      },
-      {
-        title: "SFC forecast: 2.7% uprating for 2026-27",
-        url: "https://fiscalcommission.scot/wp-content/uploads/2025/01/Mitigating-the-two-child-limit-and-the-Scottish-Budget-January-2025-1.pdf",
-        quote: "SFC forecasts 2.7% CPI-based uprating for 2026-27",
-      },
-      {
-        title: "CPAG calls for £40/week by end of Parliament",
-        url: "https://cpag.org.uk/sites/default/files/2024-08/CPAG%20in%20Scotland%20-%20Programme%20for%20Government%202024-25.pdf",
-        quote: "Increase to £40 would reduce child poverty by further 15,000",
-      },
-      {
-        title: "Social Security Scotland: 322,000 children supported",
-        url: "https://www.socialsecurity.gov.scot/publications/2025/08/scottish-child-payment-statistics-to-30-june-2025",
-        quote: "94% take-up rate, keeps 40,000 children out of poverty",
-      },
-    ],
-  },
+  // Scottish Child Payment increase not yet available in PolicyEngine UK
+  // Will be added once the SCP parameters are implemented
 ];
 
 // Preset policy combinations
