@@ -10,6 +10,7 @@ import HouseholdChart from "./components/HouseholdChart";
 import OBRComparisonTable from "./components/OBRComparisonTable";
 import YearSlider from "./components/YearSlider";
 import PolicyDetailCard from "./components/PolicyDetailCard";
+import ScotlandTab from "./components/ScotlandTab";
 import "./App.css";
 
 // Scottish Budget 2026-27 policy provisions with full modelling details
@@ -173,6 +174,7 @@ function App() {
   const [distributionalYear, setDistributionalYear] = useState(2029);
   const [results, setResults] = useState(null);
   const [showOBRComparison, setShowOBRComparison] = useState(false);
+  const [activeTab, setActiveTab] = useState("analysis");
 
   // Valid policy IDs from POLICIES
   const validPolicyIds = POLICIES.map((p) => p.id);
@@ -181,6 +183,7 @@ function App() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const policiesParam = params.get("policies");
+    const tabParam = params.get("tab");
 
     if (policiesParam) {
       // Filter to only include valid policy IDs
@@ -189,9 +192,13 @@ function App() {
         .filter((id) => validPolicyIds.includes(id));
       setSelectedPolicies(policies);
     }
+
+    if (tabParam && ["analysis", "official-stats"].includes(tabParam)) {
+      setActiveTab(tabParam);
+    }
   }, []);
 
-  // Update URL when policies change
+  // Update URL when policies or tab change
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
 
@@ -201,11 +208,17 @@ function App() {
       params.delete("policies");
     }
 
+    if (activeTab !== "analysis") {
+      params.set("tab", activeTab);
+    } else {
+      params.delete("tab");
+    }
+
     const newUrl = params.toString()
       ? `?${params.toString()}`
       : window.location.pathname;
     window.history.replaceState({}, "", newUrl);
-  }, [selectedPolicies]);
+  }, [selectedPolicies, activeTab]);
 
   // Run analysis when policies or year change
   useEffect(() => {
@@ -413,14 +426,35 @@ function App() {
         {/* Title row with controls */}
         <div className="title-row">
           <h1>Scottish Budget 2026-27</h1>
-          <PolicySelector
-            policies={POLICIES}
-            selectedPolicies={selectedPolicies}
-            onPolicyToggle={handlePolicyToggle}
-          />
+          {activeTab === "analysis" && (
+            <PolicySelector
+              policies={POLICIES}
+              selectedPolicies={selectedPolicies}
+              onPolicyToggle={handlePolicyToggle}
+            />
+          )}
+        </div>
+
+        {/* Tab navigation */}
+        <div className="tab-navigation">
+          <button
+            className={`tab-button ${activeTab === "analysis" ? "active" : ""}`}
+            onClick={() => setActiveTab("analysis")}
+          >
+            Policy analysis
+          </button>
+          <button
+            className={`tab-button ${activeTab === "official-stats" ? "active" : ""}`}
+            onClick={() => setActiveTab("official-stats")}
+          >
+            Official statistics
+          </button>
         </div>
 
         {/* Dashboard content */}
+        {activeTab === "official-stats" ? (
+          <ScotlandTab />
+        ) : (
         <>
           {/* Dashboard description */}
           <p className="dashboard-intro">
@@ -577,6 +611,7 @@ function App() {
               </div>
             )}
         </>
+        )}
       </main>
     </div>
   );
