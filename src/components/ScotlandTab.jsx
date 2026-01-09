@@ -254,16 +254,16 @@ export default function ScotlandTab() {
           poverty rates and household incomes through to 2030-31, and expected policy
           changes in the upcoming budget.
         </p>
-        <h3 className="subsection-header">Policy context</h3>
+        <h3 className="subsection-header">Expected policies</h3>
         <p className="chart-description">
-          Policy areas likely to feature in the budget, based on{" "}
+          According to{" "}
           <a
             href="https://www.bbc.co.uk/news/articles/cx2el14rgngo"
             target="_blank"
             rel="noopener noreferrer"
           >
-            BBC Scotland reporting
-          </a>. The Scottish child payment may be increased following the UK Government's
+            BBC Scotland
+          </a>, the following policy areas may feature in the budget. The Scottish child payment may be increased following the UK Government's
           decision to abolish the two-child limit, with First Minister John Swinney pledging
           to use funding to tackle child poverty. Scotland's six income tax bands
           (compared to three in the rest of the UK) may face pressure for cuts from opposition
