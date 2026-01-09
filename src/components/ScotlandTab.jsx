@@ -186,8 +186,8 @@ export default function ScotlandTab() {
               {/* Poverty Rate BHC */}
               <tr>
                 <td className="metric-name">
-                  <strong>Poverty rate (BHC)</strong>
-                  <span className="metric-subtitle">Before housing costs</span>
+                  <strong>Relative poverty (BHC)</strong>
+                  <span className="metric-subtitle">Before housing costs, 60% median</span>
                 </td>
                 <td className="pe-value">
                   {peMetrics?.year2025
@@ -218,8 +218,8 @@ export default function ScotlandTab() {
               {/* Poverty Rate AHC */}
               <tr>
                 <td className="metric-name">
-                  <strong>Poverty rate (AHC)</strong>
-                  <span className="metric-subtitle">After housing costs</span>
+                  <strong>Relative poverty (AHC)</strong>
+                  <span className="metric-subtitle">After housing costs, 60% median</span>
                 </td>
                 <td className="pe-value">
                   {peMetrics?.year2025
@@ -250,8 +250,8 @@ export default function ScotlandTab() {
               {/* Child Poverty */}
               <tr>
                 <td className="metric-name">
-                  <strong>Child poverty (AHC)</strong>
-                  <span className="metric-subtitle">Relative poverty</span>
+                  <strong>Child relative poverty (AHC)</strong>
+                  <span className="metric-subtitle">After housing costs, 60% median</span>
                 </td>
                 <td className="pe-value">
                   <span className="not-available">Not modelled separately</span>
@@ -370,9 +370,9 @@ export default function ScotlandTab() {
         {/* Poverty rate chart */}
         <div className="scotland-chart-section">
           <div className="chart-header">
-            <h2>Poverty rate projections (PolicyEngine)</h2>
+            <h2>Relative poverty projections (PolicyEngine)</h2>
             <p className="chart-description">
-              Relative poverty rate in Scotland (below 60% of UK median income),
+              Relative poverty rate in Scotland (below 60% of current UK median income),
               projected from 2025 to 2030.
             </p>
           </div>
@@ -629,8 +629,8 @@ export default function ScotlandTab() {
             <strong>PolicyEngine projections</strong>
             <p>
               Based on the Family Resources Survey, reweighted for Scottish
-              constituencies using the S14 prefix. Poverty is measured using
-              relative thresholds (60% of UK median equivalised income).
+              constituencies using the S14 prefix. Uses relative poverty
+              (60% of current UK median equivalised income).
             </p>
           </div>
           <div className="note-item">
