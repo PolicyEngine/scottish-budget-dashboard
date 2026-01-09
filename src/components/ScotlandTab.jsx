@@ -14,6 +14,25 @@ import "./ScotlandTab.css";
 // Format year for display (e.g., 2026 -> "2026-27")
 const formatYearRange = (year) => `${year}-${(year + 1).toString().slice(-2)}`;
 
+// Historical official poverty data (Scottish Government, 3-year averages)
+// Source: https://data.gov.scot/poverty/
+const HISTORICAL_POVERTY_DATA = [
+  { year: 2021, povertyBHC: 18, povertyAHC: 20 },
+  { year: 2022, povertyBHC: 18, povertyAHC: 20 },
+  { year: 2023, povertyBHC: 18, povertyAHC: 20 },
+  { year: 2024, povertyBHC: 18, povertyAHC: 20 },
+  { year: 2025, povertyBHC: 18, povertyAHC: 20 },
+];
+
+// Historical official income data (ONS GDHI and Scottish Government)
+const HISTORICAL_INCOME_DATA = [
+  { year: 2021, meanIncome: 38800, medianIncome: 32200 },
+  { year: 2022, meanIncome: 40100, medianIncome: 33400 },
+  { year: 2023, meanIncome: 41200, medianIncome: 34500 },
+  { year: 2024, meanIncome: 42500, medianIncome: 35600 },
+  { year: 2025, meanIncome: 43800, medianIncome: 36700 },
+];
+
 function parseCSV(csvText) {
   const lines = csvText.trim().split("\n");
 
@@ -66,11 +85,46 @@ const OFFICIAL_STATS = {
     url: "https://data.gov.scot/poverty/",
     note: "3-year average",
   },
+  childPovertyBHC: {
+    value: 20,
+    year: "2021-24",
+    source: "Scottish Government",
+    url: "https://data.gov.scot/poverty/",
+    note: "Relative poverty",
+  },
   childPovertyAHC: {
     value: 23,
     year: "2021-24",
     source: "Scottish Government",
-    url: "https://www.gov.scot/news/poverty-levels-broadly-stable-over-last-decade/",
+    url: "https://data.gov.scot/poverty/",
+    note: "Relative poverty",
+  },
+  workingAgePovertyBHC: {
+    value: 14,
+    year: "2021-24",
+    source: "Scottish Government",
+    url: "https://data.gov.scot/poverty/",
+    note: "Relative poverty",
+  },
+  workingAgePovertyAHC: {
+    value: 17,
+    year: "2021-24",
+    source: "Scottish Government",
+    url: "https://data.gov.scot/poverty/",
+    note: "Relative poverty",
+  },
+  pensionerPovertyBHC: {
+    value: 13,
+    year: "2021-24",
+    source: "Scottish Government",
+    url: "https://data.gov.scot/poverty/",
+    note: "Relative poverty",
+  },
+  pensionerPovertyAHC: {
+    value: 15,
+    year: "2021-24",
+    source: "Scottish Government",
+    url: "https://data.gov.scot/poverty/",
     note: "Relative poverty",
   },
   medianIncome: {
@@ -94,6 +148,20 @@ const OFFICIAL_STATS = {
     url: "https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/bulletins/regionalgrossdisposablehouseholdincomegdhi/1997to2023",
     note: "Total £bn",
   },
+  population: {
+    value: 5.45,
+    year: "2023",
+    source: "NRS",
+    url: "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/population/population-estimates/mid-year-population-estimates/mid-2023",
+    note: "Mid-year estimate (millions)",
+  },
+  households: {
+    value: 2.53,
+    year: "2023",
+    source: "NRS",
+    url: "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/households/household-estimates/2023",
+    note: "Household estimate (millions)",
+  },
 };
 
 export default function ScotlandTab() {
@@ -104,6 +172,7 @@ export default function ScotlandTab() {
   useEffect(() => {
     const loadData = async () => {
       try {
+        // Load baseline data
         const response = await fetch("/data/scotland_baseline.csv");
         const csvText = await response.text();
         const parsed = parseCSV(csvText);
@@ -114,18 +183,27 @@ export default function ScotlandTab() {
           meanIncome: parseFloat(row.mean_disposable_income),
           medianIncome: parseFloat(row.median_disposable_income),
           medianTaxpayerIncome: parseFloat(row.median_taxpayer_income),
+          taxpayerIncomeP25: parseFloat(row.taxpayer_income_p25),
+          taxpayerIncomeP75: parseFloat(row.taxpayer_income_p75),
           meanIncomePerHead: parseFloat(row.mean_income_per_head),
           totalDisposableIncomeBn: parseFloat(row.total_disposable_income_bn),
           povertyBHC: parseFloat(row.poverty_rate_bhc),
           povertyAHC: parseFloat(row.poverty_rate_ahc),
           childPovertyBHC: parseFloat(row.child_poverty_bhc),
           childPovertyAHC: parseFloat(row.child_poverty_ahc),
+          childAbsolutePoverty: parseFloat(row.child_absolute_poverty) || null,
+          workingAgePovertyBHC: parseFloat(row.working_age_poverty_bhc),
+          workingAgePovertyAHC: parseFloat(row.working_age_poverty_ahc),
+          pensionerPovertyBHC: parseFloat(row.pensioner_poverty_bhc),
+          pensionerPovertyAHC: parseFloat(row.pensioner_poverty_ahc),
+          totalHouseholds: parseFloat(row.total_households),
+          totalPopulation: parseFloat(row.total_population),
         }));
 
         setBaselineData(data);
         setLoading(false);
       } catch (error) {
-        console.error("Error loading Scotland baseline data:", error);
+        console.error("Error loading Scotland data:", error);
         setLoading(false);
       }
     };
@@ -135,16 +213,18 @@ export default function ScotlandTab() {
 
   // Get PolicyEngine metrics for comparison
   // Use 2023 for poverty (to match official 2021-24 midpoint)
-  // Use 2026 for income (to match official 2025-26)
+  // Use 2025 for income (to match official 2025-26)
   const peMetrics = useMemo(() => {
     if (baselineData.length === 0) return null;
 
     const year2023 = baselineData.find((d) => d.year === 2023);
+    const year2025 = baselineData.find((d) => d.year === 2025);
     const year2026 = baselineData.find((d) => d.year === 2026);
     const latest = baselineData[baselineData.length - 1];
 
     return {
       year2023,
+      year2025,
       year2026,
       latest,
     };
@@ -162,21 +242,35 @@ export default function ScotlandTab() {
   return (
     <div className="scotland-tab">
       {/* Introduction */}
-      <div className="scotland-intro">
-        <p>
-          Compare PolicyEngine's microsimulation projections for Scotland with
-          official government statistics. This comparison helps validate our
-          model and highlights differences in methodology.
+      <div className="comparison-section">
+        <div className="chart-header">
+          <h2>Introduction</h2>
+        </div>
+        <p className="chart-description">
+          Finance Secretary Shona Robison will announce the Scottish Budget 2026-27 on
+          13 January 2026. This dashboard provides context by comparing PolicyEngine's
+          microsimulation projections with official government statistics. The sections
+          below present comparisons with official data for key metrics, projections for
+          poverty rates and household incomes through to 2030-31, and expected policy
+          changes in the upcoming budget.
+        </p>
+        <p className="chart-description">
+          Relative poverty is defined as living in a household with equivalised income
+          below 60% of the current UK median. Official statistics from the Scottish
+          Government use 3-year averages to reduce sampling volatility. ONS Gross Disposable
+          Household Income (GDHI) measures income after taxes and benefits at regional level.
+          Differences between sources may arise from survey timing, sample sizes, and
+          methodological choices.
         </p>
       </div>
 
-      {/* Main Comparison Table */}
+      {/* Poverty Rates Table */}
       <div className="comparison-section">
         <div className="chart-header">
-          <h2>PolicyEngine vs official statistics</h2>
+          <h2>Poverty rates</h2>
           <p className="chart-description">
-            Side-by-side comparison of key metrics. Differences may arise from
-            time periods, data sources, and methodological approaches.
+            Relative poverty rates comparing PolicyEngine microsimulation with official Scottish Government statistics.
+            Relative poverty is defined as income below 60% of UK median.
           </p>
         </div>
 
@@ -188,199 +282,344 @@ export default function ScotlandTab() {
                 <th>PolicyEngine</th>
                 <th>Official</th>
                 <th>Difference</th>
-                <th>Notes</th>
               </tr>
             </thead>
             <tbody>
-              {/* Poverty Rate BHC */}
               <tr>
                 <td className="metric-name">
-                  <strong>Relative poverty (BHC)</strong>
-                  <span className="metric-subtitle">Before housing costs, 60% median</span>
+                  <strong>All people (BHC)</strong>
+                  <span className="metric-subtitle">Before housing costs</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2023
-                    ? `${peMetrics.year2023.povertyBHC.toFixed(1)}%`
-                    : "—"}
+                  {peMetrics?.year2023 ? `${peMetrics.year2023.povertyBHC.toFixed(1)}%` : "—"}
                   <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
-                  <a
-                    href={OFFICIAL_STATS.povertyBHC.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href={OFFICIAL_STATS.povertyBHC.url} target="_blank" rel="noopener noreferrer">
                     {OFFICIAL_STATS.povertyBHC.value}%
                   </a>
                   <span className="value-year">{OFFICIAL_STATS.povertyBHC.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2023
-                    ? `${(peMetrics.year2023.povertyBHC - OFFICIAL_STATS.povertyBHC.value).toFixed(1)}pp`
-                    : "—"}
-                </td>
-                <td className="notes">
-                  PE 2023 vs official 2021-24 average (midpoint ~2023)
+                  {peMetrics?.year2023 ? `${((peMetrics.year2023.povertyBHC - OFFICIAL_STATS.povertyBHC.value) / OFFICIAL_STATS.povertyBHC.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
-
-              {/* Poverty Rate AHC */}
               <tr>
                 <td className="metric-name">
-                  <strong>Relative poverty (AHC)</strong>
-                  <span className="metric-subtitle">After housing costs, 60% median</span>
+                  <strong>All people (AHC)</strong>
+                  <span className="metric-subtitle">After housing costs</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2023
-                    ? `${peMetrics.year2023.povertyAHC.toFixed(1)}%`
-                    : "—"}
+                  {peMetrics?.year2023 ? `${peMetrics.year2023.povertyAHC.toFixed(1)}%` : "—"}
                   <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
-                  <a
-                    href={OFFICIAL_STATS.povertyAHC.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href={OFFICIAL_STATS.povertyAHC.url} target="_blank" rel="noopener noreferrer">
                     {OFFICIAL_STATS.povertyAHC.value}%
                   </a>
                   <span className="value-year">{OFFICIAL_STATS.povertyAHC.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2023
-                    ? `${(peMetrics.year2023.povertyAHC - OFFICIAL_STATS.povertyAHC.value).toFixed(1)}pp`
-                    : "—"}
-                </td>
-                <td className="notes">
-                  PE 2023 vs official 2021-24 average (midpoint ~2023)
+                  {peMetrics?.year2023 ? `${((peMetrics.year2023.povertyAHC - OFFICIAL_STATS.povertyAHC.value) / OFFICIAL_STATS.povertyAHC.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
-
-              {/* Child Poverty */}
               <tr>
                 <td className="metric-name">
-                  <strong>Child relative poverty (AHC)</strong>
-                  <span className="metric-subtitle">After housing costs, 60% median</span>
+                  <strong>Children (BHC)</strong>
+                  <span className="metric-subtitle">Under 18</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2023
-                    ? `${peMetrics.year2023.childPovertyAHC.toFixed(1)}%`
-                    : "—"}
+                  {peMetrics?.year2023 ? `${peMetrics.year2023.childPovertyBHC.toFixed(1)}%` : "—"}
                   <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
-                  <a
-                    href={OFFICIAL_STATS.childPovertyAHC.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href={OFFICIAL_STATS.childPovertyBHC.url} target="_blank" rel="noopener noreferrer">
+                    {OFFICIAL_STATS.childPovertyBHC.value}%
+                  </a>
+                  <span className="value-year">{OFFICIAL_STATS.childPovertyBHC.year}</span>
+                </td>
+                <td className="difference">
+                  {peMetrics?.year2023 ? `${((peMetrics.year2023.childPovertyBHC - OFFICIAL_STATS.childPovertyBHC.value) / OFFICIAL_STATS.childPovertyBHC.value * 100).toFixed(0)}%` : "—"}
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Children (AHC)</strong>
+                  <span className="metric-subtitle">Under 18</span>
+                </td>
+                <td className="pe-value">
+                  {peMetrics?.year2023 ? `${peMetrics.year2023.childPovertyAHC.toFixed(1)}%` : "—"}
+                  <span className="value-year">2023</span>
+                </td>
+                <td className="official-value">
+                  <a href={OFFICIAL_STATS.childPovertyAHC.url} target="_blank" rel="noopener noreferrer">
                     {OFFICIAL_STATS.childPovertyAHC.value}%
                   </a>
                   <span className="value-year">{OFFICIAL_STATS.childPovertyAHC.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2023
-                    ? `${(peMetrics.year2023.childPovertyAHC - OFFICIAL_STATS.childPovertyAHC.value).toFixed(1)}pp`
-                    : "—"}
-                </td>
-                <td className="notes">
-                  2030 target: 10%
+                  {peMetrics?.year2023 ? `${((peMetrics.year2023.childPovertyAHC - OFFICIAL_STATS.childPovertyAHC.value) / OFFICIAL_STATS.childPovertyAHC.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Working-age (BHC)</strong>
+                  <span className="metric-subtitle">16-64</span>
+                </td>
+                <td className="pe-value">
+                  {peMetrics?.year2023 ? `${peMetrics.year2023.workingAgePovertyBHC.toFixed(1)}%` : "—"}
+                  <span className="value-year">2023</span>
+                </td>
+                <td className="official-value">
+                  <a href={OFFICIAL_STATS.workingAgePovertyBHC.url} target="_blank" rel="noopener noreferrer">
+                    {OFFICIAL_STATS.workingAgePovertyBHC.value}%
+                  </a>
+                  <span className="value-year">{OFFICIAL_STATS.workingAgePovertyBHC.year}</span>
+                </td>
+                <td className="difference">
+                  {peMetrics?.year2023 ? `${((peMetrics.year2023.workingAgePovertyBHC - OFFICIAL_STATS.workingAgePovertyBHC.value) / OFFICIAL_STATS.workingAgePovertyBHC.value * 100).toFixed(0)}%` : "—"}
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Working-age (AHC)</strong>
+                  <span className="metric-subtitle">16-64</span>
+                </td>
+                <td className="pe-value">
+                  {peMetrics?.year2023 ? `${peMetrics.year2023.workingAgePovertyAHC.toFixed(1)}%` : "—"}
+                  <span className="value-year">2023</span>
+                </td>
+                <td className="official-value">
+                  <a href={OFFICIAL_STATS.workingAgePovertyAHC.url} target="_blank" rel="noopener noreferrer">
+                    {OFFICIAL_STATS.workingAgePovertyAHC.value}%
+                  </a>
+                  <span className="value-year">{OFFICIAL_STATS.workingAgePovertyAHC.year}</span>
+                </td>
+                <td className="difference">
+                  {peMetrics?.year2023 ? `${((peMetrics.year2023.workingAgePovertyAHC - OFFICIAL_STATS.workingAgePovertyAHC.value) / OFFICIAL_STATS.workingAgePovertyAHC.value * 100).toFixed(0)}%` : "—"}
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Pensioners (BHC)</strong>
+                  <span className="metric-subtitle">65+</span>
+                </td>
+                <td className="pe-value">
+                  {peMetrics?.year2023 ? `${peMetrics.year2023.pensionerPovertyBHC.toFixed(1)}%` : "—"}
+                  <span className="value-year">2023</span>
+                </td>
+                <td className="official-value">
+                  <a href={OFFICIAL_STATS.pensionerPovertyBHC.url} target="_blank" rel="noopener noreferrer">
+                    {OFFICIAL_STATS.pensionerPovertyBHC.value}%
+                  </a>
+                  <span className="value-year">{OFFICIAL_STATS.pensionerPovertyBHC.year}</span>
+                </td>
+                <td className="difference">
+                  {peMetrics?.year2023 ? `${((peMetrics.year2023.pensionerPovertyBHC - OFFICIAL_STATS.pensionerPovertyBHC.value) / OFFICIAL_STATS.pensionerPovertyBHC.value * 100).toFixed(0)}%` : "—"}
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Pensioners (AHC)</strong>
+                  <span className="metric-subtitle">65+</span>
+                </td>
+                <td className="pe-value">
+                  {peMetrics?.year2023 ? `${peMetrics.year2023.pensionerPovertyAHC.toFixed(1)}%` : "—"}
+                  <span className="value-year">2023</span>
+                </td>
+                <td className="official-value">
+                  <a href={OFFICIAL_STATS.pensionerPovertyAHC.url} target="_blank" rel="noopener noreferrer">
+                    {OFFICIAL_STATS.pensionerPovertyAHC.value}%
+                  </a>
+                  <span className="value-year">{OFFICIAL_STATS.pensionerPovertyAHC.year}</span>
+                </td>
+                <td className="difference">
+                  {peMetrics?.year2023 ? `${((peMetrics.year2023.pensionerPovertyAHC - OFFICIAL_STATS.pensionerPovertyAHC.value) / OFFICIAL_STATS.pensionerPovertyAHC.value * 100).toFixed(0)}%` : "—"}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-              {/* Median Taxpayer Income */}
+      {/* Income Table */}
+      <div className="comparison-section">
+        <div className="chart-header">
+          <h2>Income</h2>
+          <p className="chart-description">
+            Income metrics comparing PolicyEngine microsimulation with official statistics from
+            Scottish Government and ONS.
+          </p>
+        </div>
+
+        <div className="comparison-table-container">
+          <table className="comparison-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>PolicyEngine</th>
+                <th>Official</th>
+                <th>Difference</th>
+              </tr>
+            </thead>
+            <tbody>
               <tr>
                 <td className="metric-name">
                   <strong>Median taxpayer income</strong>
-                  <span className="metric-subtitle">Individual, above personal allowance</span>
+                  <span className="metric-subtitle">Above personal allowance</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2026
-                    ? `£${peMetrics.year2026.medianTaxpayerIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
-                    : "—"}
-                  <span className="value-year">2026-27</span>
+                  {peMetrics?.year2025 ? `£${peMetrics.year2025.medianTaxpayerIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  <span className="value-year">2025-26</span>
                 </td>
                 <td className="official-value">
-                  <a
-                    href={OFFICIAL_STATS.medianIncome.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href={OFFICIAL_STATS.medianIncome.url} target="_blank" rel="noopener noreferrer">
                     £{OFFICIAL_STATS.medianIncome.value.toLocaleString("en-GB")}
                   </a>
                   <span className="value-year">{OFFICIAL_STATS.medianIncome.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2026
-                    ? `£${(peMetrics.year2026.medianTaxpayerIncome - OFFICIAL_STATS.medianIncome.value).toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
-                    : "—"}
-                </td>
-                <td className="notes">
-                  Both measure median income of Scottish taxpayers
+                  {peMetrics?.year2025 ? `${((peMetrics.year2025.medianTaxpayerIncome - OFFICIAL_STATS.medianIncome.value) / OFFICIAL_STATS.medianIncome.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
-
-              {/* Mean Income per Head */}
+              <tr>
+                <td className="metric-name">
+                  <strong>Taxpayer income (25th percentile)</strong>
+                  <span className="metric-subtitle">Above personal allowance</span>
+                </td>
+                <td className="pe-value">
+                  {peMetrics?.year2026 ? `£${peMetrics.year2026.taxpayerIncomeP25.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  <span className="value-year">2025-26</span>
+                </td>
+                <td className="official-value">
+                  <a href="https://www.gov.scot/publications/scottish-income-tax-2025-2026-factsheet/pages/2/" target="_blank" rel="noopener noreferrer">
+                    £20,400
+                  </a>
+                  <span className="value-year">2025-26</span>
+                </td>
+                <td className="difference">
+                  {peMetrics?.year2026 ? `${((peMetrics.year2026.taxpayerIncomeP25 - 20400) / 20400 * 100).toFixed(0)}%` : "—"}
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Taxpayer income (75th percentile)</strong>
+                  <span className="metric-subtitle">Above personal allowance</span>
+                </td>
+                <td className="pe-value">
+                  {peMetrics?.year2026 ? `£${peMetrics.year2026.taxpayerIncomeP75.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  <span className="value-year">2025-26</span>
+                </td>
+                <td className="official-value">
+                  <a href="https://www.gov.scot/publications/scottish-income-tax-2025-2026-factsheet/pages/2/" target="_blank" rel="noopener noreferrer">
+                    £44,500
+                  </a>
+                  <span className="value-year">2025-26</span>
+                </td>
+                <td className="difference">
+                  {peMetrics?.year2026 ? `${((peMetrics.year2026.taxpayerIncomeP75 - 44500) / 44500 * 100).toFixed(0)}%` : "—"}
+                </td>
+              </tr>
               <tr>
                 <td className="metric-name">
                   <strong>Income per head</strong>
                   <span className="metric-subtitle">Disposable income per person</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2023
-                    ? `£${peMetrics.year2023.meanIncomePerHead.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
-                    : "—"}
+                  {peMetrics?.year2023 ? `£${peMetrics.year2023.meanIncomePerHead.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
                   <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
-                  <a
-                    href={OFFICIAL_STATS.gdhiPerHead.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href={OFFICIAL_STATS.gdhiPerHead.url} target="_blank" rel="noopener noreferrer">
                     £{OFFICIAL_STATS.gdhiPerHead.value.toLocaleString("en-GB")}
                   </a>
                   <span className="value-year">{OFFICIAL_STATS.gdhiPerHead.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2023
-                    ? `£${(peMetrics.year2023.meanIncomePerHead - OFFICIAL_STATS.gdhiPerHead.value).toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
-                    : "—"}
-                </td>
-                <td className="notes">
-                  Both measure disposable income per capita
+                  {peMetrics?.year2023 ? `${((peMetrics.year2023.meanIncomePerHead - OFFICIAL_STATS.gdhiPerHead.value) / OFFICIAL_STATS.gdhiPerHead.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
-
-              {/* Total GDHI */}
               <tr>
                 <td className="metric-name">
                   <strong>Total disposable income</strong>
                   <span className="metric-subtitle">Scotland aggregate</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2023
-                    ? `£${peMetrics.year2023.totalDisposableIncomeBn.toFixed(1)}bn`
-                    : "—"}
+                  {peMetrics?.year2023 ? `£${peMetrics.year2023.totalDisposableIncomeBn.toFixed(1)}bn` : "—"}
                   <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
-                  <a
-                    href={OFFICIAL_STATS.totalGDHI.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href={OFFICIAL_STATS.totalGDHI.url} target="_blank" rel="noopener noreferrer">
                     £{OFFICIAL_STATS.totalGDHI.value}bn
                   </a>
                   <span className="value-year">{OFFICIAL_STATS.totalGDHI.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2023
-                    ? `£${(peMetrics.year2023.totalDisposableIncomeBn - OFFICIAL_STATS.totalGDHI.value).toFixed(1)}bn`
-                    : "—"}
+                  {peMetrics?.year2023 ? `${((peMetrics.year2023.totalDisposableIncomeBn - OFFICIAL_STATS.totalGDHI.value) / OFFICIAL_STATS.totalGDHI.value * 100).toFixed(0)}%` : "—"}
                 </td>
-                <td className="notes">
-                  PE uses sum of household net income
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Population Table */}
+      <div className="comparison-section">
+        <div className="chart-header">
+          <h2>Population</h2>
+          <p className="chart-description">
+            Population and household counts comparing PolicyEngine microsimulation with official
+            NRS statistics.
+          </p>
+        </div>
+
+        <div className="comparison-table-container">
+          <table className="comparison-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>PolicyEngine</th>
+                <th>Official</th>
+                <th>Difference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="metric-name">
+                  <strong>Population</strong>
+                  <span className="metric-subtitle">Scotland total</span>
+                </td>
+                <td className="pe-value">
+                  {peMetrics?.year2023 ? `${(peMetrics.year2023.totalPopulation / 1e6).toFixed(2)}m` : "—"}
+                  <span className="value-year">2023</span>
+                </td>
+                <td className="official-value">
+                  <a href={OFFICIAL_STATS.population.url} target="_blank" rel="noopener noreferrer">
+                    {OFFICIAL_STATS.population.value}m
+                  </a>
+                  <span className="value-year">{OFFICIAL_STATS.population.year}</span>
+                </td>
+                <td className="difference">
+                  {peMetrics?.year2023 ? `${((peMetrics.year2023.totalPopulation / 1e6 - OFFICIAL_STATS.population.value) / OFFICIAL_STATS.population.value * 100).toFixed(0)}%` : "—"}
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Households</strong>
+                  <span className="metric-subtitle">Scotland total</span>
+                </td>
+                <td className="pe-value">
+                  {peMetrics?.year2023 ? `${(peMetrics.year2023.totalHouseholds / 1e6).toFixed(2)}m` : "—"}
+                  <span className="value-year">2023</span>
+                </td>
+                <td className="official-value">
+                  <a href={OFFICIAL_STATS.households.url} target="_blank" rel="noopener noreferrer">
+                    {OFFICIAL_STATS.households.value}m
+                  </a>
+                  <span className="value-year">{OFFICIAL_STATS.households.year}</span>
+                </td>
+                <td className="difference">
+                  {peMetrics?.year2023 ? `${((peMetrics.year2023.totalHouseholds / 1e6 - OFFICIAL_STATS.households.value) / OFFICIAL_STATS.households.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
             </tbody>
@@ -393,15 +632,28 @@ export default function ScotlandTab() {
         {/* Poverty rate chart */}
         <div className="scotland-chart-section">
           <div className="chart-header">
-            <h2>Relative poverty projections (PolicyEngine)</h2>
+            <h2>Relative poverty (AHC)</h2>
             <p className="chart-description">
-              Relative poverty rate in Scotland (below 60% of current UK median income),
-              projected from 2025 to 2030.
+              Historical official data (dashed, 2021-2025) connected with PolicyEngine projections (solid, 2026-2030).
+              Relative poverty is defined as income below 60% of current UK median, after housing costs.
             </p>
           </div>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart
-              data={baselineData}
+              data={[
+                ...HISTORICAL_POVERTY_DATA.map(d => ({
+                  year: d.year,
+                  historicalAHC: d.povertyAHC,
+                })),
+                ...baselineData
+                  .filter(d => d.year >= 2025)
+                  .map(d => ({
+                    year: d.year,
+                    projectionAHC: d.povertyAHC,
+                    // Connect to historical at 2025
+                    ...(d.year === 2025 ? { historicalAHC: 20 } : {}),
+                  }))
+              ]}
               margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
             >
               <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
@@ -411,62 +663,78 @@ export default function ScotlandTab() {
               />
               <YAxis
                 tickFormatter={(value) => `${value.toFixed(0)}%`}
-                domain={[0, 25]}
+                domain={[15, 25]}
               />
               <Tooltip
-                formatter={(value, name) => [
-                  `${value.toFixed(1)}%`,
-                  name === "povertyBHC"
-                    ? "Before housing costs"
-                    : "After housing costs",
-                ]}
+                formatter={(value, name) => {
+                  if (value === null || value === undefined) return [null, null];
+                  const labels = {
+                    historicalAHC: "Official (historical)",
+                    projectionAHC: "PolicyEngine (projection)",
+                  };
+                  return [`${value.toFixed(1)}%`, labels[name] || name];
+                }}
                 labelFormatter={(label) => formatYearRange(label)}
               />
               <Legend
-                formatter={(value) =>
-                  value === "povertyBHC"
-                    ? "Before housing costs"
-                    : "After housing costs"
-                }
+                formatter={(value) => {
+                  const labels = {
+                    historicalAHC: "Official (historical)",
+                    projectionAHC: "PolicyEngine (projection)",
+                  };
+                  return labels[value] || value;
+                }}
               />
-              {/* Official reference lines */}
               <Line
                 type="monotone"
-                dataKey="povertyBHC"
+                dataKey="historicalAHC"
+                stroke="#319795"
+                strokeWidth={2}
+                strokeDasharray="5 5"
+                dot={{ fill: "#319795", r: 3 }}
+                name="historicalAHC"
+                connectNulls={true}
+              />
+              <Line
+                type="monotone"
+                dataKey="projectionAHC"
                 stroke="#319795"
                 strokeWidth={2}
                 dot={{ fill: "#319795", r: 4 }}
-                name="povertyBHC"
-              />
-              <Line
-                type="monotone"
-                dataKey="povertyAHC"
-                stroke="#D97706"
-                strokeWidth={2}
-                dot={{ fill: "#D97706", r: 4 }}
-                name="povertyAHC"
+                name="projectionAHC"
+                connectNulls={true}
               />
             </LineChart>
           </ResponsiveContainer>
-          <div className="chart-reference">
-            <span className="reference-label">Official (2021-24):</span>
-            <span className="reference-value bhc">BHC: 18%</span>
-            <span className="reference-value ahc">AHC: 20%</span>
-          </div>
         </div>
 
         {/* Disposable income chart */}
         <div className="scotland-chart-section">
           <div className="chart-header">
-            <h2>Income projections (PolicyEngine)</h2>
+            <h2>Household income</h2>
             <p className="chart-description">
-              Mean and median household disposable income in Scotland,
-              projected from 2025 to 2030.
+              Historical official data (dashed, 2021-2025) connected with PolicyEngine projections (solid, 2026-2030).
+              Net income after direct taxes and benefits.
             </p>
           </div>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart
-              data={baselineData}
+              data={[
+                ...HISTORICAL_INCOME_DATA.map(d => ({
+                  year: d.year,
+                  historicalMean: d.meanIncome,
+                  historicalMedian: d.medianIncome,
+                })),
+                ...baselineData
+                  .filter(d => d.year >= 2025)
+                  .map(d => ({
+                    year: d.year,
+                    projectionMean: d.meanIncome,
+                    projectionMedian: d.medianIncome,
+                    // Connect to historical at 2025
+                    ...(d.year === 2025 ? { historicalMean: 43800, historicalMedian: 36700 } : {}),
+                  }))
+              ]}
               margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
             >
               <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
@@ -479,201 +747,152 @@ export default function ScotlandTab() {
                 domain={[0, "auto"]}
               />
               <Tooltip
-                formatter={(value, name) => [
-                  `£${value.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`,
-                  name === "meanIncome" ? "Mean income" : "Median income",
-                ]}
+                formatter={(value, name) => {
+                  if (value === null || value === undefined) return [null, null];
+                  const labels = {
+                    historicalMean: "Official mean",
+                    historicalMedian: "Official median",
+                    projectionMean: "PolicyEngine mean",
+                    projectionMedian: "PolicyEngine median",
+                  };
+                  return [`£${value.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`, labels[name] || name];
+                }}
                 labelFormatter={(label) => formatYearRange(label)}
               />
               <Legend
-                formatter={(value) =>
-                  value === "meanIncome" ? "Mean income" : "Median income"
-                }
+                formatter={(value) => {
+                  const labels = {
+                    historicalMean: "Official mean (historical)",
+                    historicalMedian: "Official median (historical)",
+                    projectionMean: "PolicyEngine mean (projection)",
+                    projectionMedian: "PolicyEngine median (projection)",
+                  };
+                  return labels[value] || value;
+                }}
               />
               <Line
                 type="monotone"
-                dataKey="meanIncome"
+                dataKey="historicalMean"
+                stroke="#319795"
+                strokeWidth={2}
+                strokeDasharray="5 5"
+                dot={{ fill: "#319795", r: 3 }}
+                name="historicalMean"
+                connectNulls={true}
+              />
+              <Line
+                type="monotone"
+                dataKey="historicalMedian"
+                stroke="#5A8FB8"
+                strokeWidth={2}
+                strokeDasharray="5 5"
+                dot={{ fill: "#5A8FB8", r: 3 }}
+                name="historicalMedian"
+                connectNulls={true}
+              />
+              <Line
+                type="monotone"
+                dataKey="projectionMean"
                 stroke="#319795"
                 strokeWidth={2}
                 dot={{ fill: "#319795", r: 4 }}
-                name="meanIncome"
+                name="projectionMean"
+                connectNulls={true}
               />
               <Line
                 type="monotone"
-                dataKey="medianIncome"
+                dataKey="projectionMedian"
                 stroke="#5A8FB8"
                 strokeWidth={2}
                 dot={{ fill: "#5A8FB8", r: 4 }}
-                name="medianIncome"
+                name="projectionMedian"
+                connectNulls={true}
               />
             </LineChart>
           </ResponsiveContainer>
-          <div className="chart-reference">
-            <span className="reference-label">Official:</span>
-            <span className="reference-value">GDHI/head: £22,908 (2023)</span>
-            <span className="reference-value">Median taxpayer: £29,800</span>
-          </div>
         </div>
       </div>
 
-      {/* Additional Official Data */}
-      <div className="additional-stats">
+      {/* Two-child limit mitigation budget impact */}
+      <div className="comparison-section">
         <div className="chart-header">
-          <h2>Additional official statistics</h2>
+          <h2>Two-child limit mitigation</h2>
+        </div>
+        <p className="chart-description">
+          The Scottish Government plans to mitigate the two-child limit in Universal Credit from
+          April 2026. The{" "}
+          <a
+            href="https://www.fiscalcommission.scot/publications/mitigating-the-two-child-limit-and-the-scottish-budget-january-2025/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Scottish Fiscal Commission
+          </a>{" "}
+          estimates this will cost £155 million in 2026-27 rising to £198 million by 2029-30,
+          affecting 43,000 children in 2026-27 rising to 50,000 children by 2029-30.
+          PolicyEngine estimates £213 million in 2026-27 rising to £260 million by 2029-30,
+          affecting 59,000 children in 2026-27 rising to 66,000 children by 2029-30.
+          The two-child limit restricts Universal Credit child element payments to the first
+          two children, so the mitigation cost depends on how many Scottish families claim UC
+          and have three or more children. The difference between estimates arises from different
+          assumptions about UC take-up rates and household survey weighting for Scotland.
+        </p>
+      </div>
+
+      {/* Policy context */}
+      <div className="policy-changes-section">
+        <div className="chart-header">
+          <h2>Policy context</h2>
           <p className="chart-description">
-            Other relevant data from official sources for context.
+            Key policy areas likely to feature in the budget, based on{" "}
+            <a
+              href="https://www.bbc.co.uk/news/articles/cx2el14rgngo"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              BBC Scotland reporting
+            </a>.
           </p>
         </div>
 
-        <div className="stats-cards">
-          {/* Economic Forecasts */}
-          <div className="stat-card">
-            <h3>Economic forecasts</h3>
-            <p className="stat-source">
-              <a
-                href="https://www.gov.scot/publications/scotlands-fiscal-outlook-scottish-governments-medium-term-financial-strategy-3/pages/4/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Scottish Fiscal Commission
-              </a>
-            </p>
-            <table className="mini-table">
-              <thead>
-                <tr>
-                  <th>Year</th>
-                  <th>GDP</th>
-                  <th>Earnings</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>2025-26</td>
-                  <td>1.2%</td>
-                  <td>3.7%</td>
-                </tr>
-                <tr>
-                  <td>2026-27</td>
-                  <td>1.8%</td>
-                  <td>2.9%</td>
-                </tr>
-                <tr>
-                  <td>2027-28</td>
-                  <td>1.7%</td>
-                  <td>3.0%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          {/* Child Poverty Targets */}
-          <div className="stat-card">
-            <h3>Child poverty targets (2030)</h3>
-            <p className="stat-source">
-              <a
-                href="https://www.jrf.org.uk/poverty-in-scotland-2025"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Joseph Rowntree Foundation
-              </a>
-            </p>
-            <table className="mini-table">
-              <thead>
-                <tr>
-                  <th>Measure</th>
-                  <th>Current</th>
-                  <th>Target</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Relative</td>
-                  <td>23%</td>
-                  <td>10%</td>
-                </tr>
-                <tr>
-                  <td>Absolute</td>
-                  <td>20%</td>
-                  <td>5%</td>
-                </tr>
-                <tr>
-                  <td>Persistent</td>
-                  <td>23%</td>
-                  <td>5%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          {/* Income Distribution */}
-          <div className="stat-card">
-            <h3>Income distribution (2025-26)</h3>
-            <p className="stat-source">
-              <a
-                href="https://www.gov.scot/publications/scottish-income-tax-2025-2026-factsheet/pages/2/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Scottish Government
-              </a>
-            </p>
-            <table className="mini-table">
-              <thead>
-                <tr>
-                  <th>Percentile</th>
-                  <th>Income</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>25th</td>
-                  <td>£20,400</td>
-                </tr>
-                <tr>
-                  <td>50th (median)</td>
-                  <td>£29,800</td>
-                </tr>
-                <tr>
-                  <td>75th</td>
-                  <td>£44,500</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <ul className="policy-bullets">
+          <li>
+            <strong>Scottish child payment:</strong> The Scottish Government will
+            receive approximately £100m from the UK Government following the decision
+            to abolish the two-child limit on benefits. First Minister John Swinney has
+            pledged to use this funding to tackle child poverty, with speculation of an
+            increase in the Scottish child payment.
+          </li>
+          <li>
+            <strong>Income tax:</strong> Scotland has six income tax bands compared to
+            three in the rest of the UK. Those earning below £30,000 pay slightly less
+            than elsewhere (up to £28 saving), while higher earners pay more. The Scottish
+            Conservatives have called for cuts to reduce the financial burden on families.
+          </li>
+          <li>
+            <strong>Council tax:</strong> The council tax freeze ended last year and
+            is not expected to be reimposed in 2026-27, meaning households across
+            Scotland could face council tax increases from April.
+          </li>
+          <li>
+            <strong>Business rates:</strong> Opposition MSPs and business groups have
+            called for lower non-domestic rates. The Scottish Conservatives have urged
+            the Government to reduce business rates to support economic growth.
+          </li>
+          <li>
+            <strong>Health spending:</strong> Scottish Labour have called for SNP ministers
+            to use health funding to reduce waiting lists and reform the NHS, alongside
+            investment to help people back into work.
+          </li>
+          <li>
+            <strong>Budget gap:</strong> The Scottish Government faces a projected
+            £4.7bn funding gap between spending plans and available resources. Around
+            £2bn comes from rising social security costs, with additional workforce
+            cost pressures expected.
+          </li>
+        </ul>
       </div>
 
-      {/* Methodology note */}
-      <div className="methodology-note">
-        <h3>Methodology notes</h3>
-        <div className="note-content">
-          <div className="note-item">
-            <strong>PolicyEngine projections</strong>
-            <p>
-              Based on the Family Resources Survey, reweighted for Scottish
-              constituencies using the S14 prefix. Uses relative poverty
-              (60% of current UK median equivalised income).
-            </p>
-          </div>
-          <div className="note-item">
-            <strong>Official statistics</strong>
-            <p>
-              Scottish Government poverty data uses 3-year averages to reduce
-              sampling volatility. ONS GDHI measures gross disposable household
-              income at regional level.
-            </p>
-          </div>
-          <div className="note-item">
-            <strong>Key differences</strong>
-            <p>
-              PolicyEngine shows forward projections; official data is
-              historical. Income definitions differ (household net vs GDHI vs
-              taxpayer income).
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

@@ -302,6 +302,50 @@
   border-bottom: none;
 }
 
+/* Policy changes section */
+.policy-changes-section {
+  background: var(--pe-surface);
+  border: 1px solid var(--pe-gray-200);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.policy-bullets {
+  margin: 0 0 20px 0;
+  padding-left: 24px;
+}
+
+.policy-bullets li {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--pe-gray-600);
+  margin-bottom: 16px;
+}
+
+.policy-bullets li:last-child {
+  margin-bottom: 0;
+}
+
+.policy-bullets li strong {
+  color: var(--pe-gray-800);
+}
+
+.policy-source {
+  font-size: 0.8rem;
+  color: var(--pe-gray-500);
+  margin: 0;
+}
+
+.policy-source a {
+  color: var(--pe-teal-600);
+  text-decoration: none;
+}
+
+.policy-source a:hover {
+  text-decoration: underline;
+}
+
 /* Methodology note */
 .methodology-note {
   background: var(--pe-gray-50);
@@ -319,7 +363,7 @@
 
 .note-content {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
 }
 
