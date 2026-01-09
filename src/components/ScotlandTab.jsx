@@ -130,15 +130,15 @@ export default function ScotlandTab() {
     loadData();
   }, []);
 
-  // Get PolicyEngine metrics for comparison (use 2025 as closest to official data)
+  // Get PolicyEngine metrics for comparison (use 2026 as base year)
   const peMetrics = useMemo(() => {
     if (baselineData.length === 0) return null;
 
-    const year2025 = baselineData.find((d) => d.year === 2025);
+    const year2026 = baselineData.find((d) => d.year === 2026);
     const latest = baselineData[baselineData.length - 1];
 
     return {
-      year2025,
+      year2026,
       latest,
     };
   }, [baselineData]);
@@ -192,10 +192,10 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">Before housing costs, 60% median</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2025
+                  {peMetrics?.year2026
                     ? `${peMetrics.year2025.povertyBHC.toFixed(1)}%`
                     : "—"}
-                  <span className="value-year">2025-26</span>
+                  <span className="value-year">2026-27</span>
                 </td>
                 <td className="official-value">
                   <a
@@ -208,7 +208,7 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.povertyBHC.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2025
+                  {peMetrics?.year2026
                     ? `${(peMetrics.year2025.povertyBHC - OFFICIAL_STATS.povertyBHC.value).toFixed(1)}pp`
                     : "—"}
                 </td>
@@ -224,10 +224,10 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">After housing costs, 60% median</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2025
+                  {peMetrics?.year2026
                     ? `${peMetrics.year2025.povertyAHC.toFixed(1)}%`
                     : "—"}
-                  <span className="value-year">2025-26</span>
+                  <span className="value-year">2026-27</span>
                 </td>
                 <td className="official-value">
                   <a
@@ -240,7 +240,7 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.povertyAHC.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2025
+                  {peMetrics?.year2026
                     ? `${(peMetrics.year2025.povertyAHC - OFFICIAL_STATS.povertyAHC.value).toFixed(1)}pp`
                     : "—"}
                 </td>
@@ -256,10 +256,10 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">After housing costs, 60% median</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2025
+                  {peMetrics?.year2026
                     ? `${peMetrics.year2025.childPovertyAHC.toFixed(1)}%`
                     : "—"}
-                  <span className="value-year">2025-26</span>
+                  <span className="value-year">2026-27</span>
                 </td>
                 <td className="official-value">
                   <a
@@ -272,7 +272,7 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.childPovertyAHC.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2025
+                  {peMetrics?.year2026
                     ? `${(peMetrics.year2025.childPovertyAHC - OFFICIAL_STATS.childPovertyAHC.value).toFixed(1)}pp`
                     : "—"}
                 </td>
@@ -288,10 +288,10 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">Household disposable</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2025
+                  {peMetrics?.year2026
                     ? `£${peMetrics.year2025.medianIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
                     : "—"}
-                  <span className="value-year">2025-26</span>
+                  <span className="value-year">2026-27</span>
                 </td>
                 <td className="official-value">
                   <a
@@ -304,7 +304,7 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.medianIncome.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2025
+                  {peMetrics?.year2026
                     ? `£${(peMetrics.year2025.medianIncome - OFFICIAL_STATS.medianIncome.value).toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
                     : "—"}
                 </td>
@@ -320,10 +320,10 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">Household disposable</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2025
+                  {peMetrics?.year2026
                     ? `£${peMetrics.year2025.meanIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
                     : "—"}
-                  <span className="value-year">2025-26</span>
+                  <span className="value-year">2026-27</span>
                 </td>
                 <td className="official-value">
                   <a
@@ -336,7 +336,7 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.gdhiPerHead.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2025
+                  {peMetrics?.year2026
                     ? `£${(peMetrics.year2025.meanIncome - OFFICIAL_STATS.gdhiPerHead.value).toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
                     : "—"}
                 </td>
