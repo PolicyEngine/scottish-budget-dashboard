@@ -438,7 +438,22 @@ export default function ScotlandTab() {
             equivalised income below 60% of the current UK median. Official statistics
             from the Scottish Government use 3-year averages to reduce sampling volatility.
             Differences between sources may arise from survey timing, sample sizes, and
-            methodological choices.
+            methodological choices in{" "}
+            <a
+              href="https://github.com/PolicyEngine/policyengine-uk"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              PolicyEngine UK
+            </a>{" "}
+            and its{" "}
+            <a
+              href="https://github.com/PolicyEngine/policyengine-uk-data"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              underlying data
+            </a>.
           </p>
         </div>
 
@@ -616,7 +631,8 @@ export default function ScotlandTab() {
           <h2>Population</h2>
           <p className="chart-description">
             Population and household counts comparing PolicyEngine microsimulation with official
-            NRS statistics.
+            National Records of Scotland (NRS) statistics. PolicyEngine uses the Family Resources
+            Survey reweighted to match Scottish demographic totals.
           </p>
         </div>
 
