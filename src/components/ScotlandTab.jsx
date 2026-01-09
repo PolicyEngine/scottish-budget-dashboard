@@ -250,7 +250,7 @@ export default function ScotlandTab() {
       {/* Introduction */}
       <div className="comparison-section">
         <div className="chart-header">
-          <h2>Scotland economic outlook pre-budget 2026</h2>
+          <h2>Introduction</h2>
         </div>
         <p className="chart-description">
           Finance Secretary Shona Robison will announce the Scottish Budget 2026-27 on{" "}
