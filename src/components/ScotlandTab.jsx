@@ -256,32 +256,6 @@ export default function ScotlandTab() {
         </p>
       </div>
 
-      {/* Two-child limit mitigation budget impact */}
-      <div className="comparison-section">
-        <div className="chart-header">
-          <h2>Two-child limit mitigation</h2>
-        </div>
-        <p className="chart-description">
-          The Scottish Government plans to mitigate the two-child limit in Universal Credit from
-          April 2026. The{" "}
-          <a
-            href="https://www.fiscalcommission.scot/publications/mitigating-the-two-child-limit-and-the-scottish-budget-january-2025/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Scottish Fiscal Commission
-          </a>{" "}
-          estimates this will cost £155 million in 2026-27 rising to £198 million by 2029-30,
-          affecting 43,000 children in 2026-27 rising to 50,000 children by 2029-30.
-          PolicyEngine estimates £213 million in 2026-27 rising to £260 million by 2029-30,
-          affecting 59,000 children in 2026-27 rising to 66,000 children by 2029-30.
-          The two-child limit restricts Universal Credit child element payments to the first
-          two children, so the mitigation cost depends on how many Scottish families claim UC
-          and have three or more children. The difference between estimates arises from different
-          assumptions about UC take-up rates and household survey weighting for Scotland.
-        </p>
-      </div>
-
       {/* Policy context */}
       <div className="comparison-section">
         <div className="chart-header">
@@ -306,6 +280,33 @@ export default function ScotlandTab() {
           waiting lists and reform the NHS, alongside investment to help people back into work.
           The Scottish Government faces a significant funding gap between spending plans and
           available resources, with rising social security costs and workforce cost pressures.
+        </p>
+      </div>
+
+      {/* Two-child limit mitigation analysis */}
+      <div className="comparison-section">
+        <div className="chart-header">
+          <h2>Two-child limit mitigation</h2>
+        </div>
+        <p className="chart-description">
+          The following analysis focuses on the two-child limit mitigation, one of the key
+          policies expected in the budget. The Scottish Government plans to mitigate the
+          two-child limit in Universal Credit from April 2026. The{" "}
+          <a
+            href="https://www.fiscalcommission.scot/publications/mitigating-the-two-child-limit-and-the-scottish-budget-january-2025/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Scottish Fiscal Commission
+          </a>{" "}
+          estimates this will cost £155 million in 2026-27 rising to £198 million by 2029-30,
+          affecting 43,000 children in 2026-27 rising to 50,000 children by 2029-30.
+          PolicyEngine estimates £213 million in 2026-27 rising to £260 million by 2029-30,
+          affecting 59,000 children in 2026-27 rising to 66,000 children by 2029-30.
+          The two-child limit restricts Universal Credit child element payments to the first
+          two children, so the mitigation cost depends on how many Scottish families claim UC
+          and have three or more children. The difference between estimates arises from different
+          assumptions about UC take-up rates and household survey weighting for Scotland.
         </p>
       </div>
 
