@@ -436,9 +436,7 @@ export default function ScotlandTab() {
           <p className="chart-description">
             All rates shown are relative poverty, defined as living in a household with
             equivalised income below 60% of the current UK median. Official statistics
-            from the Scottish Government use 3-year averages to reduce sampling volatility.
-            Differences between sources may arise from survey timing, sample sizes, and
-            methodological choices in{" "}
+            from the Scottish Government use 3-year averages to reduce sampling volatility.{" "}
             <a
               href="https://github.com/PolicyEngine/policyengine-uk"
               target="_blank"
@@ -446,14 +444,15 @@ export default function ScotlandTab() {
             >
               PolicyEngine UK
             </a>{" "}
-            and its{" "}
+            uses single-year estimates from the{" "}
             <a
               href="https://github.com/PolicyEngine/policyengine-uk-data"
               target="_blank"
               rel="noopener noreferrer"
             >
-              underlying data
-            </a>.
+              Family Resources Survey
+            </a>{" "}
+            reweighted to parliamentary constituency level.
           </p>
         </div>
 
