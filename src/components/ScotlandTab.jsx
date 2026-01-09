@@ -291,57 +291,30 @@ export default function ScotlandTab() {
       </div>
 
       {/* Policy context */}
-      <div className="policy-changes-section">
+      <div className="comparison-section">
         <div className="chart-header">
           <h2>Policy context</h2>
-          <p className="chart-description">
-            Key policy areas likely to feature in the budget, based on{" "}
-            <a
-              href="https://www.bbc.co.uk/news/articles/cx2el14rgngo"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              BBC Scotland reporting
-            </a>.
-          </p>
         </div>
-
-        <ul className="policy-bullets">
-          <li>
-            <strong>Scottish child payment:</strong> The Scottish Government will
-            receive approximately £100m from the UK Government following the decision
-            to abolish the two-child limit on benefits. First Minister John Swinney has
-            pledged to use this funding to tackle child poverty, with speculation of an
-            increase in the Scottish child payment.
-          </li>
-          <li>
-            <strong>Income tax:</strong> Scotland has six income tax bands compared to
-            three in the rest of the UK. Those earning below £30,000 pay slightly less
-            than elsewhere (up to £28 saving), while higher earners pay more. The Scottish
-            Conservatives have called for cuts to reduce the financial burden on families.
-          </li>
-          <li>
-            <strong>Council tax:</strong> The council tax freeze ended last year and
-            is not expected to be reimposed in 2026-27, meaning households across
-            Scotland could face council tax increases from April.
-          </li>
-          <li>
-            <strong>Business rates:</strong> Opposition MSPs and business groups have
-            called for lower non-domestic rates. The Scottish Conservatives have urged
-            the Government to reduce business rates to support economic growth.
-          </li>
-          <li>
-            <strong>Health spending:</strong> Scottish Labour have called for SNP ministers
-            to use health funding to reduce waiting lists and reform the NHS, alongside
-            investment to help people back into work.
-          </li>
-          <li>
-            <strong>Budget gap:</strong> The Scottish Government faces a projected
-            £4.7bn funding gap between spending plans and available resources. Around
-            £2bn comes from rising social security costs, with additional workforce
-            cost pressures expected.
-          </li>
-        </ul>
+        <p className="chart-description">
+          Key policy areas likely to feature in the budget, based on{" "}
+          <a
+            href="https://www.bbc.co.uk/news/articles/cx2el14rgngo"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            BBC Scotland reporting
+          </a>. The Scottish child payment may be increased following the UK Government's
+          decision to abolish the two-child limit, with First Minister John Swinney pledging
+          to use additional funding to tackle child poverty. Scotland's six income tax bands
+          (compared to three in the rest of the UK) may face pressure for cuts from opposition
+          parties seeking to reduce the financial burden on families. The council tax freeze
+          ended last year and is not expected to be reimposed, meaning households could face
+          increases from April. Business groups have called for lower non-domestic rates to
+          support economic growth. Scottish Labour have called for health funding to reduce
+          waiting lists and reform the NHS, alongside investment to help people back into work.
+          The Scottish Government faces a significant funding gap between spending plans and
+          available resources, with rising social security costs and workforce cost pressures.
+        </p>
       </div>
 
       {/* Poverty Rates Table */}
