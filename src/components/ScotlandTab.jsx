@@ -442,20 +442,21 @@ export default function ScotlandTab() {
             disposable income. Official statistics from the Scottish Government combine three
             years of data to produce more stable estimates from a small Scottish sample.{" "}
             <a
-              href="https://github.com/PolicyEngine/policyengine-uk"
+              href="https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_baseline.csv"
               target="_blank"
               rel="noopener noreferrer"
             >
-              PolicyEngine UK
+              PolicyEngine estimates
             </a>{" "}
-            uses single-year data from the{" "}
+            use single-year data from the Family Resources Survey, reweighted to Scottish
+            parliamentary constituencies using{" "}
             <a
               href="https://github.com/PolicyEngine/policyengine-uk-data"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Family Resources Survey
-            </a>, reweighted to Scottish parliamentary constituencies. Differences arise
+              constituency weights
+            </a>. Differences arise
             because single-year estimates are more volatile than 3-year averages, and
             reweighting methods differ between sources.
           </p>
