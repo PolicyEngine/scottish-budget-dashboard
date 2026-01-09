@@ -254,13 +254,7 @@ export default function ScotlandTab() {
           poverty rates and household incomes through to 2030-31, and expected policy
           changes in the upcoming budget.
         </p>
-      </div>
-
-      {/* Policy context */}
-      <div className="comparison-section">
-        <div className="chart-header">
-          <h2>Policy context</h2>
-        </div>
+        <h3 className="subsection-header">Policy context</h3>
         <p className="chart-description">
           Key policy areas likely to feature in the budget, based on{" "}
           <a

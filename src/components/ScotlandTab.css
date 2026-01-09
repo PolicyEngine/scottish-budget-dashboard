@@ -58,6 +58,13 @@
   margin: 0;
 }
 
+.subsection-header {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--pe-gray-700);
+  margin: 16px 0 8px 0;
+}
+
 /* Comparison Section */
 .comparison-section {
   background: var(--pe-surface);
