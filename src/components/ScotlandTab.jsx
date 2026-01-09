@@ -264,6 +264,86 @@ export default function ScotlandTab() {
         </p>
       </div>
 
+      {/* Two-child limit mitigation budget impact */}
+      <div className="comparison-section">
+        <div className="chart-header">
+          <h2>Two-child limit mitigation</h2>
+        </div>
+        <p className="chart-description">
+          The Scottish Government plans to mitigate the two-child limit in Universal Credit from
+          April 2026. The{" "}
+          <a
+            href="https://www.fiscalcommission.scot/publications/mitigating-the-two-child-limit-and-the-scottish-budget-january-2025/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Scottish Fiscal Commission
+          </a>{" "}
+          estimates this will cost £155 million in 2026-27 rising to £198 million by 2029-30,
+          affecting 43,000 children in 2026-27 rising to 50,000 children by 2029-30.
+          PolicyEngine estimates £213 million in 2026-27 rising to £260 million by 2029-30,
+          affecting 59,000 children in 2026-27 rising to 66,000 children by 2029-30.
+          The two-child limit restricts Universal Credit child element payments to the first
+          two children, so the mitigation cost depends on how many Scottish families claim UC
+          and have three or more children. The difference between estimates arises from different
+          assumptions about UC take-up rates and household survey weighting for Scotland.
+        </p>
+      </div>
+
+      {/* Policy context */}
+      <div className="policy-changes-section">
+        <div className="chart-header">
+          <h2>Policy context</h2>
+          <p className="chart-description">
+            Key policy areas likely to feature in the budget, based on{" "}
+            <a
+              href="https://www.bbc.co.uk/news/articles/cx2el14rgngo"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              BBC Scotland reporting
+            </a>.
+          </p>
+        </div>
+
+        <ul className="policy-bullets">
+          <li>
+            <strong>Scottish child payment:</strong> The Scottish Government will
+            receive approximately £100m from the UK Government following the decision
+            to abolish the two-child limit on benefits. First Minister John Swinney has
+            pledged to use this funding to tackle child poverty, with speculation of an
+            increase in the Scottish child payment.
+          </li>
+          <li>
+            <strong>Income tax:</strong> Scotland has six income tax bands compared to
+            three in the rest of the UK. Those earning below £30,000 pay slightly less
+            than elsewhere (up to £28 saving), while higher earners pay more. The Scottish
+            Conservatives have called for cuts to reduce the financial burden on families.
+          </li>
+          <li>
+            <strong>Council tax:</strong> The council tax freeze ended last year and
+            is not expected to be reimposed in 2026-27, meaning households across
+            Scotland could face council tax increases from April.
+          </li>
+          <li>
+            <strong>Business rates:</strong> Opposition MSPs and business groups have
+            called for lower non-domestic rates. The Scottish Conservatives have urged
+            the Government to reduce business rates to support economic growth.
+          </li>
+          <li>
+            <strong>Health spending:</strong> Scottish Labour have called for SNP ministers
+            to use health funding to reduce waiting lists and reform the NHS, alongside
+            investment to help people back into work.
+          </li>
+          <li>
+            <strong>Budget gap:</strong> The Scottish Government faces a projected
+            £4.7bn funding gap between spending plans and available resources. Around
+            £2bn comes from rising social security costs, with additional workforce
+            cost pressures expected.
+          </li>
+        </ul>
+      </div>
+
       {/* Poverty Rates Table */}
       <div className="comparison-section">
         <div className="chart-header">
@@ -811,86 +891,6 @@ export default function ScotlandTab() {
             </LineChart>
           </ResponsiveContainer>
         </div>
-      </div>
-
-      {/* Two-child limit mitigation budget impact */}
-      <div className="comparison-section">
-        <div className="chart-header">
-          <h2>Two-child limit mitigation</h2>
-        </div>
-        <p className="chart-description">
-          The Scottish Government plans to mitigate the two-child limit in Universal Credit from
-          April 2026. The{" "}
-          <a
-            href="https://www.fiscalcommission.scot/publications/mitigating-the-two-child-limit-and-the-scottish-budget-january-2025/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Scottish Fiscal Commission
-          </a>{" "}
-          estimates this will cost £155 million in 2026-27 rising to £198 million by 2029-30,
-          affecting 43,000 children in 2026-27 rising to 50,000 children by 2029-30.
-          PolicyEngine estimates £213 million in 2026-27 rising to £260 million by 2029-30,
-          affecting 59,000 children in 2026-27 rising to 66,000 children by 2029-30.
-          The two-child limit restricts Universal Credit child element payments to the first
-          two children, so the mitigation cost depends on how many Scottish families claim UC
-          and have three or more children. The difference between estimates arises from different
-          assumptions about UC take-up rates and household survey weighting for Scotland.
-        </p>
-      </div>
-
-      {/* Policy context */}
-      <div className="policy-changes-section">
-        <div className="chart-header">
-          <h2>Policy context</h2>
-          <p className="chart-description">
-            Key policy areas likely to feature in the budget, based on{" "}
-            <a
-              href="https://www.bbc.co.uk/news/articles/cx2el14rgngo"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              BBC Scotland reporting
-            </a>.
-          </p>
-        </div>
-
-        <ul className="policy-bullets">
-          <li>
-            <strong>Scottish child payment:</strong> The Scottish Government will
-            receive approximately £100m from the UK Government following the decision
-            to abolish the two-child limit on benefits. First Minister John Swinney has
-            pledged to use this funding to tackle child poverty, with speculation of an
-            increase in the Scottish child payment.
-          </li>
-          <li>
-            <strong>Income tax:</strong> Scotland has six income tax bands compared to
-            three in the rest of the UK. Those earning below £30,000 pay slightly less
-            than elsewhere (up to £28 saving), while higher earners pay more. The Scottish
-            Conservatives have called for cuts to reduce the financial burden on families.
-          </li>
-          <li>
-            <strong>Council tax:</strong> The council tax freeze ended last year and
-            is not expected to be reimposed in 2026-27, meaning households across
-            Scotland could face council tax increases from April.
-          </li>
-          <li>
-            <strong>Business rates:</strong> Opposition MSPs and business groups have
-            called for lower non-domestic rates. The Scottish Conservatives have urged
-            the Government to reduce business rates to support economic growth.
-          </li>
-          <li>
-            <strong>Health spending:</strong> Scottish Labour have called for SNP ministers
-            to use health funding to reduce waiting lists and reform the NHS, alongside
-            investment to help people back into work.
-          </li>
-          <li>
-            <strong>Budget gap:</strong> The Scottish Government faces a projected
-            £4.7bn funding gap between spending plans and available resources. Around
-            £2bn comes from rising social security costs, with additional workforce
-            cost pressures expected.
-          </li>
-        </ul>
       </div>
 
     </div>
