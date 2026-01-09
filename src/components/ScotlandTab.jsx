@@ -115,6 +115,7 @@ export default function ScotlandTab() {
           medianIncome: parseFloat(row.median_disposable_income),
           medianTaxpayerIncome: parseFloat(row.median_taxpayer_income),
           meanIncomePerHead: parseFloat(row.mean_income_per_head),
+          totalDisposableIncomeBn: parseFloat(row.total_disposable_income_bn),
           povertyBHC: parseFloat(row.poverty_rate_bhc),
           povertyAHC: parseFloat(row.poverty_rate_ahc),
           childPovertyBHC: parseFloat(row.child_poverty_bhc),
@@ -132,14 +133,18 @@ export default function ScotlandTab() {
     loadData();
   }, []);
 
-  // Get PolicyEngine metrics for comparison (use 2026 as base year)
+  // Get PolicyEngine metrics for comparison
+  // Use 2023 for poverty (to match official 2021-24 midpoint)
+  // Use 2026 for income (to match official 2025-26)
   const peMetrics = useMemo(() => {
     if (baselineData.length === 0) return null;
 
+    const year2023 = baselineData.find((d) => d.year === 2023);
     const year2026 = baselineData.find((d) => d.year === 2026);
     const latest = baselineData[baselineData.length - 1];
 
     return {
+      year2023,
       year2026,
       latest,
     };
@@ -194,10 +199,10 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">Before housing costs, 60% median</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2026
-                    ? `${peMetrics.year2026.povertyBHC.toFixed(1)}%`
+                  {peMetrics?.year2023
+                    ? `${peMetrics.year2023.povertyBHC.toFixed(1)}%`
                     : "—"}
-                  <span className="value-year">2026-27</span>
+                  <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
                   <a
@@ -210,12 +215,12 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.povertyBHC.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2026
-                    ? `${(peMetrics.year2026.povertyBHC - OFFICIAL_STATS.povertyBHC.value).toFixed(1)}pp`
+                  {peMetrics?.year2023
+                    ? `${(peMetrics.year2023.povertyBHC - OFFICIAL_STATS.povertyBHC.value).toFixed(1)}pp`
                     : "—"}
                 </td>
                 <td className="notes">
-                  Official uses 3-year average; PE is single year projection
+                  PE 2023 vs official 2021-24 average (midpoint ~2023)
                 </td>
               </tr>
 
@@ -226,10 +231,10 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">After housing costs, 60% median</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2026
-                    ? `${peMetrics.year2026.povertyAHC.toFixed(1)}%`
+                  {peMetrics?.year2023
+                    ? `${peMetrics.year2023.povertyAHC.toFixed(1)}%`
                     : "—"}
-                  <span className="value-year">2026-27</span>
+                  <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
                   <a
@@ -242,12 +247,12 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.povertyAHC.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2026
-                    ? `${(peMetrics.year2026.povertyAHC - OFFICIAL_STATS.povertyAHC.value).toFixed(1)}pp`
+                  {peMetrics?.year2023
+                    ? `${(peMetrics.year2023.povertyAHC - OFFICIAL_STATS.povertyAHC.value).toFixed(1)}pp`
                     : "—"}
                 </td>
                 <td className="notes">
-                  Official uses 3-year average; PE is single year projection
+                  PE 2023 vs official 2021-24 average (midpoint ~2023)
                 </td>
               </tr>
 
@@ -258,10 +263,10 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">After housing costs, 60% median</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2026
-                    ? `${peMetrics.year2026.childPovertyAHC.toFixed(1)}%`
+                  {peMetrics?.year2023
+                    ? `${peMetrics.year2023.childPovertyAHC.toFixed(1)}%`
                     : "—"}
-                  <span className="value-year">2026-27</span>
+                  <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
                   <a
@@ -274,12 +279,12 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.childPovertyAHC.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2026
-                    ? `${(peMetrics.year2026.childPovertyAHC - OFFICIAL_STATS.childPovertyAHC.value).toFixed(1)}pp`
+                  {peMetrics?.year2023
+                    ? `${(peMetrics.year2023.childPovertyAHC - OFFICIAL_STATS.childPovertyAHC.value).toFixed(1)}pp`
                     : "—"}
                 </td>
                 <td className="notes">
-                  2030 target: 10%; PE projection higher than official
+                  2030 target: 10%
                 </td>
               </tr>
 
@@ -322,10 +327,10 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">Disposable income per person</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2026
-                    ? `£${peMetrics.year2026.meanIncomePerHead.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
+                  {peMetrics?.year2023
+                    ? `£${peMetrics.year2023.meanIncomePerHead.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
                     : "—"}
-                  <span className="value-year">2026-27</span>
+                  <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
                   <a
@@ -338,8 +343,8 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.gdhiPerHead.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2026
-                    ? `£${(peMetrics.year2026.meanIncomePerHead - OFFICIAL_STATS.gdhiPerHead.value).toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
+                  {peMetrics?.year2023
+                    ? `£${(peMetrics.year2023.meanIncomePerHead - OFFICIAL_STATS.gdhiPerHead.value).toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
                     : "—"}
                 </td>
                 <td className="notes">
@@ -354,7 +359,10 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">Scotland aggregate</span>
                 </td>
                 <td className="pe-value">
-                  <span className="not-available">Not directly comparable</span>
+                  {peMetrics?.year2023
+                    ? `£${peMetrics.year2023.totalDisposableIncomeBn.toFixed(1)}bn`
+                    : "—"}
+                  <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
                   <a
@@ -366,9 +374,13 @@ export default function ScotlandTab() {
                   </a>
                   <span className="value-year">{OFFICIAL_STATS.totalGDHI.year}</span>
                 </td>
-                <td className="difference">—</td>
+                <td className="difference">
+                  {peMetrics?.year2023
+                    ? `£${(peMetrics.year2023.totalDisposableIncomeBn - OFFICIAL_STATS.totalGDHI.value).toFixed(1)}bn`
+                    : "—"}
+                </td>
                 <td className="notes">
-                  7.4% of UK total; 92.2% of UK average per head
+                  PE uses sum of household net income
                 </td>
               </tr>
             </tbody>
