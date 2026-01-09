@@ -677,8 +677,15 @@ export default function ScotlandTab() {
           <h2>Population</h2>
           <p className="chart-description">
             Population and household counts comparing PolicyEngine microsimulation with official
-            National Records of Scotland (NRS) statistics. PolicyEngine uses the Family Resources
-            Survey reweighted to match Scottish demographic totals.
+            National Records of Scotland (NRS) statistics. PolicyEngine{" "}
+            <a
+              href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              uses
+            </a>{" "}
+            the Family Resources Survey reweighted to match Scottish demographic totals.
           </p>
         </div>
 
