@@ -69,6 +69,12 @@ function parseCSV(csvText) {
   return data;
 }
 
+// PolicyEngine data URLs
+const PE_DATA_URLS = {
+  baseline: "https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_baseline.csv",
+  twoChildLimit: "https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_two_child_limit.csv",
+};
+
 // Official statistics data with sources
 const OFFICIAL_STATS = {
   povertyBHC: {
@@ -298,7 +304,14 @@ export default function ScotlandTab() {
           </a>{" "}
           estimates this will cost £155 million in 2026-27 rising to £198 million by 2029-30,
           affecting 43,000 children in 2026-27 rising to 50,000 children by 2029-30.
-          PolicyEngine estimates £213 million in 2026-27 rising to £260 million by 2029-30,
+          <a
+            href="https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_two_child_limit.csv"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            PolicyEngine estimates
+          </a>{" "}
+          £213 million in 2026-27 rising to £260 million by 2029-30,
           affecting 59,000 children in 2026-27 rising to 66,000 children by 2029-30.
           The two-child limit restricts Universal Credit child element payments to the first
           two children, so the mitigation cost depends on how many Scottish families claim UC
@@ -336,7 +349,9 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">Above personal allowance</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2025 ? `£${peMetrics.year2025.medianTaxpayerIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2025 ? `£${peMetrics.year2025.medianTaxpayerIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  </a>
                   <span className="value-year">2025-26</span>
                 </td>
                 <td className="official-value">
@@ -355,7 +370,9 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">Above personal allowance</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2026 ? `£${peMetrics.year2026.taxpayerIncomeP25.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2026 ? `£${peMetrics.year2026.taxpayerIncomeP25.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  </a>
                   <span className="value-year">2025-26</span>
                 </td>
                 <td className="official-value">
@@ -374,7 +391,9 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">Above personal allowance</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2026 ? `£${peMetrics.year2026.taxpayerIncomeP75.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2026 ? `£${peMetrics.year2026.taxpayerIncomeP75.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  </a>
                   <span className="value-year">2025-26</span>
                 </td>
                 <td className="official-value">
@@ -393,7 +412,9 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">Disposable income per person</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2023 ? `£${peMetrics.year2023.meanIncomePerHead.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2023 ? `£${peMetrics.year2023.meanIncomePerHead.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  </a>
                   <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
@@ -412,7 +433,9 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">Scotland aggregate</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2023 ? `£${peMetrics.year2023.totalDisposableIncomeBn.toFixed(1)}bn` : "—"}
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2023 ? `£${peMetrics.year2023.totalDisposableIncomeBn.toFixed(1)}bn` : "—"}
+                  </a>
                   <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
@@ -479,7 +502,9 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">Before housing costs</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2023 ? `${peMetrics.year2023.povertyBHC.toFixed(1)}%` : "—"}
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2023 ? `${peMetrics.year2023.povertyBHC.toFixed(1)}%` : "—"}
+                  </a>
                   <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
@@ -498,7 +523,9 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">After housing costs</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2023 ? `${peMetrics.year2023.povertyAHC.toFixed(1)}%` : "—"}
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2023 ? `${peMetrics.year2023.povertyAHC.toFixed(1)}%` : "—"}
+                  </a>
                   <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
@@ -517,7 +544,9 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">Under 18</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2023 ? `${peMetrics.year2023.childPovertyBHC.toFixed(1)}%` : "—"}
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2023 ? `${peMetrics.year2023.childPovertyBHC.toFixed(1)}%` : "—"}
+                  </a>
                   <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
@@ -536,7 +565,9 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">Under 18</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2023 ? `${peMetrics.year2023.childPovertyAHC.toFixed(1)}%` : "—"}
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2023 ? `${peMetrics.year2023.childPovertyAHC.toFixed(1)}%` : "—"}
+                  </a>
                   <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
@@ -555,7 +586,9 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">16-64</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2023 ? `${peMetrics.year2023.workingAgePovertyBHC.toFixed(1)}%` : "—"}
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2023 ? `${peMetrics.year2023.workingAgePovertyBHC.toFixed(1)}%` : "—"}
+                  </a>
                   <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
@@ -574,7 +607,9 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">16-64</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2023 ? `${peMetrics.year2023.workingAgePovertyAHC.toFixed(1)}%` : "—"}
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2023 ? `${peMetrics.year2023.workingAgePovertyAHC.toFixed(1)}%` : "—"}
+                  </a>
                   <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
@@ -593,7 +628,9 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">65+</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2023 ? `${peMetrics.year2023.pensionerPovertyBHC.toFixed(1)}%` : "—"}
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2023 ? `${peMetrics.year2023.pensionerPovertyBHC.toFixed(1)}%` : "—"}
+                  </a>
                   <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
@@ -612,7 +649,9 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">65+</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2023 ? `${peMetrics.year2023.pensionerPovertyAHC.toFixed(1)}%` : "—"}
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2023 ? `${peMetrics.year2023.pensionerPovertyAHC.toFixed(1)}%` : "—"}
+                  </a>
                   <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
@@ -658,7 +697,9 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">Scotland total</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2023 ? `${(peMetrics.year2023.totalPopulation / 1e6).toFixed(2)}m` : "—"}
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2023 ? `${(peMetrics.year2023.totalPopulation / 1e6).toFixed(2)}m` : "—"}
+                  </a>
                   <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
@@ -677,7 +718,9 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">Scotland total</span>
                 </td>
                 <td className="pe-value">
-                  {peMetrics?.year2023 ? `${(peMetrics.year2023.totalHouseholds / 1e6).toFixed(2)}m` : "—"}
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2023 ? `${(peMetrics.year2023.totalHouseholds / 1e6).toFixed(2)}m` : "—"}
+                  </a>
                   <span className="value-year">2023</span>
                 </td>
                 <td className="official-value">
