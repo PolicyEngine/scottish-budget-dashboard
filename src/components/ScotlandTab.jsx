@@ -309,6 +309,128 @@ export default function ScotlandTab() {
         </p>
       </div>
 
+      {/* Income Table */}
+      <div className="comparison-section">
+        <div className="chart-header">
+          <h2>Income</h2>
+          <p className="chart-description">
+            ONS Gross Disposable Household Income (GDHI) measures income after taxes and
+            benefits at regional level. Differences between sources may arise from survey
+            timing, sample sizes, and methodological choices.
+          </p>
+        </div>
+
+        <div className="comparison-table-container">
+          <table className="comparison-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>PolicyEngine</th>
+                <th>Official</th>
+                <th>Difference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="metric-name">
+                  <strong>Median taxpayer income</strong>
+                  <span className="metric-subtitle">Above personal allowance</span>
+                </td>
+                <td className="pe-value">
+                  {peMetrics?.year2025 ? `£${peMetrics.year2025.medianTaxpayerIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  <span className="value-year">2025-26</span>
+                </td>
+                <td className="official-value">
+                  <a href={OFFICIAL_STATS.medianIncome.url} target="_blank" rel="noopener noreferrer">
+                    £{OFFICIAL_STATS.medianIncome.value.toLocaleString("en-GB")}
+                  </a>
+                  <span className="value-year">{OFFICIAL_STATS.medianIncome.year}</span>
+                </td>
+                <td className="difference">
+                  {peMetrics?.year2025 ? `${((peMetrics.year2025.medianTaxpayerIncome - OFFICIAL_STATS.medianIncome.value) / OFFICIAL_STATS.medianIncome.value * 100).toFixed(0)}%` : "—"}
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Taxpayer income (25th percentile)</strong>
+                  <span className="metric-subtitle">Above personal allowance</span>
+                </td>
+                <td className="pe-value">
+                  {peMetrics?.year2026 ? `£${peMetrics.year2026.taxpayerIncomeP25.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  <span className="value-year">2025-26</span>
+                </td>
+                <td className="official-value">
+                  <a href="https://www.gov.scot/publications/scottish-income-tax-2025-2026-factsheet/pages/2/" target="_blank" rel="noopener noreferrer">
+                    £20,400
+                  </a>
+                  <span className="value-year">2025-26</span>
+                </td>
+                <td className="difference">
+                  {peMetrics?.year2026 ? `${((peMetrics.year2026.taxpayerIncomeP25 - 20400) / 20400 * 100).toFixed(0)}%` : "—"}
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Taxpayer income (75th percentile)</strong>
+                  <span className="metric-subtitle">Above personal allowance</span>
+                </td>
+                <td className="pe-value">
+                  {peMetrics?.year2026 ? `£${peMetrics.year2026.taxpayerIncomeP75.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  <span className="value-year">2025-26</span>
+                </td>
+                <td className="official-value">
+                  <a href="https://www.gov.scot/publications/scottish-income-tax-2025-2026-factsheet/pages/2/" target="_blank" rel="noopener noreferrer">
+                    £44,500
+                  </a>
+                  <span className="value-year">2025-26</span>
+                </td>
+                <td className="difference">
+                  {peMetrics?.year2026 ? `${((peMetrics.year2026.taxpayerIncomeP75 - 44500) / 44500 * 100).toFixed(0)}%` : "—"}
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Income per head</strong>
+                  <span className="metric-subtitle">Disposable income per person</span>
+                </td>
+                <td className="pe-value">
+                  {peMetrics?.year2023 ? `£${peMetrics.year2023.meanIncomePerHead.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  <span className="value-year">2023</span>
+                </td>
+                <td className="official-value">
+                  <a href={OFFICIAL_STATS.gdhiPerHead.url} target="_blank" rel="noopener noreferrer">
+                    £{OFFICIAL_STATS.gdhiPerHead.value.toLocaleString("en-GB")}
+                  </a>
+                  <span className="value-year">{OFFICIAL_STATS.gdhiPerHead.year}</span>
+                </td>
+                <td className="difference">
+                  {peMetrics?.year2023 ? `${((peMetrics.year2023.meanIncomePerHead - OFFICIAL_STATS.gdhiPerHead.value) / OFFICIAL_STATS.gdhiPerHead.value * 100).toFixed(0)}%` : "—"}
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Total disposable income</strong>
+                  <span className="metric-subtitle">Scotland aggregate</span>
+                </td>
+                <td className="pe-value">
+                  {peMetrics?.year2023 ? `£${peMetrics.year2023.totalDisposableIncomeBn.toFixed(1)}bn` : "—"}
+                  <span className="value-year">2023</span>
+                </td>
+                <td className="official-value">
+                  <a href={OFFICIAL_STATS.totalGDHI.url} target="_blank" rel="noopener noreferrer">
+                    £{OFFICIAL_STATS.totalGDHI.value}bn
+                  </a>
+                  <span className="value-year">{OFFICIAL_STATS.totalGDHI.year}</span>
+                </td>
+                <td className="difference">
+                  {peMetrics?.year2023 ? `${((peMetrics.year2023.totalDisposableIncomeBn - OFFICIAL_STATS.totalGDHI.value) / OFFICIAL_STATS.totalGDHI.value * 100).toFixed(0)}%` : "—"}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       {/* Poverty Rates Table */}
       <div className="comparison-section">
         <div className="chart-header">
@@ -482,128 +604,6 @@ export default function ScotlandTab() {
                 </td>
                 <td className="difference">
                   {peMetrics?.year2023 ? `${((peMetrics.year2023.pensionerPovertyAHC - OFFICIAL_STATS.pensionerPovertyAHC.value) / OFFICIAL_STATS.pensionerPovertyAHC.value * 100).toFixed(0)}%` : "—"}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* Income Table */}
-      <div className="comparison-section">
-        <div className="chart-header">
-          <h2>Income</h2>
-          <p className="chart-description">
-            ONS Gross Disposable Household Income (GDHI) measures income after taxes and
-            benefits at regional level. Differences between sources may arise from survey
-            timing, sample sizes, and methodological choices.
-          </p>
-        </div>
-
-        <div className="comparison-table-container">
-          <table className="comparison-table">
-            <thead>
-              <tr>
-                <th>Metric</th>
-                <th>PolicyEngine</th>
-                <th>Official</th>
-                <th>Difference</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="metric-name">
-                  <strong>Median taxpayer income</strong>
-                  <span className="metric-subtitle">Above personal allowance</span>
-                </td>
-                <td className="pe-value">
-                  {peMetrics?.year2025 ? `£${peMetrics.year2025.medianTaxpayerIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
-                  <span className="value-year">2025-26</span>
-                </td>
-                <td className="official-value">
-                  <a href={OFFICIAL_STATS.medianIncome.url} target="_blank" rel="noopener noreferrer">
-                    £{OFFICIAL_STATS.medianIncome.value.toLocaleString("en-GB")}
-                  </a>
-                  <span className="value-year">{OFFICIAL_STATS.medianIncome.year}</span>
-                </td>
-                <td className="difference">
-                  {peMetrics?.year2025 ? `${((peMetrics.year2025.medianTaxpayerIncome - OFFICIAL_STATS.medianIncome.value) / OFFICIAL_STATS.medianIncome.value * 100).toFixed(0)}%` : "—"}
-                </td>
-              </tr>
-              <tr>
-                <td className="metric-name">
-                  <strong>Taxpayer income (25th percentile)</strong>
-                  <span className="metric-subtitle">Above personal allowance</span>
-                </td>
-                <td className="pe-value">
-                  {peMetrics?.year2026 ? `£${peMetrics.year2026.taxpayerIncomeP25.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
-                  <span className="value-year">2025-26</span>
-                </td>
-                <td className="official-value">
-                  <a href="https://www.gov.scot/publications/scottish-income-tax-2025-2026-factsheet/pages/2/" target="_blank" rel="noopener noreferrer">
-                    £20,400
-                  </a>
-                  <span className="value-year">2025-26</span>
-                </td>
-                <td className="difference">
-                  {peMetrics?.year2026 ? `${((peMetrics.year2026.taxpayerIncomeP25 - 20400) / 20400 * 100).toFixed(0)}%` : "—"}
-                </td>
-              </tr>
-              <tr>
-                <td className="metric-name">
-                  <strong>Taxpayer income (75th percentile)</strong>
-                  <span className="metric-subtitle">Above personal allowance</span>
-                </td>
-                <td className="pe-value">
-                  {peMetrics?.year2026 ? `£${peMetrics.year2026.taxpayerIncomeP75.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
-                  <span className="value-year">2025-26</span>
-                </td>
-                <td className="official-value">
-                  <a href="https://www.gov.scot/publications/scottish-income-tax-2025-2026-factsheet/pages/2/" target="_blank" rel="noopener noreferrer">
-                    £44,500
-                  </a>
-                  <span className="value-year">2025-26</span>
-                </td>
-                <td className="difference">
-                  {peMetrics?.year2026 ? `${((peMetrics.year2026.taxpayerIncomeP75 - 44500) / 44500 * 100).toFixed(0)}%` : "—"}
-                </td>
-              </tr>
-              <tr>
-                <td className="metric-name">
-                  <strong>Income per head</strong>
-                  <span className="metric-subtitle">Disposable income per person</span>
-                </td>
-                <td className="pe-value">
-                  {peMetrics?.year2023 ? `£${peMetrics.year2023.meanIncomePerHead.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
-                  <span className="value-year">2023</span>
-                </td>
-                <td className="official-value">
-                  <a href={OFFICIAL_STATS.gdhiPerHead.url} target="_blank" rel="noopener noreferrer">
-                    £{OFFICIAL_STATS.gdhiPerHead.value.toLocaleString("en-GB")}
-                  </a>
-                  <span className="value-year">{OFFICIAL_STATS.gdhiPerHead.year}</span>
-                </td>
-                <td className="difference">
-                  {peMetrics?.year2023 ? `${((peMetrics.year2023.meanIncomePerHead - OFFICIAL_STATS.gdhiPerHead.value) / OFFICIAL_STATS.gdhiPerHead.value * 100).toFixed(0)}%` : "—"}
-                </td>
-              </tr>
-              <tr>
-                <td className="metric-name">
-                  <strong>Total disposable income</strong>
-                  <span className="metric-subtitle">Scotland aggregate</span>
-                </td>
-                <td className="pe-value">
-                  {peMetrics?.year2023 ? `£${peMetrics.year2023.totalDisposableIncomeBn.toFixed(1)}bn` : "—"}
-                  <span className="value-year">2023</span>
-                </td>
-                <td className="official-value">
-                  <a href={OFFICIAL_STATS.totalGDHI.url} target="_blank" rel="noopener noreferrer">
-                    £{OFFICIAL_STATS.totalGDHI.value}bn
-                  </a>
-                  <span className="value-year">{OFFICIAL_STATS.totalGDHI.year}</span>
-                </td>
-                <td className="difference">
-                  {peMetrics?.year2023 ? `${((peMetrics.year2023.totalDisposableIncomeBn - OFFICIAL_STATS.totalGDHI.value) / OFFICIAL_STATS.totalGDHI.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
             </tbody>
