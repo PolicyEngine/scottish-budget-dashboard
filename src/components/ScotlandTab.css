@@ -52,9 +52,9 @@
 }
 
 .chart-description {
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: var(--pe-gray-500);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--pe-gray-600);
   margin: 0;
 }
 
