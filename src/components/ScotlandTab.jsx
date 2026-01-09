@@ -254,14 +254,6 @@ export default function ScotlandTab() {
           poverty rates and household incomes through to 2030-31, and expected policy
           changes in the upcoming budget.
         </p>
-        <p className="chart-description">
-          Relative poverty is defined as living in a household with equivalised income
-          below 60% of the current UK median. Official statistics from the Scottish
-          Government use 3-year averages to reduce sampling volatility. ONS Gross Disposable
-          Household Income (GDHI) measures income after taxes and benefits at regional level.
-          Differences between sources may arise from survey timing, sample sizes, and
-          methodological choices.
-        </p>
       </div>
 
       {/* Two-child limit mitigation budget impact */}
@@ -322,8 +314,10 @@ export default function ScotlandTab() {
         <div className="chart-header">
           <h2>Poverty rates</h2>
           <p className="chart-description">
-            Relative poverty rates comparing PolicyEngine microsimulation with official Scottish Government statistics.
-            Relative poverty is defined as income below 60% of UK median.
+            Relative poverty is defined as living in a household with equivalised income
+            below 60% of the current UK median. Official statistics from the Scottish
+            Government use 3-year averages to reduce sampling volatility. Differences
+            between sources may arise from survey timing, sample sizes, and methodological choices.
           </p>
         </div>
 
@@ -500,8 +494,9 @@ export default function ScotlandTab() {
         <div className="chart-header">
           <h2>Income</h2>
           <p className="chart-description">
-            Income metrics comparing PolicyEngine microsimulation with official statistics from
-            Scottish Government and ONS.
+            ONS Gross Disposable Household Income (GDHI) measures income after taxes and
+            benefits at regional level. Differences between sources may arise from survey
+            timing, sample sizes, and methodological choices.
           </p>
         </div>
 
