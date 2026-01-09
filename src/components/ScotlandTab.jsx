@@ -249,7 +249,7 @@ export default function ScotlandTab() {
         <p className="chart-description">
           Finance Secretary Shona Robison will announce the Scottish Budget 2026-27 on
           13 January 2026. This dashboard provides context by comparing PolicyEngine's
-          microsimulation projections with official government statistics. The sections
+          baseline microsimulation projections with official government statistics. The sections
           below present comparisons with official data for key metrics, projections for
           poverty rates and household incomes through to 2030-31, and expected policy
           changes in the upcoming budget.
@@ -270,9 +270,7 @@ export default function ScotlandTab() {
           parties. The council tax freeze ended last year and is not expected to be reimposed,
           meaning households could face increases from April. Business groups have called for
           lower non-domestic rates. Scottish Labour have called for health funding to reduce
-          waiting lists and reform the NHS. The Scottish Government faces a funding gap between
-          spending plans and available resources, with rising social security costs and
-          workforce cost pressures.
+          waiting lists and reform the NHS.
         </p>
         <h3 className="subsection-header">Two-child limit mitigation</h3>
         <p className="chart-description">
