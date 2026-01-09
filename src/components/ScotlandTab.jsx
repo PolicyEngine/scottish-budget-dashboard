@@ -280,8 +280,15 @@ export default function ScotlandTab() {
         </p>
         <h3 className="subsection-header">Two-child limit mitigation</h3>
         <p className="chart-description">
-          The Scottish Government plans to mitigate the two-child limit in Universal Credit
-          from April 2026. The{" "}
+          The Scottish Government{" "}
+          <a
+            href="https://www.bbc.co.uk/news/articles/cx2el14rgngo"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            plans
+          </a>{" "}
+          to mitigate the two-child limit in Universal Credit from April 2026. The{" "}
           <a
             href="https://www.fiscalcommission.scot/publications/mitigating-the-two-child-limit-and-the-scottish-budget-january-2025/"
             target="_blank"
