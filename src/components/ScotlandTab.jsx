@@ -247,8 +247,14 @@ export default function ScotlandTab() {
           <h2>Introduction</h2>
         </div>
         <p className="chart-description">
-          Finance Secretary Shona Robison will announce the Scottish Budget 2026-27 on
-          13 January 2026. This dashboard provides context by comparing PolicyEngine's
+          Finance Secretary Shona Robison will announce the Scottish Budget 2026-27 on{" "}
+          <a
+            href="https://www.gov.scot/budget/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            13 January 2026
+          </a>. This dashboard provides context by comparing PolicyEngine's
           baseline microsimulation projections with official government statistics. The sections
           below present comparisons with official data for key metrics, projections for
           poverty rates and household incomes through to 2030-31, and expected policy
