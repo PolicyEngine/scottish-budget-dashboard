@@ -256,7 +256,7 @@ export default function ScotlandTab() {
         </p>
         <h3 className="subsection-header">Policy context</h3>
         <p className="chart-description">
-          Key policy areas likely to feature in the budget, based on{" "}
+          Policy areas likely to feature in the budget, based on{" "}
           <a
             href="https://www.bbc.co.uk/news/articles/cx2el14rgngo"
             target="_blank"
@@ -265,27 +265,19 @@ export default function ScotlandTab() {
             BBC Scotland reporting
           </a>. The Scottish child payment may be increased following the UK Government's
           decision to abolish the two-child limit, with First Minister John Swinney pledging
-          to use additional funding to tackle child poverty. Scotland's six income tax bands
+          to use funding to tackle child poverty. Scotland's six income tax bands
           (compared to three in the rest of the UK) may face pressure for cuts from opposition
-          parties seeking to reduce the financial burden on families. The council tax freeze
-          ended last year and is not expected to be reimposed, meaning households could face
-          increases from April. Business groups have called for lower non-domestic rates to
-          support economic growth. Scottish Labour have called for health funding to reduce
-          waiting lists and reform the NHS, alongside investment to help people back into work.
-          The Scottish Government faces a significant funding gap between spending plans and
-          available resources, with rising social security costs and workforce cost pressures.
+          parties. The council tax freeze ended last year and is not expected to be reimposed,
+          meaning households could face increases from April. Business groups have called for
+          lower non-domestic rates. Scottish Labour have called for health funding to reduce
+          waiting lists and reform the NHS. The Scottish Government faces a funding gap between
+          spending plans and available resources, with rising social security costs and
+          workforce cost pressures.
         </p>
-      </div>
-
-      {/* Two-child limit mitigation analysis */}
-      <div className="comparison-section">
-        <div className="chart-header">
-          <h2>Two-child limit mitigation</h2>
-        </div>
+        <h3 className="subsection-header">Two-child limit mitigation</h3>
         <p className="chart-description">
-          The following analysis focuses on the two-child limit mitigation, one of the key
-          policies expected in the budget. The Scottish Government plans to mitigate the
-          two-child limit in Universal Credit from April 2026. The{" "}
+          The Scottish Government plans to mitigate the two-child limit in Universal Credit
+          from April 2026. The{" "}
           <a
             href="https://www.fiscalcommission.scot/publications/mitigating-the-two-child-limit-and-the-scottish-budget-january-2025/"
             target="_blank"
