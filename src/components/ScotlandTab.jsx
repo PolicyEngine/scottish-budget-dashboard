@@ -312,9 +312,10 @@ export default function ScotlandTab() {
         <div className="chart-header">
           <h2>Income</h2>
           <p className="chart-description">
-            ONS Gross Disposable Household Income (GDHI) measures income after taxes and
-            benefits at regional level. Differences between sources may arise from survey
-            timing, sample sizes, and methodological choices.
+            Income metrics compare PolicyEngine estimates with official statistics. Taxpayer
+            income covers people earning above the personal allowance (£12,570). GDHI (Gross
+            Disposable Household Income) from ONS measures total income after taxes and benefits
+            for Scotland as a region.
           </p>
         </div>
 
@@ -700,8 +701,10 @@ export default function ScotlandTab() {
           <div className="chart-header">
             <h2>Relative poverty (AHC)</h2>
             <p className="chart-description">
-              Historical official data (dashed, 2021-2025) connected with PolicyEngine projections (solid, 2026-2030).
-              Relative poverty is defined as income below 60% of current UK median, after housing costs.
+              Percentage of people living in households with income below 60% of UK median,
+              after subtracting housing costs (rent and mortgage payments). Dashed line shows
+              official Scottish Government data (2021-2025); solid line shows PolicyEngine
+              projections (2026-2030).
             </p>
           </div>
           <ResponsiveContainer width="100%" height={300}>
@@ -779,8 +782,9 @@ export default function ScotlandTab() {
           <div className="chart-header">
             <h2>Household income</h2>
             <p className="chart-description">
-              Historical official data (dashed, 2021-2025) connected with PolicyEngine projections (solid, 2026-2030).
-              Net income after direct taxes and benefits.
+              Annual household income after taxes paid and benefits received. Mean is the average;
+              median is the middle value (half of households earn more, half earn less). Dashed
+              lines show official data (2021-2025); solid lines show PolicyEngine projections (2026-2030).
             </p>
           </div>
           <ResponsiveContainer width="100%" height={300}>
