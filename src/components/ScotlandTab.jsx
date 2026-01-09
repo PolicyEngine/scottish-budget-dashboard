@@ -195,7 +195,7 @@ export default function ScotlandTab() {
                 </td>
                 <td className="pe-value">
                   {peMetrics?.year2026
-                    ? `${peMetrics.year2025.povertyBHC.toFixed(1)}%`
+                    ? `${peMetrics.year2026.povertyBHC.toFixed(1)}%`
                     : "—"}
                   <span className="value-year">2026-27</span>
                 </td>
@@ -211,7 +211,7 @@ export default function ScotlandTab() {
                 </td>
                 <td className="difference">
                   {peMetrics?.year2026
-                    ? `${(peMetrics.year2025.povertyBHC - OFFICIAL_STATS.povertyBHC.value).toFixed(1)}pp`
+                    ? `${(peMetrics.year2026.povertyBHC - OFFICIAL_STATS.povertyBHC.value).toFixed(1)}pp`
                     : "—"}
                 </td>
                 <td className="notes">
@@ -227,7 +227,7 @@ export default function ScotlandTab() {
                 </td>
                 <td className="pe-value">
                   {peMetrics?.year2026
-                    ? `${peMetrics.year2025.povertyAHC.toFixed(1)}%`
+                    ? `${peMetrics.year2026.povertyAHC.toFixed(1)}%`
                     : "—"}
                   <span className="value-year">2026-27</span>
                 </td>
@@ -243,7 +243,7 @@ export default function ScotlandTab() {
                 </td>
                 <td className="difference">
                   {peMetrics?.year2026
-                    ? `${(peMetrics.year2025.povertyAHC - OFFICIAL_STATS.povertyAHC.value).toFixed(1)}pp`
+                    ? `${(peMetrics.year2026.povertyAHC - OFFICIAL_STATS.povertyAHC.value).toFixed(1)}pp`
                     : "—"}
                 </td>
                 <td className="notes">
@@ -259,7 +259,7 @@ export default function ScotlandTab() {
                 </td>
                 <td className="pe-value">
                   {peMetrics?.year2026
-                    ? `${peMetrics.year2025.childPovertyAHC.toFixed(1)}%`
+                    ? `${peMetrics.year2026.childPovertyAHC.toFixed(1)}%`
                     : "—"}
                   <span className="value-year">2026-27</span>
                 </td>
@@ -275,7 +275,7 @@ export default function ScotlandTab() {
                 </td>
                 <td className="difference">
                   {peMetrics?.year2026
-                    ? `${(peMetrics.year2025.childPovertyAHC - OFFICIAL_STATS.childPovertyAHC.value).toFixed(1)}pp`
+                    ? `${(peMetrics.year2026.childPovertyAHC - OFFICIAL_STATS.childPovertyAHC.value).toFixed(1)}pp`
                     : "—"}
                 </td>
                 <td className="notes">
