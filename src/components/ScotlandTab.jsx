@@ -304,12 +304,13 @@ export default function ScotlandTab() {
           </a>{" "}
           estimates this will cost £155 million in 2026-27 rising to £198 million by 2029-30,
           affecting 43,000 children in 2026-27 rising to 50,000 children by 2029-30.{" "}
+          PolicyEngine{" "}
           <a
             href="https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_two_child_limit.csv"
             target="_blank"
             rel="noopener noreferrer"
           >
-            PolicyEngine estimates
+            estimates
           </a>{" "}
           £213 million in 2026-27 rising to £260 million by 2029-30,
           affecting 59,000 children in 2026-27 rising to 66,000 children by 2029-30.
@@ -464,12 +465,13 @@ export default function ScotlandTab() {
             rent and mortgage payments, showing a higher poverty rate as housing costs reduce
             disposable income. Official statistics from the Scottish Government combine three
             years of data to produce more stable estimates from a small Scottish sample.{" "}
+            PolicyEngine{" "}
             <a
               href="https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_baseline.csv"
               target="_blank"
               rel="noopener noreferrer"
             >
-              PolicyEngine estimates
+              estimates
             </a>{" "}
             use single-year data from the Family Resources Survey, reweighted to Scottish
             parliamentary constituencies using{" "}
