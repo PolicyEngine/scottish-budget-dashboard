@@ -421,7 +421,7 @@ export default function ScotlandTab() {
       {/* Poverty Rates Table */}
       <div className="comparison-section">
         <div className="chart-header">
-          <h2>Relative poverty rates</h2>
+          <h2>Poverty rates</h2>
           <p className="chart-description">
             All rates shown are relative poverty, defined as living in a household with
             equivalised income below 60% of the current UK median. Official statistics
