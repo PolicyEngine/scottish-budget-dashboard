@@ -434,9 +434,12 @@ export default function ScotlandTab() {
         <div className="chart-header">
           <h2>Poverty rates</h2>
           <p className="chart-description">
-            All rates shown are relative poverty, defined as living in a household with
-            equivalised income below 60% of the current UK median. Official statistics
-            from the Scottish Government use 3-year averages to reduce sampling volatility.{" "}
+            All rates shown are relative poverty: a household is in poverty if its income,
+            adjusted for household size (equivalised), falls below 60% of the UK median income.
+            BHC (before housing costs) uses total income; AHC (after housing costs) subtracts
+            rent and mortgage payments, showing a higher poverty rate as housing costs reduce
+            disposable income. Official statistics from the Scottish Government combine three
+            years of data to produce more stable estimates from a small Scottish sample.{" "}
             <a
               href="https://github.com/PolicyEngine/policyengine-uk"
               target="_blank"
@@ -444,15 +447,16 @@ export default function ScotlandTab() {
             >
               PolicyEngine UK
             </a>{" "}
-            uses single-year estimates from the{" "}
+            uses single-year data from the{" "}
             <a
               href="https://github.com/PolicyEngine/policyengine-uk-data"
               target="_blank"
               rel="noopener noreferrer"
             >
               Family Resources Survey
-            </a>{" "}
-            reweighted to parliamentary constituency level.
+            </a>, reweighted to Scottish parliamentary constituencies. Differences arise
+            because single-year estimates are more volatile than 3-year averages, and
+            reweighting methods differ between sources.
           </p>
         </div>
 
