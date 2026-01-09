@@ -140,20 +140,29 @@
   font-size: 1rem;
 }
 
+.comparison-table .pe-value a {
+  color: var(--pe-teal-700);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--pe-teal-500);
+}
+
+.comparison-table .pe-value a:hover {
+  border-bottom-style: solid;
+}
+
 .comparison-table .official-value {
   font-weight: 600;
   font-size: 1rem;
 }
 
 .comparison-table .official-value a {
-  color: var(--pe-gray-800);
+  color: var(--pe-teal-700);
   text-decoration: none;
-  border-bottom: 1px dashed var(--pe-gray-400);
+  border-bottom: 1px dashed var(--pe-teal-500);
 }
 
 .comparison-table .official-value a:hover {
-  color: var(--pe-teal-600);
-  border-bottom-color: var(--pe-teal-600);
+  border-bottom-style: solid;
 }
 
 .comparison-table .value-year {
