@@ -113,6 +113,8 @@ export default function ScotlandTab() {
           year: parseInt(row.year),
           meanIncome: parseFloat(row.mean_disposable_income),
           medianIncome: parseFloat(row.median_disposable_income),
+          medianTaxpayerIncome: parseFloat(row.median_taxpayer_income),
+          meanIncomePerHead: parseFloat(row.mean_income_per_head),
           povertyBHC: parseFloat(row.poverty_rate_bhc),
           povertyAHC: parseFloat(row.poverty_rate_ahc),
           childPovertyBHC: parseFloat(row.child_poverty_bhc),
@@ -281,15 +283,15 @@ export default function ScotlandTab() {
                 </td>
               </tr>
 
-              {/* Median Income */}
+              {/* Median Taxpayer Income */}
               <tr>
                 <td className="metric-name">
-                  <strong>Median income</strong>
-                  <span className="metric-subtitle">Household disposable</span>
+                  <strong>Median taxpayer income</strong>
+                  <span className="metric-subtitle">Individual, above personal allowance</span>
                 </td>
                 <td className="pe-value">
                   {peMetrics?.year2026
-                    ? `£${peMetrics.year2025.medianIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
+                    ? `£${peMetrics.year2026.medianTaxpayerIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
                     : "—"}
                   <span className="value-year">2026-27</span>
                 </td>
@@ -305,23 +307,23 @@ export default function ScotlandTab() {
                 </td>
                 <td className="difference">
                   {peMetrics?.year2026
-                    ? `£${(peMetrics.year2025.medianIncome - OFFICIAL_STATS.medianIncome.value).toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
+                    ? `£${(peMetrics.year2026.medianTaxpayerIncome - OFFICIAL_STATS.medianIncome.value).toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
                     : "—"}
                 </td>
                 <td className="notes">
-                  Official is taxpayer income; PE is household net income
+                  Both measure median income of Scottish taxpayers
                 </td>
               </tr>
 
-              {/* Mean Income */}
+              {/* Mean Income per Head */}
               <tr>
                 <td className="metric-name">
-                  <strong>Mean income</strong>
-                  <span className="metric-subtitle">Household disposable</span>
+                  <strong>Income per head</strong>
+                  <span className="metric-subtitle">Disposable income per person</span>
                 </td>
                 <td className="pe-value">
                   {peMetrics?.year2026
-                    ? `£${peMetrics.year2025.meanIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
+                    ? `£${peMetrics.year2026.meanIncomePerHead.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
                     : "—"}
                   <span className="value-year">2026-27</span>
                 </td>
@@ -337,11 +339,11 @@ export default function ScotlandTab() {
                 </td>
                 <td className="difference">
                   {peMetrics?.year2026
-                    ? `£${(peMetrics.year2025.meanIncome - OFFICIAL_STATS.gdhiPerHead.value).toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
+                    ? `£${(peMetrics.year2026.meanIncomePerHead - OFFICIAL_STATS.gdhiPerHead.value).toLocaleString("en-GB", { maximumFractionDigits: 0 })}`
                     : "—"}
                 </td>
                 <td className="notes">
-                  Official is GDHI per head; PE is household mean
+                  Both measure disposable income per capita
                 </td>
               </tr>
 
