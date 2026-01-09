@@ -250,7 +250,7 @@ export default function ScotlandTab() {
       {/* Introduction */}
       <div className="comparison-section">
         <div className="chart-header">
-          <h2>Introduction</h2>
+          <h2>Scotland economic outlook pre-budget 2026</h2>
         </div>
         <p className="chart-description">
           Finance Secretary Shona Robison will announce the Scottish Budget 2026-27 on{" "}
@@ -474,7 +474,7 @@ export default function ScotlandTab() {
             use single-year data from the Family Resources Survey, reweighted to Scottish
             parliamentary constituencies using{" "}
             <a
-              href="https://github.com/PolicyEngine/policyengine-uk-data"
+              href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
               target="_blank"
               rel="noopener noreferrer"
             >
