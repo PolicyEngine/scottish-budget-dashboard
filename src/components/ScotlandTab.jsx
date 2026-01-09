@@ -303,7 +303,7 @@ export default function ScotlandTab() {
             Scottish Fiscal Commission
           </a>{" "}
           estimates this will cost £155 million in 2026-27 rising to £198 million by 2029-30,
-          affecting 43,000 children in 2026-27 rising to 50,000 children by 2029-30.
+          affecting 43,000 children in 2026-27 rising to 50,000 children by 2029-30.{" "}
           <a
             href="https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_two_child_limit.csv"
             target="_blank"
