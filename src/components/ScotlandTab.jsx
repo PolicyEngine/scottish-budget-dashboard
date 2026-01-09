@@ -115,6 +115,8 @@ export default function ScotlandTab() {
           medianIncome: parseFloat(row.median_disposable_income),
           povertyBHC: parseFloat(row.poverty_rate_bhc),
           povertyAHC: parseFloat(row.poverty_rate_ahc),
+          childPovertyBHC: parseFloat(row.child_poverty_bhc),
+          childPovertyAHC: parseFloat(row.child_poverty_ahc),
         }));
 
         setBaselineData(data);
@@ -254,7 +256,10 @@ export default function ScotlandTab() {
                   <span className="metric-subtitle">After housing costs, 60% median</span>
                 </td>
                 <td className="pe-value">
-                  <span className="not-available">Not modelled separately</span>
+                  {peMetrics?.year2025
+                    ? `${peMetrics.year2025.childPovertyAHC.toFixed(1)}%`
+                    : "—"}
+                  <span className="value-year">2025-26</span>
                 </td>
                 <td className="official-value">
                   <a
@@ -266,9 +271,13 @@ export default function ScotlandTab() {
                   </a>
                   <span className="value-year">{OFFICIAL_STATS.childPovertyAHC.year}</span>
                 </td>
-                <td className="difference">—</td>
+                <td className="difference">
+                  {peMetrics?.year2025
+                    ? `${(peMetrics.year2025.childPovertyAHC - OFFICIAL_STATS.childPovertyAHC.value).toFixed(1)}pp`
+                    : "—"}
+                </td>
                 <td className="notes">
-                  2030 target: 10%
+                  2030 target: 10%; PE projection higher than official
                 </td>
               </tr>
 
