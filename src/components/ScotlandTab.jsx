@@ -538,13 +538,20 @@ export default function ScotlandTab() {
             versus ~86% in UKMOD (used by Scottish Government), though adjusting this alone doesn't
             fully explain the gap. The{" "}
             <a
-              href="https://github.com/PolicyEngine/policyengine-uk/blob/main/policyengine_uk/variables/gov/social_security_scotland/scottish_child_payment.py"
+              href="https://github.com/PolicyEngine/policyengine-uk/blob/main/policyengine_uk/parameters/gov/social_security_scotland/scottish_child_payment/amount.yaml"
               target="_blank"
               rel="noopener noreferrer"
             >
               Scottish Child Payment
             </a>{" "}
-            (£26.70/week per child since April 2024, with 85% take-up) is fully modeled
+            (£26.70/week per child since April 2024, with{" "}
+            <a
+              href="https://github.com/PolicyEngine/policyengine-uk/blob/main/policyengine_uk/parameters/gov/social_security_scotland/scottish_child_payment/takeup_rate.yaml"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              85% take-up
+            </a>) is fully modeled
             and reduces child poverty, but methodological differences in data processing,
             income components, and sample weighting account for the remaining discrepancy.
           </p>
