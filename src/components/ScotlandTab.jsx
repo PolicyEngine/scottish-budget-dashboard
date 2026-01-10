@@ -28,11 +28,10 @@ const HISTORICAL_POVERTY_DATA = [
 // Source: https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome
 // 2021 estimated from growth rates, 2022-2023 are official ONS values
 // Median estimated at ~87% of mean based on typical income distributions
-// 2024+ uses PolicyEngine projections
+// 2023+ uses PolicyEngine projections (solid lines)
 const HISTORICAL_INCOME_DATA = [
   { year: 2021, meanIncome: 19100, medianIncome: 16600 },
   { year: 2022, meanIncome: 20854, medianIncome: 18100 },
-  { year: 2023, meanIncome: 22908, medianIncome: 19900 },
 ];
 
 function parseCSV(csvText) {
@@ -870,7 +869,7 @@ export default function ScotlandTab() {
             <p className="chart-description">
               Annual disposable income per person (GDHI per head) after taxes paid and benefits received.
               Mean is the average; median is the middle value. Dashed lines show official ONS data
-              (2021-2023); solid lines show PolicyEngine projections (2023-2030).
+              (2021-2022); solid lines show PolicyEngine projections (2023-2030).
             </p>
           </div>
           <ResponsiveContainer width="100%" height={300}>
@@ -882,13 +881,10 @@ export default function ScotlandTab() {
                   historicalMedian: d.medianIncome,
                 })),
                 ...baselineData
-                  .filter(d => d.year >= 2023)
                   .map(d => ({
                     year: d.year,
                     projectionMean: d.meanIncome,
                     projectionMedian: d.medianIncome,
-                    // Connect to historical at 2023
-                    ...(d.year === 2023 ? { historicalMean: 22908, historicalMedian: 19900 } : {}),
                   }))
               ]}
               margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
