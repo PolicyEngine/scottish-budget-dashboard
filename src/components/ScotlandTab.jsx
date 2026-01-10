@@ -26,14 +26,13 @@ const HISTORICAL_POVERTY_DATA = [
 
 // Historical official income per head data (ONS GDHI per head)
 // Source: https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome
-// 2021-2022 estimated from growth rates, 2023 is official
+// 2021 estimated from growth rates, 2022-2023 are official ONS values
 // Median estimated at ~87% of mean based on typical income distributions
+// 2024+ uses PolicyEngine projections
 const HISTORICAL_INCOME_DATA = [
   { year: 2021, meanIncome: 19100, medianIncome: 16600 },
   { year: 2022, meanIncome: 20854, medianIncome: 18100 },
   { year: 2023, meanIncome: 22908, medianIncome: 19900 },
-  { year: 2024, meanIncome: 24500, medianIncome: 21300 },
-  { year: 2025, meanIncome: 25500, medianIncome: 22200 },
 ];
 
 function parseCSV(csvText) {
@@ -421,27 +420,6 @@ export default function ScotlandTab() {
                 </td>
                 <td className="difference">
                   {peMetrics?.year2025 ? `${((peMetrics.year2025.medianTaxpayerIncome - OFFICIAL_STATS.medianIncome.value) / OFFICIAL_STATS.medianIncome.value * 100).toFixed(0)}%` : "—"}
-                </td>
-              </tr>
-              <tr>
-                <td className="metric-name">
-                  <strong>Taxpayer income (25th percentile)</strong>
-                  <span className="metric-subtitle">Above personal allowance</span>
-                </td>
-                <td className="pe-value">
-                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
-                    {peMetrics?.year2026 ? `£${peMetrics.year2026.taxpayerIncomeP25.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
-                  </a>
-                  <span className="value-year">2025-26</span>
-                </td>
-                <td className="official-value">
-                  <a href="https://www.gov.scot/publications/scottish-income-tax-2025-2026-factsheet/pages/2/" target="_blank" rel="noopener noreferrer">
-                    £20,400
-                  </a>
-                  <span className="value-year">2025-26</span>
-                </td>
-                <td className="difference">
-                  {peMetrics?.year2026 ? `${((peMetrics.year2026.taxpayerIncomeP25 - 20400) / 20400 * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
               <tr>
@@ -892,7 +870,7 @@ export default function ScotlandTab() {
             <p className="chart-description">
               Annual disposable income per person (GDHI per head) after taxes paid and benefits received.
               Mean is the average; median is the middle value. Dashed lines show official ONS data
-              (2021-2025); solid lines show PolicyEngine projections (2025-2030).
+              (2021-2023); solid lines show PolicyEngine projections (2023-2030).
             </p>
           </div>
           <ResponsiveContainer width="100%" height={300}>
@@ -904,13 +882,13 @@ export default function ScotlandTab() {
                   historicalMedian: d.medianIncome,
                 })),
                 ...baselineData
-                  .filter(d => d.year >= 2025)
+                  .filter(d => d.year >= 2023)
                   .map(d => ({
                     year: d.year,
                     projectionMean: d.meanIncome,
                     projectionMedian: d.medianIncome,
-                    // Connect to historical at 2025
-                    ...(d.year === 2025 ? { historicalMean: 25500, historicalMedian: 22200 } : {}),
+                    // Connect to historical at 2023
+                    ...(d.year === 2023 ? { historicalMean: 22908, historicalMedian: 19900 } : {}),
                   }))
               ]}
               margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
