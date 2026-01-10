@@ -535,7 +535,15 @@ export default function ScotlandTab() {
             >
               assumes 55% UC take-up
             </a>{" "}
-            versus ~86% in UKMOD (used by Scottish Government), though adjusting this alone doesn't
+            versus{" "}
+            <a
+              href="https://www.gov.scot/publications/impact-of-withdrawing-emergency-benefit-measures/pages/annex-a-methodology/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              87% in UKMOD
+            </a>{" "}
+            (used by Scottish Government), though adjusting this alone doesn't
             fully explain the gap. The{" "}
             <a
               href="https://github.com/PolicyEngine/policyengine-uk/blob/main/policyengine_uk/parameters/gov/social_security_scotland/scottish_child_payment/amount.yaml"
