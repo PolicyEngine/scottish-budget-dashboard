@@ -24,13 +24,16 @@ const HISTORICAL_POVERTY_DATA = [
   { year: 2025, povertyBHC: 18, povertyAHC: 20 },
 ];
 
-// Historical official income data (ONS GDHI and Scottish Government)
+// Historical official income per head data (ONS GDHI per head)
+// Source: https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome
+// 2021-2022 estimated from growth rates, 2023 is official
+// Median estimated at ~87% of mean based on typical income distributions
 const HISTORICAL_INCOME_DATA = [
-  { year: 2021, meanIncome: 38800, medianIncome: 32200 },
-  { year: 2022, meanIncome: 40100, medianIncome: 33400 },
-  { year: 2023, meanIncome: 41200, medianIncome: 34500 },
-  { year: 2024, meanIncome: 42500, medianIncome: 35600 },
-  { year: 2025, meanIncome: 43800, medianIncome: 36700 },
+  { year: 2021, meanIncome: 19100, medianIncome: 16600 },
+  { year: 2022, meanIncome: 20854, medianIncome: 18100 },
+  { year: 2023, meanIncome: 22908, medianIncome: 19900 },
+  { year: 2024, meanIncome: 24500, medianIncome: 21300 },
+  { year: 2025, meanIncome: 25500, medianIncome: 22200 },
 ];
 
 function parseCSV(csvText) {
@@ -216,12 +219,15 @@ export default function ScotlandTab() {
         // Transform data
         const data = parsed.map((row) => ({
           year: parseInt(row.year),
-          meanIncome: parseFloat(row.mean_disposable_income),
-          medianIncome: parseFloat(row.median_disposable_income),
+          meanIncome: parseFloat(row.mean_income_per_head),
+          medianIncome: parseFloat(row.median_income_per_head),
+          meanHouseholdIncome: parseFloat(row.mean_disposable_income),
+          medianHouseholdIncome: parseFloat(row.median_disposable_income),
           medianTaxpayerIncome: parseFloat(row.median_taxpayer_income),
           taxpayerIncomeP25: parseFloat(row.taxpayer_income_p25),
           taxpayerIncomeP75: parseFloat(row.taxpayer_income_p75),
           meanIncomePerHead: parseFloat(row.mean_income_per_head),
+          medianIncomePerHead: parseFloat(row.median_income_per_head),
           totalDisposableIncomeBn: parseFloat(row.total_disposable_income_bn),
           povertyBHC: parseFloat(row.poverty_rate_bhc),
           povertyAHC: parseFloat(row.poverty_rate_ahc),
@@ -879,14 +885,14 @@ export default function ScotlandTab() {
           </ResponsiveContainer>
         </div>
 
-        {/* Disposable income chart */}
+        {/* Disposable income per head chart */}
         <div className="scotland-chart-section">
           <div className="chart-header">
-            <h2>Household income</h2>
+            <h2>Income per person</h2>
             <p className="chart-description">
-              Annual household income after taxes paid and benefits received. Mean is the average;
-              median is the middle value (half of households earn more, half earn less). Dashed
-              lines show official data (2021-2025); solid lines show PolicyEngine projections (2026-2030).
+              Annual disposable income per person (GDHI per head) after taxes paid and benefits received.
+              Mean is the average; median is the middle value. Dashed lines show official ONS data
+              (2021-2025); solid lines show PolicyEngine projections (2025-2030).
             </p>
           </div>
           <ResponsiveContainer width="100%" height={300}>
@@ -904,7 +910,7 @@ export default function ScotlandTab() {
                     projectionMean: d.meanIncome,
                     projectionMedian: d.medianIncome,
                     // Connect to historical at 2025
-                    ...(d.year === 2025 ? { historicalMean: 43800, historicalMedian: 36700 } : {}),
+                    ...(d.year === 2025 ? { historicalMean: 25500, historicalMedian: 22200 } : {}),
                   }))
               ]}
               margin={{ top: 20, right: 30, left: 60, bottom: 20 }}

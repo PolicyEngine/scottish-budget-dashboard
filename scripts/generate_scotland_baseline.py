@@ -182,6 +182,24 @@ def calculate_scotland_baseline(output_dir: Path = None) -> pd.DataFrame:
         mean_income_per_head = total_hh_income / total_pop
         total_income_bn = total_hh_income / 1e9
 
+        # Calculate median income per head (equivalised)
+        # Use household income divided by household size for per-person income
+        hh_count_people = sim.calculate(
+            "household_count_people", year, map_to="household"
+        ).values
+        income_per_head = hh_income / np.maximum(hh_count_people, 1)
+
+        # For median, we weight by number of people in each household
+        scot_inc_per_head = income_per_head[hh_scotland]
+        scot_people_weights = hh_weight[hh_scotland] * hh_count_people[hh_scotland]
+        sorted_idx = np.argsort(scot_inc_per_head)
+        sorted_inc_ph = scot_inc_per_head[sorted_idx]
+        sorted_pw = scot_people_weights[sorted_idx]
+        cum_pw = np.cumsum(sorted_pw)
+        total_people_w = cum_pw[-1]
+        med_ph_idx = np.searchsorted(cum_pw, total_people_w / 2)
+        median_income_per_head = sorted_inc_ph[min(med_ph_idx, len(sorted_inc_ph) - 1)]
+
         results.append(
             {
                 "year": year,
@@ -191,6 +209,7 @@ def calculate_scotland_baseline(output_dir: Path = None) -> pd.DataFrame:
                 "taxpayer_income_p25": taxpayer_p25,
                 "taxpayer_income_p75": taxpayer_p75,
                 "mean_income_per_head": mean_income_per_head,
+                "median_income_per_head": median_income_per_head,
                 "total_disposable_income_bn": total_income_bn,
                 "poverty_rate_bhc": pov_bhc,
                 "poverty_rate_ahc": pov_ahc,
@@ -247,6 +266,8 @@ def calculate_scotland_baseline(output_dir: Path = None) -> pd.DataFrame:
         f"Pensioner poverty AHC: {r['pensioner_poverty_ahc']:.1f}% "
         "(Official: 15%)"
     )
+    print(f"\nMean income per head: £{r['mean_income_per_head']:,.0f} (Official 2023: £22,908)")
+    print(f"Median income per head: £{r['median_income_per_head']:,.0f}")
     print(f"\nPopulation: {r['total_population']:,.0f}")
     print(f"Households: {r['total_households']:,.0f}")
     print("\nNote: Child relative poverty is higher due to UC take-up assumptions")
