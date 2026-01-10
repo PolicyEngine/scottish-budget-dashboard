@@ -332,7 +332,7 @@ export default function ScotlandTab() {
           </a>{" "}
           to mitigate the two-child limit in Universal Credit from April 2026. The{" "}
           <a
-            href="https://www.fiscalcommission.scot/publications/mitigating-the-two-child-limit-and-the-scottish-budget-january-2025/"
+            href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
             target="_blank"
             rel="noopener noreferrer"
           >
