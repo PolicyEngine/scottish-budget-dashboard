@@ -419,7 +419,7 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.medianIncome.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2025 ? `${((peMetrics.year2025.medianTaxpayerIncome - OFFICIAL_STATS.medianIncome.value) / OFFICIAL_STATS.medianIncome.value * 100).toFixed(0)}%` : "—"}
+                  {peMetrics?.year2025 ? `${Math.abs((peMetrics.year2025.medianTaxpayerIncome - OFFICIAL_STATS.medianIncome.value) / OFFICIAL_STATS.medianIncome.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
               <tr>
@@ -440,7 +440,7 @@ export default function ScotlandTab() {
                   <span className="value-year">2025-26</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2026 ? `${((peMetrics.year2026.taxpayerIncomeP75 - 44500) / 44500 * 100).toFixed(0)}%` : "—"}
+                  {peMetrics?.year2026 ? `${Math.abs((peMetrics.year2026.taxpayerIncomeP75 - 44500) / 44500 * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
               <tr>
@@ -461,7 +461,7 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.gdhiPerHead.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2023 ? `${((peMetrics.year2023.meanIncomePerHead - OFFICIAL_STATS.gdhiPerHead.value) / OFFICIAL_STATS.gdhiPerHead.value * 100).toFixed(0)}%` : "—"}
+                  {peMetrics?.year2023 ? `${Math.abs((peMetrics.year2023.meanIncomePerHead - OFFICIAL_STATS.gdhiPerHead.value) / OFFICIAL_STATS.gdhiPerHead.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
               <tr>
@@ -482,7 +482,7 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.totalGDHI.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2023 ? `${((peMetrics.year2023.totalDisposableIncomeBn - OFFICIAL_STATS.totalGDHI.value) / OFFICIAL_STATS.totalGDHI.value * 100).toFixed(0)}%` : "—"}
+                  {peMetrics?.year2023 ? `${Math.abs((peMetrics.year2023.totalDisposableIncomeBn - OFFICIAL_STATS.totalGDHI.value) / OFFICIAL_STATS.totalGDHI.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
             </tbody>
@@ -552,7 +552,7 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.povertyBHC.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2023 ? `${((peMetrics.year2023.povertyBHC - OFFICIAL_STATS.povertyBHC.value) / OFFICIAL_STATS.povertyBHC.value * 100).toFixed(0)}%` : "—"}
+                  {peMetrics?.year2023 ? `${Math.abs((peMetrics.year2023.povertyBHC - OFFICIAL_STATS.povertyBHC.value) / OFFICIAL_STATS.povertyBHC.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
               <tr>
@@ -573,7 +573,7 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.povertyAHC.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2023 ? `${((peMetrics.year2023.povertyAHC - OFFICIAL_STATS.povertyAHC.value) / OFFICIAL_STATS.povertyAHC.value * 100).toFixed(0)}%` : "—"}
+                  {peMetrics?.year2023 ? `${Math.abs((peMetrics.year2023.povertyAHC - OFFICIAL_STATS.povertyAHC.value) / OFFICIAL_STATS.povertyAHC.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
               <tr>
@@ -594,7 +594,7 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.childPovertyBHC.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2023 ? `${((peMetrics.year2023.childPovertyBHC - OFFICIAL_STATS.childPovertyBHC.value) / OFFICIAL_STATS.childPovertyBHC.value * 100).toFixed(0)}%` : "—"}
+                  {peMetrics?.year2023 ? `${Math.abs((peMetrics.year2023.childPovertyBHC - OFFICIAL_STATS.childPovertyBHC.value) / OFFICIAL_STATS.childPovertyBHC.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
               <tr>
@@ -615,7 +615,7 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.childPovertyAHC.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2023 ? `${((peMetrics.year2023.childPovertyAHC - OFFICIAL_STATS.childPovertyAHC.value) / OFFICIAL_STATS.childPovertyAHC.value * 100).toFixed(0)}%` : "—"}
+                  {peMetrics?.year2023 ? `${Math.abs((peMetrics.year2023.childPovertyAHC - OFFICIAL_STATS.childPovertyAHC.value) / OFFICIAL_STATS.childPovertyAHC.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
               <tr>
@@ -636,7 +636,7 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.workingAgePovertyBHC.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2023 ? `${((peMetrics.year2023.workingAgePovertyBHC - OFFICIAL_STATS.workingAgePovertyBHC.value) / OFFICIAL_STATS.workingAgePovertyBHC.value * 100).toFixed(0)}%` : "—"}
+                  {peMetrics?.year2023 ? `${Math.abs((peMetrics.year2023.workingAgePovertyBHC - OFFICIAL_STATS.workingAgePovertyBHC.value) / OFFICIAL_STATS.workingAgePovertyBHC.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
               <tr>
@@ -657,7 +657,7 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.workingAgePovertyAHC.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2023 ? `${((peMetrics.year2023.workingAgePovertyAHC - OFFICIAL_STATS.workingAgePovertyAHC.value) / OFFICIAL_STATS.workingAgePovertyAHC.value * 100).toFixed(0)}%` : "—"}
+                  {peMetrics?.year2023 ? `${Math.abs((peMetrics.year2023.workingAgePovertyAHC - OFFICIAL_STATS.workingAgePovertyAHC.value) / OFFICIAL_STATS.workingAgePovertyAHC.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
               <tr>
@@ -678,7 +678,7 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.pensionerPovertyBHC.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2023 ? `${((peMetrics.year2023.pensionerPovertyBHC - OFFICIAL_STATS.pensionerPovertyBHC.value) / OFFICIAL_STATS.pensionerPovertyBHC.value * 100).toFixed(0)}%` : "—"}
+                  {peMetrics?.year2023 ? `${Math.abs((peMetrics.year2023.pensionerPovertyBHC - OFFICIAL_STATS.pensionerPovertyBHC.value) / OFFICIAL_STATS.pensionerPovertyBHC.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
               <tr>
@@ -699,7 +699,7 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.pensionerPovertyAHC.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2023 ? `${((peMetrics.year2023.pensionerPovertyAHC - OFFICIAL_STATS.pensionerPovertyAHC.value) / OFFICIAL_STATS.pensionerPovertyAHC.value * 100).toFixed(0)}%` : "—"}
+                  {peMetrics?.year2023 ? `${Math.abs((peMetrics.year2023.pensionerPovertyAHC - OFFICIAL_STATS.pensionerPovertyAHC.value) / OFFICIAL_STATS.pensionerPovertyAHC.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
             </tbody>
@@ -754,7 +754,7 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.population.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2023 ? `${((peMetrics.year2023.totalPopulation / 1e6 - OFFICIAL_STATS.population.value) / OFFICIAL_STATS.population.value * 100).toFixed(0)}%` : "—"}
+                  {peMetrics?.year2023 ? `${Math.abs((peMetrics.year2023.totalPopulation / 1e6 - OFFICIAL_STATS.population.value) / OFFICIAL_STATS.population.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
               <tr>
@@ -775,7 +775,7 @@ export default function ScotlandTab() {
                   <span className="value-year">{OFFICIAL_STATS.households.year}</span>
                 </td>
                 <td className="difference">
-                  {peMetrics?.year2023 ? `${((peMetrics.year2023.totalHouseholds / 1e6 - OFFICIAL_STATS.households.value) / OFFICIAL_STATS.households.value * 100).toFixed(0)}%` : "—"}
+                  {peMetrics?.year2023 ? `${Math.abs((peMetrics.year2023.totalHouseholds / 1e6 - OFFICIAL_STATS.households.value) / OFFICIAL_STATS.households.value * 100).toFixed(0)}%` : "—"}
                 </td>
               </tr>
             </tbody>
