@@ -341,7 +341,7 @@ export default function ScotlandTab() {
         <p className="chart-description">
           According to{" "}
           <a
-            href="https://www.bbc.co.uk/news/articles/cx2el14rgngo"
+            href="https://www.bbc.co.uk/news/articles/cpwndd10rejo"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -1055,7 +1055,7 @@ export default function ScotlandTab() {
           <p className="chart-description">
             The Scottish Government{" "}
             <a
-              href="https://www.bbc.co.uk/news/articles/cx2el14rgngo"
+              href="https://www.bbc.co.uk/news/articles/cpwndd10rejo"
               target="_blank"
               rel="noopener noreferrer"
             >
