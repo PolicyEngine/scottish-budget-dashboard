@@ -2,6 +2,38 @@
   padding: 0;
 }
 
+/* Tab navigation */
+.scotland-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--pe-gray-200);
+}
+
+.scotland-tab-button {
+  padding: 12px 24px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--pe-gray-600);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.scotland-tab-button:hover {
+  color: var(--pe-gray-800);
+  background: var(--pe-gray-50);
+}
+
+.scotland-tab-button.active {
+  color: var(--pe-teal-700);
+  border-bottom-color: var(--pe-teal-600);
+  font-weight: 600;
+}
+
 .scotland-tab-loading {
   display: flex;
   flex-direction: column;
@@ -49,6 +81,37 @@
   font-weight: 600;
   color: var(--pe-gray-800);
   margin: 0 0 8px 0;
+}
+
+.chart-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.chart-header-row h2 {
+  margin: 0;
+}
+
+.poverty-type-select {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border: 1px solid var(--pe-gray-300);
+  border-radius: 6px;
+  background: var(--pe-surface);
+  color: var(--pe-gray-700);
+  cursor: pointer;
+}
+
+.poverty-type-select:hover {
+  border-color: var(--pe-teal-500);
+}
+
+.poverty-type-select:focus {
+  outline: none;
+  border-color: var(--pe-teal-600);
+  box-shadow: 0 0 0 2px rgba(49, 151, 149, 0.2);
 }
 
 .chart-description {

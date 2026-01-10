@@ -80,10 +80,13 @@ def calculate_scotland_baseline(output_dir: Path = None) -> pd.DataFrame:
             "in_relative_poverty_ahc", year, map_to="person"
         ).values
 
-        # Get ABSOLUTE poverty (2010/11 threshold + CPI) for child comparison
-        # Note: in_poverty_bhc in PolicyEngine IS absolute poverty
+        # Get ABSOLUTE poverty (2010/11 threshold + CPI)
+        # Note: in_poverty_bhc/ahc in PolicyEngine IS absolute poverty
         in_pov_abs_bhc = sim.calculate(
             "in_poverty_bhc", year, map_to="person"
+        ).values
+        in_pov_abs_ahc = sim.calculate(
+            "in_poverty_ahc", year, map_to="person"
         ).values
 
         # Age groups
@@ -95,12 +98,20 @@ def calculate_scotland_baseline(output_dir: Path = None) -> pd.DataFrame:
         scot_weight = weight[scotland_mask]
         total_pop = scot_weight.sum()
 
-        # Overall poverty
+        # Overall relative poverty
         pov_bhc = (
             weight[scotland_mask & in_pov_rel_bhc].sum() / total_pop
         ) * 100
         pov_ahc = (
             weight[scotland_mask & in_pov_rel_ahc].sum() / total_pop
+        ) * 100
+
+        # Overall absolute poverty
+        abs_pov_bhc = (
+            weight[scotland_mask & in_pov_abs_bhc].sum() / total_pop
+        ) * 100
+        abs_pov_ahc = (
+            weight[scotland_mask & in_pov_abs_ahc].sum() / total_pop
         ) * 100
 
         # Child poverty (relative)
@@ -219,6 +230,8 @@ def calculate_scotland_baseline(output_dir: Path = None) -> pd.DataFrame:
                 "total_disposable_income_bn": total_income_bn,
                 "poverty_rate_bhc": pov_bhc,
                 "poverty_rate_ahc": pov_ahc,
+                "absolute_poverty_bhc": abs_pov_bhc,
+                "absolute_poverty_ahc": abs_pov_ahc,
                 "child_poverty_bhc": child_pov_bhc,
                 "child_poverty_ahc": child_pov_ahc,
                 "child_absolute_poverty": child_abs_pov,
