@@ -900,7 +900,7 @@ export default function ScotlandTab() {
               />
               <YAxis
                 tickFormatter={(value) => `£${(value / 1000).toFixed(0)}k`}
-                domain={[0, "auto"]}
+                domain={[0, 40000]}
               />
               <Tooltip
                 formatter={(value, name) => {
