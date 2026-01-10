@@ -23,7 +23,6 @@ const HISTORICAL_POVERTY_DATA = [
   { year: 2021, povertyBHC: 18, povertyAHC: 20 },
   { year: 2022, povertyBHC: 18, povertyAHC: 20 },
   { year: 2023, povertyBHC: 18, povertyAHC: 20 },
-  { year: 2024, povertyBHC: 18, povertyAHC: 20 },
 ];
 
 // Historical official income per head data (ONS GDHI per head)
@@ -795,7 +794,7 @@ export default function ScotlandTab() {
               Percentage of people living in households with income below 60% of UK median,
               after subtracting housing costs (rent and mortgage payments). Scottish Government
               only publishes 3-year rolling averages, not annual figures. The 2021-24 average
-              is 20% AHC (dashed line). Solid line shows PolicyEngine projections (2024-2030).
+              is 20% AHC (dashed line, 2021-2023). Solid line shows PolicyEngine projections (2024-2030).
             </p>
           </div>
           <ResponsiveContainer width="100%" height={300}>
