@@ -360,7 +360,7 @@ export default function ScotlandTab() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            SFC's full take-up assumption
+            SFC's 100% take-up assumption
           </a>, as well as PolicyEngine's{" "}
           <a
             href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
