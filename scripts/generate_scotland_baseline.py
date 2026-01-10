@@ -11,15 +11,22 @@ METHODOLOGY NOTES:
 - Working-age and pensioner poverty match official stats well using relative
   poverty measures.
 
-CHILD POVERTY DISCREPANCY (~6pp higher than official):
-PolicyEngine shows ~30% child relative poverty vs ~24% official because:
-1. Scottish Child Payment (SCP) is NOT modeled in PolicyEngine UK
-   - SCP pays ~£1,388/year per child to ~330,000 low-income children
-   - Scottish Gov estimates SCP alone reduces child poverty by ~4pp
-2. Lower UC take-up assumptions
+CHILD POVERTY DISCREPANCY (~10-13pp higher than official):
+PolicyEngine shows ~30% BHC / ~36% AHC child relative poverty vs ~20% BHC / ~23% AHC official.
+This gap is due to multiple factors:
+
+1. Lower UC take-up assumptions
    - PE uses ~55% UC take-up
    - UKMOD (used by Scottish Gov) uses ~86% UC take-up
-   - This accounts for ~2-3pp additional gap
+   - Even with 86% UC take-up, PE rates remain elevated
+
+2. Scottish Child Payment (SCP) IS modeled (£0.44bn, 185k recipients, 85% take-up)
+   - SCP reduces child poverty but doesn't close the full gap
+
+3. Methodological differences between PE microsimulation and DWP's HBAI:
+   - Different data processing and weighting approaches
+   - Different treatment of income components
+   - Different sample characteristics
 
 Child ABSOLUTE poverty (24.7%) is included for comparison as it matches
 official figures better, though this is partially coincidental.
