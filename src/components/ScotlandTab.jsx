@@ -354,7 +354,14 @@ export default function ScotlandTab() {
           >
             55% UC take-up rate
           </a>{" "}
-          versus the SFC's full take-up assumption, as well as PolicyEngine's{" "}
+          versus the{" "}
+          <a
+            href="https://ifs.org.uk/articles/two-child-limit-mitigation-scotland-would-help-larger-poor-families-policy-design-could"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            SFC's full take-up assumption
+          </a>, as well as PolicyEngine's{" "}
           <a
             href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
             target="_blank"
