@@ -6,13 +6,23 @@ which can be compared with official Scottish Government statistics.
 METHODOLOGY NOTES:
 - Uses RELATIVE poverty (60% of UK median income) to match Scottish Government
   methodology. This differs from absolute poverty (2010/11 threshold + CPI).
-- Child absolute poverty is also calculated for comparison, as relative child
-  poverty in PE (~30%) is higher than official figures (~24%) due to different
-  UC take-up assumptions (PE: ~55%, Scottish Gov: age-specific rates).
 - Uses simple region filtering (SCOTLAND) from FRS data rather than
   constituency-level reweighting to avoid weight mapping issues.
 - Working-age and pensioner poverty match official stats well using relative
   poverty measures.
+
+CHILD POVERTY DISCREPANCY (~6pp higher than official):
+PolicyEngine shows ~30% child relative poverty vs ~24% official because:
+1. Scottish Child Payment (SCP) is NOT modeled in PolicyEngine UK
+   - SCP pays ~£1,388/year per child to ~330,000 low-income children
+   - Scottish Gov estimates SCP alone reduces child poverty by ~4pp
+2. Lower UC take-up assumptions
+   - PE uses ~55% UC take-up
+   - UKMOD (used by Scottish Gov) uses ~86% UC take-up
+   - This accounts for ~2-3pp additional gap
+
+Child ABSOLUTE poverty (24.7%) is included for comparison as it matches
+official figures better, though this is partially coincidental.
 """
 
 import numpy as np
