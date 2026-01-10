@@ -11,22 +11,13 @@ METHODOLOGY NOTES:
 - Working-age and pensioner poverty match official stats well using relative
   poverty measures.
 
-CHILD POVERTY DISCREPANCY (~10-13pp higher than official):
-PolicyEngine shows ~30% BHC / ~36% AHC child relative poverty vs ~20% BHC / ~23% AHC official.
-This gap is due to multiple factors:
+CHILD POVERTY DISCREPANCY (~8-9pp higher than official):
+PolicyEngine shows ~28% BHC / ~32% AHC child relative poverty vs ~20% BHC / ~23% AHC official.
+This gap is primarily due to UC take-up assumptions:
+- PE uses 55% UC take-up
+- UKMOD (used by Scottish Gov) uses 87% UC take-up
 
-1. Lower UC take-up assumptions
-   - PE uses ~55% UC take-up
-   - UKMOD (used by Scottish Gov) uses ~86% UC take-up
-   - Even with 86% UC take-up, PE rates remain elevated
-
-2. Scottish Child Payment (SCP) IS modeled (£0.44bn, 185k recipients, 85% take-up)
-   - SCP reduces child poverty but doesn't close the full gap
-
-3. Methodological differences between PE microsimulation and DWP's HBAI:
-   - Different data processing and weighting approaches
-   - Different treatment of income components
-   - Different sample characteristics
+Scottish Child Payment (SCP) IS modeled and included in HBAI income for poverty calculations.
 
 Child ABSOLUTE poverty (24.7%) is included for comparison as it matches
 official figures better, though this is partially coincidental.
@@ -262,16 +253,16 @@ def calculate_scotland_baseline(output_dir: Path = None) -> pd.DataFrame:
     r = results[0]
     print(f"Overall poverty BHC: {r['poverty_rate_bhc']:.1f}% (Official: 18%)")
     print(f"Overall poverty AHC: {r['poverty_rate_ahc']:.1f}% (Official: 20%)")
-    print(f"Child poverty BHC (relative): {r['child_poverty_bhc']:.1f}% (Official: 24%)")
-    print(f"Child poverty AHC (relative): {r['child_poverty_ahc']:.1f}% (Official: 26%)")
+    print(f"Child poverty BHC (relative): {r['child_poverty_bhc']:.1f}% (Official: 20%)")
+    print(f"Child poverty AHC (relative): {r['child_poverty_ahc']:.1f}% (Official: 23%)")
     print(f"Child poverty (absolute): {r['child_absolute_poverty']:.1f}% (matches official better)")
     print(
         f"Working-age poverty BHC: {r['working_age_poverty_bhc']:.1f}% "
-        "(Official: 18%)"
+        "(Official: 14%)"
     )
     print(
         f"Working-age poverty AHC: {r['working_age_poverty_ahc']:.1f}% "
-        "(Official: 20%)"
+        "(Official: 17%)"
     )
     print(
         f"Pensioner poverty BHC: {r['pensioner_poverty_bhc']:.1f}% "
