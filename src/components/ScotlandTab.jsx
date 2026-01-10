@@ -822,7 +822,7 @@ export default function ScotlandTab() {
                   <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
                     93k
                   </a>
-                  <span className="value-year">2023</span>
+                  <span className="value-year">2022</span>
                 </td>
                 <td className="difference">
                   {formatDifference(93, OFFICIAL_STATS.householdsWith3PlusChildren.value)}
