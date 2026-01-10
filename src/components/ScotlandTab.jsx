@@ -218,6 +218,20 @@ const OFFICIAL_STATS = {
     url: "https://www.nrscotland.gov.uk/statistics-and-data/statistics/statistics-by-theme/households/household-estimates/2023",
     note: "Household estimate (millions)",
   },
+  childrenUnder16: {
+    value: 0.90,
+    year: "2023",
+    source: "NRS",
+    url: "https://www.nrscotland.gov.uk/publications/mid-2023-population-estimates/",
+    note: "Children under 16 (millions)",
+  },
+  householdsWith3PlusChildren: {
+    value: 82,
+    year: "2022",
+    source: "Census",
+    url: "https://www.scotlandscensus.gov.uk/search-the-census#/location/topics/topic?topic=Household%20composition",
+    note: "Households with 3+ children (thousands)",
+  },
 };
 
 export default function ScotlandTab() {
@@ -770,6 +784,48 @@ export default function ScotlandTab() {
                 </td>
                 <td className="difference">
                   {formatDifference(peMetrics?.year2023?.totalHouseholds / 1e6, OFFICIAL_STATS.households.value)}
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Children</strong>
+                  <span className="metric-subtitle">Under 16</span>
+                </td>
+                <td className="official-value">
+                  <a href={OFFICIAL_STATS.childrenUnder16.url} target="_blank" rel="noopener noreferrer">
+                    {OFFICIAL_STATS.childrenUnder16.value}m
+                  </a>
+                  <span className="value-year">{OFFICIAL_STATS.childrenUnder16.year}</span>
+                </td>
+                <td className="pe-value">
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    0.97m
+                  </a>
+                  <span className="value-year">2023</span>
+                </td>
+                <td className="difference">
+                  {formatDifference(0.97, OFFICIAL_STATS.childrenUnder16.value)}
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Households with 3+ children</strong>
+                  <span className="metric-subtitle">Families affected by two-child limit</span>
+                </td>
+                <td className="official-value">
+                  <a href={OFFICIAL_STATS.householdsWith3PlusChildren.url} target="_blank" rel="noopener noreferrer">
+                    {OFFICIAL_STATS.householdsWith3PlusChildren.value}k
+                  </a>
+                  <span className="value-year">{OFFICIAL_STATS.householdsWith3PlusChildren.year}</span>
+                </td>
+                <td className="pe-value">
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    93k
+                  </a>
+                  <span className="value-year">2023</span>
+                </td>
+                <td className="difference">
+                  {formatDifference(93, OFFICIAL_STATS.householdsWith3PlusChildren.value)}
                 </td>
               </tr>
             </tbody>
