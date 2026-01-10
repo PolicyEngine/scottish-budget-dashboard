@@ -16,12 +16,11 @@ const formatYearRange = (year) => `${year}-${(year + 1).toString().slice(-2)}`;
 
 // Historical official poverty data (Scottish Government, 3-year averages)
 // Source: https://data.gov.scot/poverty/
+// Note: Scottish Gov reports 3-year rolling averages, not annual figures
+// 2021-24 average is 20% AHC. Single data point shown for reference.
+// PolicyEngine projections shown from 2023 onwards.
 const HISTORICAL_POVERTY_DATA = [
-  { year: 2021, povertyBHC: 18, povertyAHC: 20 },
   { year: 2022, povertyBHC: 18, povertyAHC: 20 },
-  { year: 2023, povertyBHC: 18, povertyAHC: 20 },
-  { year: 2024, povertyBHC: 18, povertyAHC: 20 },
-  { year: 2025, povertyBHC: 18, povertyAHC: 20 },
 ];
 
 // Historical official income per head data (ONS GDHI per head)
@@ -792,8 +791,8 @@ export default function ScotlandTab() {
             <p className="chart-description">
               Percentage of people living in households with income below 60% of UK median,
               after subtracting housing costs (rent and mortgage payments). Dashed line shows
-              official Scottish Government data (2021-2025); solid line shows PolicyEngine
-              projections (2026-2030).
+              official Scottish Government 3-year average (2021-24: 20%); solid line shows
+              PolicyEngine projections (2023-2030).
             </p>
           </div>
           <ResponsiveContainer width="100%" height={300}>
@@ -804,12 +803,9 @@ export default function ScotlandTab() {
                   historicalAHC: d.povertyAHC,
                 })),
                 ...baselineData
-                  .filter(d => d.year >= 2025)
                   .map(d => ({
                     year: d.year,
                     projectionAHC: d.povertyAHC,
-                    // Connect to historical at 2025
-                    ...(d.year === 2025 ? { historicalAHC: 20 } : {}),
                   }))
               ]}
               margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
