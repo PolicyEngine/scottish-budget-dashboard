@@ -367,7 +367,7 @@ export default function ScotlandTab() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            survey weighting methods
+            weighting methods
           </a>{" "}
           for Scotland.
         </p>
