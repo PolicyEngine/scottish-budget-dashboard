@@ -794,7 +794,7 @@ export default function ScotlandTab() {
               Percentage of people living in households with income below 60% of UK median,
               after subtracting housing costs (rent and mortgage payments). Scottish Government
               only publishes 3-year rolling averages, not annual figures. The 2021-24 average
-              is 20% AHC (dashed line, 2021-2023). Solid line shows PolicyEngine projections (2024-2030).
+              is 20% AHC (solid line, 2021-2023). Dashed line shows PolicyEngine projections (2024-2030).
             </p>
           </div>
           <ResponsiveContainer width="100%" height={300}>
@@ -844,7 +844,6 @@ export default function ScotlandTab() {
                 dataKey="historicalAHC"
                 stroke="#319795"
                 strokeWidth={2}
-                strokeDasharray="5 5"
                 dot={{ fill: "#319795", r: 3 }}
                 name="historicalAHC"
                 connectNulls={true}
@@ -854,6 +853,7 @@ export default function ScotlandTab() {
                 dataKey="projectionAHC"
                 stroke="#319795"
                 strokeWidth={2}
+                strokeDasharray="5 5"
                 dot={{ fill: "#319795", r: 4 }}
                 name="projectionAHC"
                 connectNulls={true}
@@ -868,8 +868,8 @@ export default function ScotlandTab() {
             <h2>Income per person</h2>
             <p className="chart-description">
               Annual disposable income per person (GDHI per head) after taxes paid and benefits received.
-              Mean is the average; median is the middle value. Dashed lines show official ONS data
-              (2021-2023); solid lines show PolicyEngine projections (2024-2030).
+              Mean is the average; median is the middle value. Solid lines show official ONS data
+              (2021-2023); dashed lines show PolicyEngine projections (2024-2030).
             </p>
           </div>
           <ResponsiveContainer width="100%" height={300}>
@@ -925,7 +925,6 @@ export default function ScotlandTab() {
                 dataKey="historicalMean"
                 stroke="#319795"
                 strokeWidth={2}
-                strokeDasharray="5 5"
                 dot={{ fill: "#319795", r: 3 }}
                 name="historicalMean"
                 connectNulls={true}
@@ -935,7 +934,6 @@ export default function ScotlandTab() {
                 dataKey="historicalMedian"
                 stroke="#5A8FB8"
                 strokeWidth={2}
-                strokeDasharray="5 5"
                 dot={{ fill: "#5A8FB8", r: 3 }}
                 name="historicalMedian"
                 connectNulls={true}
@@ -945,6 +943,7 @@ export default function ScotlandTab() {
                 dataKey="projectionMean"
                 stroke="#319795"
                 strokeWidth={2}
+                strokeDasharray="5 5"
                 dot={{ fill: "#319795", r: 4 }}
                 name="projectionMean"
                 connectNulls={true}
@@ -954,6 +953,7 @@ export default function ScotlandTab() {
                 dataKey="projectionMedian"
                 stroke="#5A8FB8"
                 strokeWidth={2}
+                strokeDasharray="5 5"
                 dot={{ fill: "#5A8FB8", r: 4 }}
                 name="projectionMedian"
                 connectNulls={true}
