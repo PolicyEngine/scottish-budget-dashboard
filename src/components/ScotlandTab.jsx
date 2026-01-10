@@ -354,7 +354,7 @@ export default function ScotlandTab() {
           >
             55% UC take-up rate
           </a>{" "}
-          versus the SFC's full take-up assumption, as well as different{" "}
+          versus the SFC's full take-up assumption, as well as PolicyEngine's{" "}
           <a
             href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
             target="_blank"
