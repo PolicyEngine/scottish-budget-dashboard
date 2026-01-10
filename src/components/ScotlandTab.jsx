@@ -523,8 +523,8 @@ export default function ScotlandTab() {
             reweighting methods differ between sources.
           </p>
           <p className="chart-description" style={{ marginTop: "12px" }}>
-            PolicyEngine shows higher child poverty rates (30.5% BHC, 35.7% AHC) compared
-            to official statistics (20% BHC, 23% AHC). This 10-13pp gap arises from methodological differences between PolicyEngine's
+            PolicyEngine shows higher child poverty rates (28.3% BHC, 31.8% AHC) compared
+            to official statistics (20% BHC, 23% AHC). This 8-9pp gap arises from methodological differences between PolicyEngine's
             microsimulation and DWP's Households Below Average Income (HBAI) statistics.
             PolicyEngine{" "}
             <a
