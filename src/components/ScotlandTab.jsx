@@ -496,37 +496,25 @@ export default function ScotlandTab() {
         <div className="chart-header">
           <h2>Poverty rates</h2>
           <p className="chart-description">
-            All rates shown are relative poverty: a household is in poverty if its income,
-            adjusted for household size (equivalised), falls below 60% of the UK median income.
-            BHC (before housing costs) uses total income; AHC (after housing costs) subtracts
-            rent and mortgage payments, showing a higher poverty rate as housing costs reduce
-            disposable income. Official statistics from the Scottish Government combine three
-            years of data to produce more stable estimates from a small Scottish sample.{" "}
-            PolicyEngine{" "}
+            All rates shown are relative poverty: a household is in poverty if its equivalised
+            income (adjusted for household size) falls below 60% of UK median income. BHC (before
+            housing costs) uses total income; AHC (after housing costs) subtracts rent and
+            mortgage payments, resulting in higher poverty rates.
+          </p>
+          <p className="chart-description" style={{ marginTop: "12px" }}>
+            Official statistics from the Scottish Government combine three years of data to
+            produce more stable estimates.{" "}
             <a
               href="https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_baseline.csv"
               target="_blank"
               rel="noopener noreferrer"
             >
-              estimates
+              PolicyEngine estimates
             </a>{" "}
             use single-year data from the Family Resources Survey, reweighted to Scottish
-            parliamentary constituencies using{" "}
-            <a
-              href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              constituency weights
-            </a>. Differences arise
-            because single-year estimates are more volatile than 3-year averages, and
-            reweighting methods differ between sources.
-          </p>
-          <p className="chart-description" style={{ marginTop: "12px" }}>
-            PolicyEngine shows higher child poverty rates (28.3% BHC, 31.8% AHC) compared
-            to official statistics (20% BHC, 23% AHC). This 8-9pp gap arises from methodological differences between PolicyEngine's
-            microsimulation and DWP's Households Below Average Income (HBAI) statistics.
-            PolicyEngine{" "}
+            parliamentary constituencies. PolicyEngine shows higher child poverty rates (28.3%
+            BHC, 31.8% AHC) compared to official statistics (20% BHC, 23% AHC). This 8-9pp gap
+            arises primarily because PolicyEngine{" "}
             <a
               href="https://github.com/PolicyEngine/policyengine-uk/blob/main/policyengine_uk/parameters/gov/dwp/universal_credit/takeup_rate.yaml"
               target="_blank"
