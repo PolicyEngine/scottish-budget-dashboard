@@ -33,12 +33,13 @@ const formatAbsDifference = (peValue, officialValue) => {
 // Historical official poverty data (Scottish Government, 3-year averages)
 // Source: https://data.gov.scot/poverty/
 // Note: Scottish Gov reports 3-year rolling averages, not annual figures
-// 2021-24 average is 20% AHC shown as horizontal line across that period.
-// PolicyEngine projections shown from 2023 onwards.
+// Relative poverty: 18% BHC, 20% AHC (2021-24)
+// Absolute poverty: 15% BHC, 17% AHC (2019-22 / 2021-24)
+// PolicyEngine projections shown from 2023/2024 onwards.
 const HISTORICAL_POVERTY_DATA = [
-  { year: 2021, povertyBHC: 18, povertyAHC: 20 },
-  { year: 2022, povertyBHC: 18, povertyAHC: 20 },
-  { year: 2023, povertyBHC: 18, povertyAHC: 20 },
+  { year: 2021, relativeBHC: 18, relativeAHC: 20, absoluteBHC: 15, absoluteAHC: 17 },
+  { year: 2022, relativeBHC: 18, relativeAHC: 20, absoluteBHC: 15, absoluteAHC: 17 },
+  { year: 2023, relativeBHC: 18, relativeAHC: 20, absoluteBHC: 15, absoluteAHC: 17 },
 ];
 
 // Historical official income per head data (ONS GDHI per head)
@@ -801,23 +802,28 @@ export default function ScotlandTab() {
               {povertyType.includes("AHC")
                 ? " After housing costs (AHC) subtracts rent and mortgage payments."
                 : " Before housing costs (BHC) uses total income."}{" "}
-              {povertyType.includes("relative")
-                ? "Scottish Government only publishes 3-year rolling averages (solid line, 2021-2023). Dashed line shows PolicyEngine projections (2024-2030)."
-                : "Dashed line shows PolicyEngine projections (2024-2030). Historical official data not available for absolute poverty."}
+              Scottish Government publishes 3-year rolling averages (solid line, 2021-2023).
+              Dashed line shows PolicyEngine projections (2024-2030).
             </p>
           </div>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart
               data={[
-                // Only show historical data for relative poverty
-                ...(povertyType.includes("relative")
-                  ? HISTORICAL_POVERTY_DATA.map(d => ({
-                      year: d.year,
-                      historical: povertyType.includes("BHC") ? d.povertyBHC : d.povertyAHC,
-                    }))
-                  : []),
+                // Historical official data
+                ...HISTORICAL_POVERTY_DATA.map(d => {
+                  let value;
+                  if (povertyType === "absoluteBHC") value = d.absoluteBHC;
+                  else if (povertyType === "absoluteAHC") value = d.absoluteAHC;
+                  else if (povertyType === "relativeBHC") value = d.relativeBHC;
+                  else value = d.relativeAHC;
+                  return {
+                    year: d.year,
+                    historical: value,
+                  };
+                }),
+                // PolicyEngine projections
                 ...baselineData
-                  .filter(d => povertyType.includes("relative") ? d.year >= 2024 : true)
+                  .filter(d => d.year >= 2024)
                   .map(d => {
                     let value;
                     if (povertyType === "absoluteBHC") value = d.absolutePovertyBHC;
