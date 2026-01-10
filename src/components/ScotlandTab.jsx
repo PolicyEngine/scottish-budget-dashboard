@@ -522,6 +522,32 @@ export default function ScotlandTab() {
             because single-year estimates are more volatile than 3-year averages, and
             reweighting methods differ between sources.
           </p>
+          <p className="chart-description" style={{ marginTop: "12px" }}>
+            <strong>Child poverty discrepancy:</strong> PolicyEngine shows higher child
+            poverty rates (30.5% BHC, 35.7% AHC) compared to official statistics (20% BHC,
+            23% AHC). This 10-13pp gap arises from methodological differences between PolicyEngine's
+            microsimulation and DWP's Households Below Average Income (HBAI) statistics.
+            PolicyEngine{" "}
+            <a
+              href="https://github.com/PolicyEngine/policyengine-uk/blob/main/policyengine_uk/parameters/gov/dwp/universal_credit/takeup_rate.yaml"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              assumes 55% UC take-up
+            </a>{" "}
+            versus ~86% in UKMOD (used by Scottish Government), though adjusting this alone doesn't
+            fully explain the gap. The{" "}
+            <a
+              href="https://github.com/PolicyEngine/policyengine-uk/blob/main/policyengine_uk/variables/gov/social_security_scotland/scottish_child_payment.py"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Scottish Child Payment
+            </a>{" "}
+            (£26.70/week per child since April 2024, with 85% take-up) is fully modeled
+            and reduces child poverty, but methodological differences in data processing,
+            income components, and sample weighting account for the remaining discrepancy.
+          </p>
         </div>
 
         <div className="comparison-table-container">
