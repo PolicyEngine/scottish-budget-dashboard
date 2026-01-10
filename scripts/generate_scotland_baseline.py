@@ -32,9 +32,17 @@ Child ABSOLUTE poverty (24.7%) is included for comparison as it matches
 official figures better, though this is partially coincidental.
 """
 
+import sys
+from pathlib import Path
+
+# Use local policyengine-uk repo instead of installed version
+LOCAL_PE_UK_PATH = Path(__file__).parent.parent.parent / "policyengine-uk"
+if LOCAL_PE_UK_PATH.exists():
+    sys.path.insert(0, str(LOCAL_PE_UK_PATH))
+    print(f"Using local policyengine-uk from: {LOCAL_PE_UK_PATH}")
+
 import numpy as np
 import pandas as pd
-from pathlib import Path
 from policyengine_uk import Microsimulation
 
 # Years to project (include 2023 for comparison with official 2021-24 stats)
