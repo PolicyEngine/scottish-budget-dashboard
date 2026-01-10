@@ -1027,30 +1027,23 @@ export default function ScotlandTab() {
             affecting 69,000 children in 2026-27 rising to 73,000 children by 2029-30.
             The two-child limit restricts Universal Credit child element payments to the first
             two children, so the top-up payment cost depends on how many Scottish families claim UC
-            and have three or more children. The difference between estimates arises from PolicyEngine's{" "}
+            and have three or more children. The difference between estimates arises from different
+            data sources: SFC uses{" "}
             <a
-              href="https://github.com/PolicyEngine/policyengine-uk/blob/main/policyengine_uk/parameters/gov/dwp/universal_credit/takeup_rate.yaml"
+              href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              55% UC take-up rate
+              DWP administrative data
             </a>{" "}
-            versus the{" "}
-            <a
-              href="https://ifs.org.uk/articles/two-child-limit-mitigation-scotland-would-help-larger-poor-families-policy-design-could"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              SFC's 100% take-up assumption
-            </a>, as well as PolicyEngine's{" "}
+            on actual UC claimants, while PolicyEngine uses{" "}
             <a
               href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
               target="_blank"
               rel="noopener noreferrer"
             >
-              weighting methods
-            </a>{" "}
-            for Scotland.
+              Family Resources Survey data reweighted to Scotland
+            </a>, which estimates more families with three or more children receiving UC.
           </p>
         </div>
       )}
