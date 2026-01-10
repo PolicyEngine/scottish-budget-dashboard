@@ -715,7 +715,7 @@ export default function ScotlandTab() {
             >
               uses
             </a>{" "}
-            the Family Resources Survey reweighted to match Scottish demographic totals.
+            the Family Resources Survey, reweighting Scottish households to be more representative of the Scottish population.
           </p>
         </div>
 
