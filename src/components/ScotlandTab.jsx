@@ -75,6 +75,36 @@ const PE_DATA_URLS = {
   twoChildLimit: "https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_two_child_limit.csv",
 };
 
+// Custom legend renderer to show dashed vs solid lines
+const renderCustomLegend = (props, labelMap) => {
+  const { payload } = props;
+  return (
+    <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "16px", paddingTop: "12px" }}>
+      {payload.map((entry, index) => {
+        const isDashed = entry.dataKey.includes("historical");
+        const label = labelMap[entry.dataKey] || entry.value;
+        return (
+          <div key={`legend-${index}`} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            <svg width="24" height="12">
+              <line
+                x1="0"
+                y1="6"
+                x2="24"
+                y2="6"
+                stroke={entry.color}
+                strokeWidth={2}
+                strokeDasharray={isDashed ? "4 3" : "0"}
+              />
+              <circle cx="12" cy="6" r="3" fill={entry.color} />
+            </svg>
+            <span style={{ fontSize: "0.85rem", color: "#4B5563" }}>{label}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 // Official statistics data with sources
 const OFFICIAL_STATS = {
   povertyBHC: {
@@ -799,13 +829,10 @@ export default function ScotlandTab() {
                 labelFormatter={(label) => formatYearRange(label)}
               />
               <Legend
-                formatter={(value) => {
-                  const labels = {
-                    historicalAHC: "Official (historical)",
-                    projectionAHC: "PolicyEngine (projection)",
-                  };
-                  return labels[value] || value;
-                }}
+                content={(props) => renderCustomLegend(props, {
+                  historicalAHC: "Official (historical)",
+                  projectionAHC: "PolicyEngine (projection)",
+                })}
               />
               <Line
                 type="monotone"
@@ -883,15 +910,12 @@ export default function ScotlandTab() {
                 labelFormatter={(label) => formatYearRange(label)}
               />
               <Legend
-                formatter={(value) => {
-                  const labels = {
-                    historicalMean: "Official mean (historical)",
-                    historicalMedian: "Official median (historical)",
-                    projectionMean: "PolicyEngine mean (projection)",
-                    projectionMedian: "PolicyEngine median (projection)",
-                  };
-                  return labels[value] || value;
-                }}
+                content={(props) => renderCustomLegend(props, {
+                  historicalMean: "Official mean (historical)",
+                  historicalMedian: "Official median (historical)",
+                  projectionMean: "PolicyEngine mean (projection)",
+                  projectionMedian: "PolicyEngine median (projection)",
+                })}
               />
               <Line
                 type="monotone"
