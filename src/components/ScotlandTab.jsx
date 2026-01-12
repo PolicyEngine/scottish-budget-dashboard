@@ -320,7 +320,9 @@ export default function ScotlandTab() {
       {/* Introduction */}
       <h2 className="section-title">Introduction</h2>
       <p className="chart-description">
-        Finance Secretary Shona Robison will{" "}
+        This dashboard answers: how will Scotland's economy and poverty levels change under current
+        policy, and what impact will proposed budget measures have? Finance Secretary Shona Robison
+        will{" "}
         <a
           href="https://www.gov.scot/budget/"
           target="_blank"
@@ -364,16 +366,13 @@ export default function ScotlandTab() {
           analysis
         </a>.
       </p>
-      <p className="chart-description" style={{ marginTop: "12px" }}>
-        The sections below compare PolicyEngine's baseline projections with official statistics,
-        then analyse specific policy changes expected in the upcoming budget.
-      </p>
 
       {/* Economic outlook section */}
       <h2 className="section-title">Economic outlook</h2>
       <p className="chart-description">
-        This section projects Scotland's living standards and poverty rates through 2030. The charts
-        compare official historical data with PolicyEngine projections based on OBR economic forecasts.
+        Where is Scotland heading under current policy? This section shows how household incomes and
+        poverty rates are projected to change through 2030, assuming no new policy changes beyond
+        those already legislated.
       </p>
 
       {/* Living standard chart */}
@@ -602,8 +601,9 @@ export default function ScotlandTab() {
       {/* Validation Section */}
       <h2 className="section-title">Validation</h2>
       <p className="chart-description">
-        This section compares PolicyEngine estimates with official statistics to assess model accuracy.
-        The tables show population, income, and poverty metrics for 2023.
+        Can you trust these projections? This section compares PolicyEngine's 2023 estimates against
+        official government statistics for population, income, and poverty. Close alignment indicates
+        the model accurately represents Scotland's households.
       </p>
 
       {/* Population Table - Start with who we're measuring */}
@@ -1034,8 +1034,8 @@ export default function ScotlandTab() {
       {/* Scottish Budget 2026 section */}
       <h2 className="section-title">Scottish Budget 2026</h2>
       <p className="chart-description">
-        This section analyses specific policy changes expected in the upcoming Scottish Budget. PolicyEngine
-        estimates the fiscal and distributional impact of proposed reforms.
+        What policy changes might the Scottish Government announce? This section examines expected
+        budget measures and estimates their cost and impact on Scottish households.
       </p>
 
       <h3 className="subsection-title">Expected policies</h3>
