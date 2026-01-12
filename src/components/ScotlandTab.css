@@ -173,6 +173,31 @@
   background: var(--pe-gray-50);
 }
 
+/* Section header rows within tables */
+.comparison-table .section-header-row td {
+  padding: 0;
+  background: transparent;
+}
+
+.comparison-table .section-header-row:hover td {
+  background: transparent;
+}
+
+.comparison-table .section-header {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--pe-gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 16px 16px 8px 16px;
+  border-bottom: none;
+  background: transparent;
+}
+
+.comparison-table tr.section-header-row + tr td {
+  border-top: 1px solid var(--pe-gray-200);
+}
+
 /* Metric name column */
 .comparison-table .metric-name {
   min-width: 160px;

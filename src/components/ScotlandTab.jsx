@@ -376,15 +376,22 @@ export default function ScotlandTab() {
       {/* Validation Tab Content */}
       {activeTab === "validation" && (
         <>
-          {/* Income Table */}
+          {/* Population Table - Start with who we're measuring */}
       <div className="comparison-section">
         <div className="chart-header">
-          <h2>Income</h2>
+          <h2>Population</h2>
           <p className="chart-description">
-            Income metrics compare PolicyEngine estimates with official statistics. Taxpayer
-            income covers people earning above the personal allowance (£12,570). GDHI (Gross
-            Disposable Household Income) from ONS measures total income after taxes and benefits
-            for Scotland as a region.
+            This section compares PolicyEngine's microsimulation with official statistics from
+            the National Records of Scotland (NRS). PolicyEngine{" "}
+            <a
+              href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              uses
+            </a>{" "}
+            the Family Resources Survey, reweighting Scottish households to match official
+            demographic targets.
           </p>
         </div>
 
@@ -401,50 +408,124 @@ export default function ScotlandTab() {
             <tbody>
               <tr>
                 <td className="metric-name">
-                  <strong>Median taxpayer income</strong>
-                  <span className="metric-subtitle">Above personal allowance</span>
+                  <strong>Population</strong>
+                  <span className="metric-subtitle">Scotland total</span>
                 </td>
                 <td className="official-value">
-                  <a href={OFFICIAL_STATS.medianIncome.url} target="_blank" rel="noopener noreferrer">
-                    £{OFFICIAL_STATS.medianIncome.value.toLocaleString("en-GB")}
+                  <a href={OFFICIAL_STATS.population.url} target="_blank" rel="noopener noreferrer">
+                    {OFFICIAL_STATS.population.value}m
                   </a>
-                  <span className="value-year">{OFFICIAL_STATS.medianIncome.year}</span>
+                  <span className="value-year">{OFFICIAL_STATS.population.year}</span>
                 </td>
                 <td className="pe-value">
                   <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
-                    {peMetrics?.year2025 ? `£${peMetrics.year2025.medianTaxpayerIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                    {peMetrics?.year2023 ? `${(peMetrics.year2023.totalPopulation / 1e6).toFixed(2)}m` : "—"}
                   </a>
-                  <span className="value-year">2025-26</span>
+                  <span className="value-year">2023</span>
                 </td>
                 <td className="difference">
-                  {formatDifference(peMetrics?.year2025?.medianTaxpayerIncome, OFFICIAL_STATS.medianIncome.value)}
+                  {formatDifference(peMetrics?.year2023?.totalPopulation / 1e6, OFFICIAL_STATS.population.value)}
                 </td>
               </tr>
               <tr>
                 <td className="metric-name">
-                  <strong>Taxpayer income (75th percentile)</strong>
-                  <span className="metric-subtitle">Above personal allowance</span>
+                  <strong>Households</strong>
+                  <span className="metric-subtitle">Scotland total</span>
                 </td>
                 <td className="official-value">
-                  <a href="https://www.gov.scot/publications/scottish-income-tax-2025-2026-factsheet/pages/2/" target="_blank" rel="noopener noreferrer">
-                    £44,500
+                  <a href={OFFICIAL_STATS.households.url} target="_blank" rel="noopener noreferrer">
+                    {OFFICIAL_STATS.households.value}m
                   </a>
-                  <span className="value-year">2025-26</span>
+                  <span className="value-year">{OFFICIAL_STATS.households.year}</span>
                 </td>
                 <td className="pe-value">
                   <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
-                    {peMetrics?.year2026 ? `£${peMetrics.year2026.taxpayerIncomeP75.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                    {peMetrics?.year2023 ? `${(peMetrics.year2023.totalHouseholds / 1e6).toFixed(2)}m` : "—"}
                   </a>
-                  <span className="value-year">2025-26</span>
+                  <span className="value-year">2023</span>
                 </td>
                 <td className="difference">
-                  {formatDifference(peMetrics?.year2026?.taxpayerIncomeP75, 44500)}
+                  {formatDifference(peMetrics?.year2023?.totalHouseholds / 1e6, OFFICIAL_STATS.households.value)}
                 </td>
               </tr>
               <tr>
                 <td className="metric-name">
-                  <strong>Income per head</strong>
-                  <span className="metric-subtitle">Disposable income per person</span>
+                  <strong>Children</strong>
+                  <span className="metric-subtitle">Under 16</span>
+                </td>
+                <td className="official-value">
+                  <a href={OFFICIAL_STATS.childrenUnder16.url} target="_blank" rel="noopener noreferrer">
+                    {OFFICIAL_STATS.childrenUnder16.value}m
+                  </a>
+                  <span className="value-year">{OFFICIAL_STATS.childrenUnder16.year}</span>
+                </td>
+                <td className="pe-value">
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    0.97m
+                  </a>
+                  <span className="value-year">2023</span>
+                </td>
+                <td className="difference">
+                  {formatDifference(0.97, OFFICIAL_STATS.childrenUnder16.value)}
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Households with 3+ children</strong>
+                  <span className="metric-subtitle">Families affected by two-child limit</span>
+                </td>
+                <td className="official-value">
+                  <a href={OFFICIAL_STATS.householdsWith3PlusChildren.url} target="_blank" rel="noopener noreferrer">
+                    {OFFICIAL_STATS.householdsWith3PlusChildren.value}k
+                  </a>
+                  <span className="value-year">{OFFICIAL_STATS.householdsWith3PlusChildren.year}</span>
+                </td>
+                <td className="pe-value">
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    93k
+                  </a>
+                  <span className="value-year">2022</span>
+                </td>
+                <td className="difference">
+                  {formatDifference(93, OFFICIAL_STATS.householdsWith3PlusChildren.value)}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+          {/* Income Table */}
+      <div className="comparison-section">
+        <div className="chart-header">
+          <h2>Income</h2>
+          <p className="chart-description">
+            Income metrics compare PolicyEngine estimates with official statistics from ONS.
+            GDHI (Gross Disposable Household Income) measures total income after taxes and
+            benefits. Per-person figures divide by population; per-household figures show
+            average household income.
+          </p>
+        </div>
+
+        <div className="comparison-table-container">
+          <table className="comparison-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Official</th>
+                <th>PolicyEngine</th>
+                <th>Difference</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Per person */}
+              <tr className="section-header-row">
+                <td colSpan="4" className="section-header">Per person</td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Mean</strong>
+                  <span className="metric-subtitle">GDHI per head</span>
                 </td>
                 <td className="official-value">
                   <a href={OFFICIAL_STATS.gdhiPerHead.url} target="_blank" rel="noopener noreferrer">
@@ -464,8 +545,67 @@ export default function ScotlandTab() {
               </tr>
               <tr>
                 <td className="metric-name">
-                  <strong>Total disposable income</strong>
-                  <span className="metric-subtitle">Scotland aggregate</span>
+                  <strong>Median</strong>
+                  <span className="metric-subtitle">Disposable income</span>
+                </td>
+                <td className="official-value">
+                  <span className="not-available">—</span>
+                  <span className="value-year">Not published</span>
+                </td>
+                <td className="pe-value">
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2023 ? `£${peMetrics.year2023.medianIncomePerHead.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  </a>
+                  <span className="value-year">2023</span>
+                </td>
+                <td className="difference">—</td>
+              </tr>
+              {/* Per household */}
+              <tr className="section-header-row">
+                <td colSpan="4" className="section-header">Per household</td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Mean</strong>
+                  <span className="metric-subtitle">Household disposable income</span>
+                </td>
+                <td className="official-value">
+                  <span className="not-available">—</span>
+                  <span className="value-year">Not published</span>
+                </td>
+                <td className="pe-value">
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2023 ? `£${peMetrics.year2023.meanHouseholdIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  </a>
+                  <span className="value-year">2023</span>
+                </td>
+                <td className="difference">—</td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Median</strong>
+                  <span className="metric-subtitle">Household disposable income</span>
+                </td>
+                <td className="official-value">
+                  <span className="not-available">—</span>
+                  <span className="value-year">Not published</span>
+                </td>
+                <td className="pe-value">
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2023 ? `£${peMetrics.year2023.medianHouseholdIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  </a>
+                  <span className="value-year">2023</span>
+                </td>
+                <td className="difference">—</td>
+              </tr>
+              {/* Total */}
+              <tr className="section-header-row">
+                <td colSpan="4" className="section-header">Total</td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Scotland aggregate</strong>
+                  <span className="metric-subtitle">Total disposable income</span>
                 </td>
                 <td className="official-value">
                   <a href={OFFICIAL_STATS.totalGDHI.url} target="_blank" rel="noopener noreferrer">
@@ -708,124 +848,6 @@ export default function ScotlandTab() {
                 </td>
                 <td className="difference">
                   {formatAbsDifference(peMetrics?.year2023?.pensionerPovertyAHC, OFFICIAL_STATS.pensionerPovertyAHC.value)}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* Population Table */}
-      <div className="comparison-section">
-        <div className="chart-header">
-          <h2>Population</h2>
-          <p className="chart-description">
-            Population and household counts comparing PolicyEngine microsimulation with official
-            National Records of Scotland (NRS) statistics. PolicyEngine{" "}
-            <a
-              href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              uses
-            </a>{" "}
-            the Family Resources Survey, reweighting Scottish households to be more representative of the Scottish population.
-          </p>
-        </div>
-
-        <div className="comparison-table-container">
-          <table className="comparison-table">
-            <thead>
-              <tr>
-                <th>Metric</th>
-                <th>Official</th>
-                <th>PolicyEngine</th>
-                <th>Difference</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="metric-name">
-                  <strong>Population</strong>
-                  <span className="metric-subtitle">Scotland total</span>
-                </td>
-                <td className="official-value">
-                  <a href={OFFICIAL_STATS.population.url} target="_blank" rel="noopener noreferrer">
-                    {OFFICIAL_STATS.population.value}m
-                  </a>
-                  <span className="value-year">{OFFICIAL_STATS.population.year}</span>
-                </td>
-                <td className="pe-value">
-                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
-                    {peMetrics?.year2023 ? `${(peMetrics.year2023.totalPopulation / 1e6).toFixed(2)}m` : "—"}
-                  </a>
-                  <span className="value-year">2023</span>
-                </td>
-                <td className="difference">
-                  {formatDifference(peMetrics?.year2023?.totalPopulation / 1e6, OFFICIAL_STATS.population.value)}
-                </td>
-              </tr>
-              <tr>
-                <td className="metric-name">
-                  <strong>Households</strong>
-                  <span className="metric-subtitle">Scotland total</span>
-                </td>
-                <td className="official-value">
-                  <a href={OFFICIAL_STATS.households.url} target="_blank" rel="noopener noreferrer">
-                    {OFFICIAL_STATS.households.value}m
-                  </a>
-                  <span className="value-year">{OFFICIAL_STATS.households.year}</span>
-                </td>
-                <td className="pe-value">
-                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
-                    {peMetrics?.year2023 ? `${(peMetrics.year2023.totalHouseholds / 1e6).toFixed(2)}m` : "—"}
-                  </a>
-                  <span className="value-year">2023</span>
-                </td>
-                <td className="difference">
-                  {formatDifference(peMetrics?.year2023?.totalHouseholds / 1e6, OFFICIAL_STATS.households.value)}
-                </td>
-              </tr>
-              <tr>
-                <td className="metric-name">
-                  <strong>Children</strong>
-                  <span className="metric-subtitle">Under 16</span>
-                </td>
-                <td className="official-value">
-                  <a href={OFFICIAL_STATS.childrenUnder16.url} target="_blank" rel="noopener noreferrer">
-                    {OFFICIAL_STATS.childrenUnder16.value}m
-                  </a>
-                  <span className="value-year">{OFFICIAL_STATS.childrenUnder16.year}</span>
-                </td>
-                <td className="pe-value">
-                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
-                    0.97m
-                  </a>
-                  <span className="value-year">2023</span>
-                </td>
-                <td className="difference">
-                  {formatDifference(0.97, OFFICIAL_STATS.childrenUnder16.value)}
-                </td>
-              </tr>
-              <tr>
-                <td className="metric-name">
-                  <strong>Households with 3+ children</strong>
-                  <span className="metric-subtitle">Families affected by two-child limit</span>
-                </td>
-                <td className="official-value">
-                  <a href={OFFICIAL_STATS.householdsWith3PlusChildren.url} target="_blank" rel="noopener noreferrer">
-                    {OFFICIAL_STATS.householdsWith3PlusChildren.value}k
-                  </a>
-                  <span className="value-year">{OFFICIAL_STATS.householdsWith3PlusChildren.year}</span>
-                </td>
-                <td className="pe-value">
-                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
-                    93k
-                  </a>
-                  <span className="value-year">2022</span>
-                </td>
-                <td className="difference">
-                  {formatDifference(93, OFFICIAL_STATS.householdsWith3PlusChildren.value)}
                 </td>
               </tr>
             </tbody>
