@@ -375,8 +375,7 @@ export default function ScotlandTab() {
       <h2 className="section-title" id="introduction" ref={(el) => (sectionRefs.current["introduction"] = el)}>Introduction</h2>
       <div className="section-box">
         <p className="chart-description">
-          This dashboard projects Scotland's economy and poverty levels under current policy, and
-          estimates the impact of proposed budget measures. Finance Secretary Shona Robison will{" "}
+          Finance Secretary Shona Robison will{" "}
           <a
             href="https://www.gov.scot/budget/"
             target="_blank"
@@ -384,17 +383,20 @@ export default function ScotlandTab() {
           >
             announce
           </a>{" "}
-          the Scottish Budget 2026–27 on 13 January 2026.{" "}
+          the Scottish Budget 2026–27 on 13 January 2026. This dashboard helps answer key questions:
+          How are Scottish households faring economically? What are the projected trends for poverty
+          and living standards? And how might proposed budget measures affect these outcomes?
+        </p>
+        <p className="chart-description" style={{ marginTop: "12px" }}>
+          The analysis uses{" "}
           <a
             href="https://policyengine.org"
             target="_blank"
             rel="noopener noreferrer"
           >
             PolicyEngine
-          </a>{" "}
-          is an open-source microsimulation model that calculates the impact of tax and benefit
-          policies on household incomes. This dashboard uses PolicyEngine to produce Scotland-specific
-          projections by{" "}
+          </a>, an open-source microsimulation model that calculates the impact of tax and benefit
+          policies on household incomes. Scotland-specific projections are produced by{" "}
           <a
             href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
             target="_blank"
@@ -402,22 +404,21 @@ export default function ScotlandTab() {
           >
             reweighting
           </a>{" "}
-          the Family Resources Survey to Scottish parliamentary constituencies. PolicyEngine also created a{" "}
+          the Family Resources Survey to match Scottish demographics. See also: PolicyEngine's{" "}
           <a
             href="https://www.policyengine.org/uk/autumn-budget-2025"
             target="_blank"
             rel="noopener noreferrer"
           >
-            dashboard
+            UK Autumn Budget 2025
           </a>{" "}
-          for the UK Autumn Budget 2025. For details on how PolicyEngine poverty estimates compare with official DWP statistics,
-          see our{" "}
+          dashboard and{" "}
           <a
             href="https://www.policyengine.org/uk/research/uk-poverty-analysis"
             target="_blank"
             rel="noopener noreferrer"
           >
-            analysis
+            poverty methodology
           </a>.
         </p>
       </div>
