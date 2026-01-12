@@ -68,10 +68,19 @@
   box-shadow: 0 0 0 3px rgba(44, 100, 150, 0.1);
 }
 
+/* Section boxes */
+.section-box {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+}
+
 /* Tables */
 .comparison-table-container {
   overflow-x: auto;
-  margin: 1.5rem 0 3rem 0;
+  margin: 1.5rem 0 0 0;
 }
 
 .comparison-table {

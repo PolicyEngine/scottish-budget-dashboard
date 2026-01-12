@@ -375,14 +375,15 @@ export default function ScotlandTab() {
 
       {/* Living standard chart */}
       <h3 className="subsection-title">Living standard</h3>
-      <p className="chart-description">
-        Mean income is total disposable income divided by number of households. Median income
-        is the middle value when all households are ranked by income (half have more, half have
-        less). Solid lines show official ONS data (2021-2023), calculated as total Scotland GDHI divided
-        by NRS household estimates. Dashed lines show PolicyEngine projections through 2030,
-        which apply OBR forecasts for earnings growth and inflation to the baseline survey data.
-      </p>
-        <div style={{ maxWidth: "700px", margin: "20px auto 0" }}>
+      <div className="section-box">
+        <p className="chart-description">
+          Mean income is total disposable income divided by number of households. Median income
+          is the middle value when all households are ranked by income (half have more, half have
+          less). Solid lines show official ONS data (2021-2023), calculated as total Scotland GDHI divided
+          by NRS household estimates. Dashed lines show PolicyEngine projections through 2030,
+          which apply OBR forecasts for earnings growth and inflation to the baseline survey data.
+        </p>
+        <div style={{ maxWidth: "700px", margin: "0 auto" }}>
         <ResponsiveContainer width="100%" height={400}>
           <LineChart
             data={(() => {
@@ -484,21 +485,23 @@ export default function ScotlandTab() {
           </LineChart>
         </ResponsiveContainer>
         </div>
+      </div>
 
       {/* Poverty rate chart */}
       <h3 className="subsection-title">Poverty rate</h3>
-      <p className="chart-description">
-        {povertyType.includes("absolute")
-          ? "Absolute poverty measures income below a fixed threshold, adjusted annually for inflation (CPI). This captures whether living standards are improving in real terms over time."
-          : "Relative poverty measures income below 60% of contemporary UK median income. This threshold moves with median incomes, so relative poverty can rise even when living standards improve if inequality increases."}
-        {povertyType.includes("AHC")
-          ? " After housing costs (AHC) subtracts rent, mortgage interest, and other housing costs from income before comparing to the threshold."
-          : " Before housing costs (BHC) uses total net income without deducting housing costs."}{" "}
-        Solid lines show official Scottish Government data (2021-2023). Dashed lines show
-        PolicyEngine projections through 2030, based on OBR economic forecasts for earnings
-        growth, inflation, and benefit uprating under current policy.
-      </p>
-      <div style={{ maxWidth: "700px", margin: "20px auto 0", position: "relative" }}>
+      <div className="section-box">
+        <p className="chart-description">
+          {povertyType.includes("absolute")
+            ? "Absolute poverty measures income below a fixed threshold, adjusted annually for inflation (CPI). This captures whether living standards are improving in real terms over time."
+            : "Relative poverty measures income below 60% of contemporary UK median income. This threshold moves with median incomes, so relative poverty can rise even when living standards improve if inequality increases."}
+          {povertyType.includes("AHC")
+            ? " After housing costs (AHC) subtracts rent, mortgage interest, and other housing costs from income before comparing to the threshold."
+            : " Before housing costs (BHC) uses total net income without deducting housing costs."}{" "}
+          Solid lines show official Scottish Government data (2021-2023). Dashed lines show
+          PolicyEngine projections through 2030, based on OBR economic forecasts for earnings
+          growth, inflation, and benefit uprating under current policy.
+        </p>
+        <div style={{ maxWidth: "700px", margin: "0 auto", position: "relative" }}>
         <select
           className="poverty-type-select"
           value={povertyType}
@@ -594,6 +597,7 @@ export default function ScotlandTab() {
             />
           </LineChart>
         </ResponsiveContainer>
+        </div>
       </div>
 
       {/* Validation Section */}
@@ -605,25 +609,26 @@ export default function ScotlandTab() {
 
       {/* Population Table - Start with who we're measuring */}
       <h3 className="subsection-title">Population</h3>
-      <p className="chart-description">
-        The Family Resources Survey (FRS) samples approximately 20,000 UK households annually.
-        To produce Scotland-specific estimates, PolicyEngine{" "}
-        <a
-          href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          reweights
-        </a>{" "}
-        the survey so that weighted totals match official demographic targets from the
-        National Records of Scotland (NRS). This calibration adjusts for sampling variation
-        and ensures the microsimulation represents Scotland's actual population structure.
-        The table shows 2023 mid-year estimates. NRS publishes population by age and sex,
-        household estimates, and projections. PolicyEngine targets total population, household
-        count, and age breakdowns (including children under 16) as calibration targets.
-      </p>
+      <div className="section-box">
+        <p className="chart-description">
+          The Family Resources Survey (FRS) samples approximately 20,000 UK households annually.
+          To produce Scotland-specific estimates, PolicyEngine{" "}
+          <a
+            href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            reweights
+          </a>{" "}
+          the survey so that weighted totals match official demographic targets from the
+          National Records of Scotland (NRS). This calibration adjusts for sampling variation
+          and ensures the microsimulation represents Scotland's actual population structure.
+          The table shows 2023 mid-year estimates. NRS publishes population by age and sex,
+          household estimates, and projections. PolicyEngine targets total population, household
+          count, and age breakdowns (including children under 16) as calibration targets.
+        </p>
 
-      <div className="comparison-table-container">
+        <div className="comparison-table-container">
           <table className="comparison-table">
             <thead>
               <tr>
@@ -690,35 +695,37 @@ export default function ScotlandTab() {
               </tr>
             </tbody>
           </table>
+        </div>
       </div>
 
       {/* Income Table */}
       <h3 className="subsection-title">Household income</h3>
-      <p className="chart-description">
-        Gross Disposable Household Income (GDHI) measures the amount of money households have
-        available for spending or saving after taxes, benefits, pension contributions, and
-        property income. ONS publishes GDHI for Scotland as part of regional accounts, derived
-        from national accounts data and survey sources. PolicyEngine calculates household net income by simulating the full UK tax-benefit system
-        for each FRS household: employment and self-employment income, minus income tax and National
-        Insurance, plus benefits (Universal Credit, Child Benefit, State Pension, etc.). The per-person
-        figures divide total income by population; per-household figures divide by household count.
-        Median values are estimated at 87% of mean based on typical income distributions.
-      </p>
+      <div className="section-box">
+        <p className="chart-description">
+          Gross Disposable Household Income (GDHI) measures the amount of money households have
+          available for spending or saving after taxes, benefits, pension contributions, and
+          property income. ONS publishes GDHI for Scotland as part of regional accounts, derived
+          from national accounts data and survey sources. PolicyEngine calculates household net income by simulating the full UK tax-benefit system
+          for each FRS household: employment and self-employment income, minus income tax and National
+          Insurance, plus benefits (Universal Credit, Child Benefit, State Pension, etc.). The per-person
+          figures divide total income by population; per-household figures divide by household count.
+          Median values are estimated at 87% of mean based on typical income distributions.
+        </p>
 
-      <div className="comparison-table-container">
-          <table className="comparison-table">
-            <thead>
-              <tr>
-                <th>Metric</th>
-                <th>Official</th>
-                <th>PolicyEngine</th>
-                <th>Difference</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="metric-name">
-                  <strong>Total</strong>
+        <div className="comparison-table-container">
+            <table className="comparison-table">
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th>Official</th>
+                  <th>PolicyEngine</th>
+                  <th>Difference</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="metric-name">
+                    <strong>Total</strong>
                 </td>
                 <td className="official-value">
                   <a href={OFFICIAL_STATS.totalGDHI.url} target="_blank" rel="noopener noreferrer">
@@ -808,44 +815,46 @@ export default function ScotlandTab() {
               </tr>
             </tbody>
           </table>
+        </div>
       </div>
 
       {/* Poverty Rates Table */}
       <h3 className="subsection-title">Poverty rates</h3>
-      <p className="chart-description">
-        A household is in relative poverty if its equivalised income falls below 60% of UK median
-        income. Equivalisation adjusts for household size using the modified OECD scale (1.0 for
-        the first adult, 0.5 for additional adults, 0.3 for children). BHC (before housing costs)
-        uses total net income; AHC (after housing costs) subtracts rent, mortgage interest, and
-        other housing costs, which typically increases measured poverty rates. Official statistics
-        from the Scottish Government combine three years of FRS data (2021-24) to produce more
-        stable estimates with smaller confidence intervals. PolicyEngine uses single-year data
-        reweighted to Scottish constituencies, which can show more year-to-year variation.
-      </p>
-      <p className="chart-description" style={{ marginTop: "12px" }}>
-        PolicyEngine shows higher child poverty than official statistics (28% vs 20% BHC). This
-        gap arises from different benefit take-up assumptions. PolicyEngine{" "}
-        <a
-          href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/parameters/take_up/universal_credit.yaml"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          assumes
-        </a>{" "}
-        55% UC take-up to stochastically assign claiming behaviour, then calibrates weights to
-        match official UC expenditure totals. The Scottish Government uses{" "}
-        <a
-          href="https://www.gov.scot/publications/impact-of-withdrawing-emergency-benefit-measures/pages/annex-a-methodology/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          UKMOD
-        </a>{" "}
-        with 87% take-up. Lower take-up means fewer families are modelled as receiving benefits,
-        resulting in lower incomes and higher measured poverty.
-      </p>
+      <div className="section-box">
+        <p className="chart-description">
+          A household is in relative poverty if its equivalised income falls below 60% of UK median
+          income. Equivalisation adjusts for household size using the modified OECD scale (1.0 for
+          the first adult, 0.5 for additional adults, 0.3 for children). BHC (before housing costs)
+          uses total net income; AHC (after housing costs) subtracts rent, mortgage interest, and
+          other housing costs, which typically increases measured poverty rates. Official statistics
+          from the Scottish Government combine three years of FRS data (2021-24) to produce more
+          stable estimates with smaller confidence intervals. PolicyEngine uses single-year data
+          reweighted to Scottish constituencies, which can show more year-to-year variation.
+        </p>
+        <p className="chart-description" style={{ marginTop: "12px" }}>
+          PolicyEngine shows higher child poverty than official statistics (28% vs 20% BHC). This
+          gap arises from different benefit take-up assumptions. PolicyEngine{" "}
+          <a
+            href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/parameters/take_up/universal_credit.yaml"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            assumes
+          </a>{" "}
+          55% UC take-up to stochastically assign claiming behaviour, then calibrates weights to
+          match official UC expenditure totals. The Scottish Government uses{" "}
+          <a
+            href="https://www.gov.scot/publications/impact-of-withdrawing-emergency-benefit-measures/pages/annex-a-methodology/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            UKMOD
+          </a>{" "}
+          with 87% take-up. Lower take-up means fewer families are modelled as receiving benefits,
+          resulting in lower incomes and higher measured poverty.
+        </p>
 
-      <div className="comparison-table-container">
+        <div className="comparison-table-container">
           <table className="comparison-table">
             <thead>
               <tr>
@@ -1026,6 +1035,7 @@ export default function ScotlandTab() {
               </tr>
             </tbody>
           </table>
+        </div>
       </div>
 
       {/* Scottish Budget 2026 section */}
@@ -1036,79 +1046,83 @@ export default function ScotlandTab() {
       </p>
 
       <h3 className="subsection-title">Expected policies</h3>
-      <p className="chart-description">
-        According to BBC{" "}
-        <a
-          href="https://www.bbc.co.uk/news/articles/cpwndd10rejo"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Scotland
-        </a>, the following policy areas may feature in the budget. The Scottish child payment may
-        be increased following the UK Government's decision to abolish the two-child limit, with
-        First Minister John Swinney pledging to use funding to tackle child poverty. Scotland's
-        six income tax bands (compared to three in the rest of the UK) may face pressure for cuts
-        from opposition parties. The council tax freeze ended last year and is not expected to be
-        reimposed, meaning households could face increases from April. Business groups have called
-        for lower non-domestic rates. Scottish Labour have called for health funding to reduce
-        waiting lists and reform the NHS.
-      </p>
+      <div className="section-box">
+        <p className="chart-description">
+          According to BBC{" "}
+          <a
+            href="https://www.bbc.co.uk/news/articles/cpwndd10rejo"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Scotland
+          </a>, the following policy areas may feature in the budget. The Scottish child payment may
+          be increased following the UK Government's decision to abolish the two-child limit, with
+          First Minister John Swinney pledging to use funding to tackle child poverty. Scotland's
+          six income tax bands (compared to three in the rest of the UK) may face pressure for cuts
+          from opposition parties. The council tax freeze ended last year and is not expected to be
+          reimposed, meaning households could face increases from April. Business groups have called
+          for lower non-domestic rates. Scottish Labour have called for health funding to reduce
+          waiting lists and reform the NHS.
+        </p>
+      </div>
 
       {/* Two-child limit section */}
       <h3 className="subsection-title">Two-child limit top-up payment</h3>
-      <p className="chart-description">
-        The Scottish Government{" "}
-        <a
-          href="https://www.bbc.co.uk/news/articles/cpwndd10rejo"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          plans
-        </a>{" "}
-        to introduce a top-up payment for families with three or more children on Universal Credit
-        from April 2026, compensating for the UK-wide two-child limit. The Scottish Fiscal{" "}
-        <a
-          href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Commission
-        </a>{" "}
-        estimates this will cost £155 million in 2026-27 rising to £198 million by 2029-30,
-        affecting 43,000 children in 2026-27 rising to 50,000 children by 2029-30.{" "}
-        PolicyEngine{" "}
-        <a
-          href="https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_two_child_limit.csv"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          estimates
-        </a>{" "}
-        £213 million in 2026-27 rising to £256 million by 2029-30, affecting 69,000 children in
-        2026-27 rising to 73,000 children by 2029-30.
-      </p>
-      <p className="chart-description" style={{ marginTop: "12px" }}>
-        The two-child limit restricts Universal Credit child element payments to the first two
-        children, so the top-up payment cost depends on how many Scottish families claim UC and
-        have three or more children. The difference between estimates arises from different data
-        sources: SFC uses DWP administrative{" "}
-        <a
-          href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          data
-        </a>{" "}
-        on actual UC claimants, while PolicyEngine uses Family Resources Survey data{" "}
-        <a
-          href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          reweighted
-        </a>{" "}
-        to Scotland, which estimates more families with three or more children receiving UC.
-      </p>
+      <div className="section-box">
+        <p className="chart-description">
+          The Scottish Government{" "}
+          <a
+            href="https://www.bbc.co.uk/news/articles/cpwndd10rejo"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            plans
+          </a>{" "}
+          to introduce a top-up payment for families with three or more children on Universal Credit
+          from April 2026, compensating for the UK-wide two-child limit. The Scottish Fiscal{" "}
+          <a
+            href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Commission
+          </a>{" "}
+          estimates this will cost £155 million in 2026-27 rising to £198 million by 2029-30,
+          affecting 43,000 children in 2026-27 rising to 50,000 children by 2029-30.{" "}
+          PolicyEngine{" "}
+          <a
+            href="https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_two_child_limit.csv"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            estimates
+          </a>{" "}
+          £213 million in 2026-27 rising to £256 million by 2029-30, affecting 69,000 children in
+          2026-27 rising to 73,000 children by 2029-30.
+        </p>
+        <p className="chart-description" style={{ marginTop: "12px" }}>
+          The two-child limit restricts Universal Credit child element payments to the first two
+          children, so the top-up payment cost depends on how many Scottish families claim UC and
+          have three or more children. The difference between estimates arises from different data
+          sources: SFC uses DWP administrative{" "}
+          <a
+            href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            data
+          </a>{" "}
+          on actual UC claimants, while PolicyEngine uses Family Resources Survey data{" "}
+          <a
+            href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            reweighted
+          </a>{" "}
+          to Scotland, which estimates more families with three or more children receiving UC.
+        </p>
+      </div>
 
     </div>
   );
