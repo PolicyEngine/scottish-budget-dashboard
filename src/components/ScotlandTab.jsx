@@ -414,7 +414,7 @@ export default function ScotlandTab() {
         <p className="chart-description" style={{ marginTop: "12px" }}>
           The table shows 2023 mid-year estimates. NRS publishes population by age and sex,
           household estimates, and projections. PolicyEngine targets total population, household
-          count, and age breakdowns (including children under 16) as calibration constraints.
+          count, and age breakdowns (including children under 16) as calibration targets.
         </p>
 
         <div className="comparison-table-container">
