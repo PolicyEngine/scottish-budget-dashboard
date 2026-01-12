@@ -480,7 +480,7 @@ export default function ScotlandTab() {
             <thead>
               <tr>
                 <th>Metric</th>
-                <th>Official (GDHI)</th>
+                <th>Official</th>
                 <th>PolicyEngine</th>
                 <th>Difference</th>
               </tr>
