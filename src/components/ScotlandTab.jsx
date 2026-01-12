@@ -378,10 +378,7 @@ export default function ScotlandTab() {
         <p className="chart-description">
           Mean income is total disposable income divided by number of households. Median income
           is the middle value when all households are ranked by income (half have more, half have
-          less).
-        </p>
-        <p className="chart-description" style={{ marginTop: "12px" }}>
-          Solid lines show official ONS data (2021-2023), calculated as total Scotland GDHI divided
+          less). Solid lines show official ONS data (2021-2023), calculated as total Scotland GDHI divided
           by NRS household estimates. Dashed lines show PolicyEngine projections through 2030,
           which apply OBR forecasts for earnings growth and inflation to the baseline survey data.
         </p>
