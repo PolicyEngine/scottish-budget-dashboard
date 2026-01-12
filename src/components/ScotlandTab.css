@@ -123,6 +123,14 @@
   border-radius: 12px;
   padding: 2rem;
   margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-box > * {
+  width: 100%;
+  max-width: 700px;
 }
 
 /* Tables */
