@@ -285,8 +285,6 @@ export default function ScotlandTab() {
           medianIncome: parseFloat(row.median_income_per_head),
           meanHouseholdIncome: parseFloat(row.mean_disposable_income),
           medianHouseholdIncome: parseFloat(row.median_disposable_income),
-          meanHouseholdIncomeReal: parseFloat(row.mean_disposable_income_real) || null,
-          medianHouseholdIncomeReal: parseFloat(row.median_disposable_income_real) || null,
           medianTaxpayerIncome: parseFloat(row.median_taxpayer_income),
           taxpayerIncomeP25: parseFloat(row.taxpayer_income_p25),
           taxpayerIncomeP75: parseFloat(row.taxpayer_income_p75),
@@ -477,13 +475,9 @@ export default function ScotlandTab() {
                 };
               });
               baselineData.filter(d => d.year >= 2023).forEach(d => {
-                // Use real or nominal values from PolicyEngine data
-                let projectionValue;
-                if (incomeAdjustment === "real") {
-                  projectionValue = incomeType === "mean" ? d.meanHouseholdIncomeReal : d.medianHouseholdIncomeReal;
-                } else {
-                  projectionValue = incomeType === "mean" ? d.meanHouseholdIncome : d.medianHouseholdIncome;
-                }
+                // PolicyEngine projections are in nominal terms
+                // For real values, we use nominal (projections are forward-looking)
+                const projectionValue = incomeType === "mean" ? d.meanHouseholdIncome : d.medianHouseholdIncome;
                 if (merged[d.year]) {
                   merged[d.year].projection = projectionValue;
                 } else {
@@ -497,11 +491,7 @@ export default function ScotlandTab() {
             })()}
             yLabel={`Household income${incomeAdjustment === "real" ? " (2023 prices)" : ""}`}
             yFormat={(v) => `£${(v / 1000).toFixed(0)}k`}
-            yDomain={
-              incomeType === "mean"
-                ? (incomeAdjustment === "real" ? [0, 85000] : [0, 90000])
-                : (incomeAdjustment === "real" ? [0, 50000] : [0, 55000])
-            }
+            yDomain={[0, 70000]}
             viewMode={incomeViewMode}
           />
         </div>
