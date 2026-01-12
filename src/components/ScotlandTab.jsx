@@ -371,6 +371,9 @@ export default function ScotlandTab() {
         </p>
       </div>
 
+      {/* Economic outlook section */}
+      <h2 className="section-title">Economic outlook</h2>
+
       {/* Living standard chart */}
       <h3 className="subsection-title">Living standard</h3>
       <div className="scotland-chart-section">
@@ -599,6 +602,8 @@ export default function ScotlandTab() {
       </div>
 
       {/* Validation Section */}
+      <h2 className="section-title">Validation</h2>
+
           {/* Population Table - Start with who we're measuring */}
       <h3 className="subsection-title">Population</h3>
       <div className="comparison-section">
@@ -1027,8 +1032,10 @@ export default function ScotlandTab() {
         </div>
       </div>
 
-      {/* Expected policies section */}
-      <h2 className="section-title">Expected policies</h2>
+      {/* Scottish Budget 2026 section */}
+      <h2 className="section-title">Scottish Budget 2026</h2>
+
+      <h3 className="subsection-title">Expected policies</h3>
       <div className="comparison-section">
         <p className="chart-description">
           According to BBC{" "}
