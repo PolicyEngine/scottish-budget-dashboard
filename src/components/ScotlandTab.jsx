@@ -612,8 +612,6 @@ export default function ScotlandTab() {
           the survey so that weighted totals match official demographic targets from the
           National Records of Scotland (NRS). This calibration adjusts for sampling variation
           and ensures the microsimulation represents Scotland's actual population structure.
-        </p>
-        <p className="chart-description" style={{ marginTop: "12px" }}>
           The table shows 2023 mid-year estimates. NRS publishes population by age and sex,
           household estimates, and projections. PolicyEngine targets total population, household
           count, and age breakdowns (including children under 16) as calibration targets.
@@ -696,10 +694,7 @@ export default function ScotlandTab() {
           Gross Disposable Household Income (GDHI) measures the amount of money households have
           available for spending or saving after taxes, benefits, pension contributions, and
           property income. ONS publishes GDHI for Scotland as part of regional accounts, derived
-          from national accounts data and survey sources.
-        </p>
-        <p className="chart-description" style={{ marginTop: "12px" }}>
-          PolicyEngine calculates household net income by simulating the full UK tax-benefit system
+          from national accounts data and survey sources. PolicyEngine calculates household net income by simulating the full UK tax-benefit system
           for each FRS household: employment and self-employment income, minus income tax and National
           Insurance, plus benefits (Universal Credit, Child Benefit, State Pension, etc.). The per-person
           figures divide total income by population; per-household figures divide by household count.
@@ -820,16 +815,10 @@ export default function ScotlandTab() {
           income. Equivalisation adjusts for household size using the modified OECD scale (1.0 for
           the first adult, 0.5 for additional adults, 0.3 for children). BHC (before housing costs)
           uses total net income; AHC (after housing costs) subtracts rent, mortgage interest, and
-          other housing costs, which typically increases measured poverty rates.
-        </p>
-        <p className="chart-description" style={{ marginTop: "12px" }}>
-          Official statistics from the Scottish Government combine three years of FRS data (2021-24)
+          other housing costs, which typically increases measured poverty rates. Official statistics from the Scottish Government combine three years of FRS data (2021-24)
           to produce more stable estimates with smaller confidence intervals. PolicyEngine uses
           single-year data reweighted to Scottish constituencies, which can show more year-to-year
-          variation.
-        </p>
-        <p className="chart-description" style={{ marginTop: "12px" }}>
-          PolicyEngine shows higher child poverty than official statistics (28% vs 20% BHC). This gap
+          variation. PolicyEngine shows higher child poverty than official statistics (28% vs 20% BHC). This gap
           arises from different benefit take-up assumptions. PolicyEngine{" "}
           <a
             href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/parameters/take_up/universal_credit.yaml"
