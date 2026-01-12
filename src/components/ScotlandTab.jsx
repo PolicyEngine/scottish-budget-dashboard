@@ -237,7 +237,6 @@ const OFFICIAL_STATS = {
 export default function ScotlandTab() {
   const [loading, setLoading] = useState(true);
   const [baselineData, setBaselineData] = useState([]);
-  const [activeTab, setActiveTab] = useState("validation");
   const [povertyType, setPovertyType] = useState("absoluteBHC"); // absoluteBHC, absoluteAHC, relativeBHC, relativeAHC
 
   // Load Scotland baseline data
@@ -350,50 +349,12 @@ export default function ScotlandTab() {
           the Family Resources Survey to Scottish parliamentary constituencies.
         </p>
         <p className="chart-description" style={{ marginTop: "12px" }}>
-          The <strong>Validation</strong> tab compares PolicyEngine's baseline projections with official
-          statistics on population, household income, and poverty rates. The <strong>Budget reforms</strong> tab
-          analyses specific policy changes expected in the upcoming budget, including the two-child
-          limit top-up payment.
-        </p>
-        <h3 className="subsection-header">Expected policies</h3>
-        <p className="chart-description">
-          According to{" "}
-          <a
-            href="https://www.bbc.co.uk/news/articles/cpwndd10rejo"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            BBC Scotland
-          </a>, the following policy areas may feature in the budget. The Scottish child payment may be increased following the UK Government's
-          decision to abolish the two-child limit, with First Minister John Swinney pledging
-          to use funding to tackle child poverty. Scotland's six income tax bands
-          (compared to three in the rest of the UK) may face pressure for cuts from opposition
-          parties. The council tax freeze ended last year and is not expected to be reimposed,
-          meaning households could face increases from April. Business groups have called for
-          lower non-domestic rates. Scottish Labour have called for health funding to reduce
-          waiting lists and reform the NHS.
+          The sections below compare PolicyEngine's baseline projections with official statistics,
+          then analyse specific policy changes expected in the upcoming budget.
         </p>
       </div>
 
-      {/* Tab navigation */}
-      <div className="scotland-tabs">
-        <button
-          className={`scotland-tab-button ${activeTab === "validation" ? "active" : ""}`}
-          onClick={() => setActiveTab("validation")}
-        >
-          Validation
-        </button>
-        <button
-          className={`scotland-tab-button ${activeTab === "reforms" ? "active" : ""}`}
-          onClick={() => setActiveTab("reforms")}
-        >
-          Budget reforms
-        </button>
-      </div>
-
-      {/* Validation Tab Content */}
-      {activeTab === "validation" && (
-        <>
+      {/* Validation Section */}
           {/* Population Table - Start with who we're measuring */}
       <h2 className="section-title">Population</h2>
       <div className="comparison-section">
@@ -1050,66 +1011,85 @@ export default function ScotlandTab() {
           </div>
         </div>
       </div>
-        </>
-      )}
 
-      {/* Budget Reforms Tab Content */}
-      {activeTab === "reforms" && (
-        <>
-          <h2 className="section-title">Two-child limit top-up payment</h2>
-          <div className="comparison-section">
-            <p className="chart-description">
-            The Scottish Government{" "}
-            <a
-              href="https://www.bbc.co.uk/news/articles/cpwndd10rejo"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              plans
-            </a>{" "}
-            to introduce a top-up payment for families with three or more children on Universal Credit from April 2026, compensating for the UK-wide two-child limit. The{" "}
-            <a
-              href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Scottish Fiscal Commission
-            </a>{" "}
-            estimates this will cost £155 million in 2026-27 rising to £198 million by 2029-30,
-            affecting 43,000 children in 2026-27 rising to 50,000 children by 2029-30.{" "}
-            PolicyEngine{" "}
-            <a
-              href="https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_two_child_limit.csv"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              estimates
-            </a>{" "}
-            £213 million in 2026-27 rising to £256 million by 2029-30,
-            affecting 69,000 children in 2026-27 rising to 73,000 children by 2029-30.
-            The two-child limit restricts Universal Credit child element payments to the first
-            two children, so the top-up payment cost depends on how many Scottish families claim UC
-            and have three or more children. The difference between estimates arises from different
-            data sources: SFC uses{" "}
-            <a
-              href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              DWP administrative data
-            </a>{" "}
-            on actual UC claimants, while PolicyEngine uses{" "}
-            <a
-              href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Family Resources Survey data reweighted to Scotland
-            </a>, which estimates more families with three or more children receiving UC.
-            </p>
-          </div>
-        </>
-      )}
+      {/* Expected policies section */}
+      <h2 className="section-title">Expected policies</h2>
+      <div className="comparison-section">
+        <p className="chart-description">
+          According to{" "}
+          <a
+            href="https://www.bbc.co.uk/news/articles/cpwndd10rejo"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            BBC Scotland
+          </a>, the following policy areas may feature in the budget. The Scottish child payment may
+          be increased following the UK Government's decision to abolish the two-child limit, with
+          First Minister John Swinney pledging to use funding to tackle child poverty. Scotland's
+          six income tax bands (compared to three in the rest of the UK) may face pressure for cuts
+          from opposition parties. The council tax freeze ended last year and is not expected to be
+          reimposed, meaning households could face increases from April. Business groups have called
+          for lower non-domestic rates. Scottish Labour have called for health funding to reduce
+          waiting lists and reform the NHS.
+        </p>
+      </div>
+
+      {/* Two-child limit section */}
+      <h2 className="section-title">Two-child limit top-up payment</h2>
+      <div className="comparison-section">
+        <p className="chart-description">
+          The Scottish Government{" "}
+          <a
+            href="https://www.bbc.co.uk/news/articles/cpwndd10rejo"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            plans
+          </a>{" "}
+          to introduce a top-up payment for families with three or more children on Universal Credit
+          from April 2026, compensating for the UK-wide two-child limit. The{" "}
+          <a
+            href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Scottish Fiscal Commission
+          </a>{" "}
+          estimates this will cost £155 million in 2026-27 rising to £198 million by 2029-30,
+          affecting 43,000 children in 2026-27 rising to 50,000 children by 2029-30.{" "}
+          PolicyEngine{" "}
+          <a
+            href="https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_two_child_limit.csv"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            estimates
+          </a>{" "}
+          £213 million in 2026-27 rising to £256 million by 2029-30, affecting 69,000 children in
+          2026-27 rising to 73,000 children by 2029-30.
+        </p>
+        <p className="chart-description" style={{ marginTop: "12px" }}>
+          The two-child limit restricts Universal Credit child element payments to the first two
+          children, so the top-up payment cost depends on how many Scottish families claim UC and
+          have three or more children. The difference between estimates arises from different data
+          sources: SFC uses{" "}
+          <a
+            href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            DWP administrative data
+          </a>{" "}
+          on actual UC claimants, while PolicyEngine uses{" "}
+          <a
+            href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Family Resources Survey data reweighted to Scotland
+          </a>, which estimates more families with three or more children receiving UC.
+        </p>
+      </div>
 
     </div>
   );
