@@ -386,7 +386,7 @@ export default function ScotlandTab() {
           which apply OBR forecasts for earnings growth and inflation to the baseline survey data.
         </p>
         <div style={{ maxWidth: "700px", margin: "0 auto" }}>
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={400}>
           <LineChart
             data={(() => {
               const merged = {};
@@ -517,7 +517,7 @@ export default function ScotlandTab() {
           growth, inflation, and benefit uprating under current policy.
         </p>
         <div style={{ maxWidth: "700px", margin: "0 auto" }}>
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={400}>
           <LineChart
             data={(() => {
               const merged = {};
