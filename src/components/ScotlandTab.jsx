@@ -319,10 +319,8 @@ export default function ScotlandTab() {
   return (
     <div className="scotland-tab">
       {/* Introduction */}
+      <h2 className="section-title">Introduction</h2>
       <div className="comparison-section">
-        <div className="chart-header">
-          <h2>Introduction</h2>
-        </div>
         <p className="chart-description">
           Finance Secretary Shona Robison will announce the Scottish Budget 2026-27 on{" "}
           <a
@@ -397,22 +395,20 @@ export default function ScotlandTab() {
       {activeTab === "validation" && (
         <>
           {/* Population Table - Start with who we're measuring */}
+      <h2 className="section-title">Population</h2>
       <div className="comparison-section">
-        <div className="chart-header">
-          <h2>Population</h2>
-          <p className="chart-description">
-            PolicyEngine{" "}
-            <a
-              href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              reweights
-            </a>{" "}
-            the Family Resources Survey to match official demographic targets from the
-            National Records of Scotland (NRS) for 2023.
-          </p>
-        </div>
+        <p className="chart-description">
+          PolicyEngine{" "}
+          <a
+            href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            reweights
+          </a>{" "}
+          the Family Resources Survey to match official demographic targets from the
+          National Records of Scotland (NRS) for 2023.
+        </p>
 
         <div className="comparison-table-container">
           <table className="comparison-table">
@@ -485,15 +481,13 @@ export default function ScotlandTab() {
       </div>
 
           {/* Income Table */}
+      <h2 className="section-title">Household income</h2>
       <div className="comparison-section">
-        <div className="chart-header">
-          <h2>Household income</h2>
-          <p className="chart-description">
-            Both sources measure disposable income (income after taxes and benefits) for 2023.
-            Official data is from ONS regional accounts (GDHI). PolicyEngine calculates
-            household net income from Family Resources Survey microdata.
-          </p>
-        </div>
+        <p className="chart-description">
+          Both sources measure disposable income (income after taxes and benefits) for 2023.
+          Official data is from ONS regional accounts (GDHI). PolicyEngine calculates
+          household net income from Family Resources Survey microdata.
+        </p>
 
         <div className="comparison-table-container">
           <table className="comparison-table">
@@ -602,33 +596,31 @@ export default function ScotlandTab() {
       </div>
 
       {/* Poverty Rates Table */}
+      <h2 className="section-title">Poverty rates</h2>
       <div className="comparison-section">
-        <div className="chart-header">
-          <h2>Poverty rates</h2>
-          <p className="chart-description">
-            Relative poverty: equivalised income below 60% of UK median. BHC (before housing costs)
-            uses total income; AHC (after housing costs) subtracts rent and mortgage payments.
-            Official statistics are 3-year averages from the Scottish Government.
-          </p>
-          <p className="chart-description" style={{ marginTop: "12px" }}>
-            PolicyEngine shows higher child poverty than official statistics (28% vs 20% BHC).
-            PolicyEngine{" "}
-            <a
-              href="https://github.com/PolicyEngine/policyengine-uk/blob/main/policyengine_uk/parameters/gov/dwp/universal_credit/takeup_rate.yaml"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              assumes 55% UC take-up
-            </a>; the Scottish Government uses{" "}
-            <a
-              href="https://www.gov.scot/publications/impact-of-withdrawing-emergency-benefit-measures/pages/annex-a-methodology/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              UKMOD with 87% take-up
-            </a>.
-          </p>
-        </div>
+        <p className="chart-description">
+          Relative poverty: equivalised income below 60% of UK median. BHC (before housing costs)
+          uses total income; AHC (after housing costs) subtracts rent and mortgage payments.
+          Official statistics are 3-year averages from the Scottish Government.
+        </p>
+        <p className="chart-description" style={{ marginTop: "12px" }}>
+          PolicyEngine shows higher child poverty than official statistics (28% vs 20% BHC).
+          PolicyEngine{" "}
+          <a
+            href="https://github.com/PolicyEngine/policyengine-uk/blob/main/policyengine_uk/parameters/gov/dwp/universal_credit/takeup_rate.yaml"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            assumes 55% UC take-up
+          </a>; the Scottish Government uses{" "}
+          <a
+            href="https://www.gov.scot/publications/impact-of-withdrawing-emergency-benefit-measures/pages/annex-a-methodology/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            UKMOD with 87% take-up
+          </a>.
+        </p>
 
         <div className="comparison-table-container">
           <table className="comparison-table">
@@ -1027,11 +1019,10 @@ export default function ScotlandTab() {
 
       {/* Budget Reforms Tab Content */}
       {activeTab === "reforms" && (
-        <div className="comparison-section">
-          <div className="chart-header">
-            <h2>Two-child limit top-up payment</h2>
-          </div>
-          <p className="chart-description">
+        <>
+          <h2 className="section-title">Two-child limit top-up payment</h2>
+          <div className="comparison-section">
+            <p className="chart-description">
             The Scottish Government{" "}
             <a
               href="https://www.bbc.co.uk/news/articles/cpwndd10rejo"
@@ -1079,8 +1070,9 @@ export default function ScotlandTab() {
             >
               Family Resources Survey data reweighted to Scotland
             </a>, which estimates more families with three or more children receiving UC.
-          </p>
-        </div>
+            </p>
+          </div>
+        </>
       )}
 
     </div>
