@@ -910,7 +910,7 @@ export default function ScotlandTab() {
           with 87% take-up. Lower take-up means fewer families are modelled as receiving benefits,
           resulting in lower incomes and higher measured poverty. Second, PolicyEngine calibrates
           to high-income households, which can shift the income distribution
-          and affect relative poverty thresholds.
+          and affect poverty metrics.
         </p>
 
         <div className="comparison-table-container">
