@@ -381,17 +381,18 @@ export default function ScotlandTab() {
         <div className="chart-header">
           <h2>Population</h2>
           <p className="chart-description">
-            Comparing PolicyEngine's microsimulation with official statistics from
-            the National Records of Scotland (NRS) for 2023. PolicyEngine{" "}
+            Before analysing policy impacts, we first verify that PolicyEngine's sample
+            accurately represents Scotland. PolicyEngine{" "}
             <a
               href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
               target="_blank"
               rel="noopener noreferrer"
             >
-              uses
+              reweights
             </a>{" "}
-            the Family Resources Survey, reweighting Scottish households to match official
-            demographic targets.
+            the Family Resources Survey to match official demographic targets from the
+            National Records of Scotland (NRS). The close alignment below confirms that
+            policy simulations will apply to the correct number of people and households.
           </p>
         </div>
 
@@ -470,9 +471,11 @@ export default function ScotlandTab() {
         <div className="chart-header">
           <h2>Household income</h2>
           <p className="chart-description">
-            Both sources measure household disposable income (income after taxes and benefits)
-            for 2023. Official data is from ONS regional accounts (GDHI). PolicyEngine calculates
-            household net income from FRS microdata using the same definition.
+            With population validated, we next check that PolicyEngine captures how much money
+            Scottish households actually have. Both sources measure disposable income (income after
+            taxes and benefits) for 2023. Official data comes from ONS regional accounts (GDHI);
+            PolicyEngine calculates household net income from survey microdata. Close alignment here
+            means tax and benefit calculations are producing realistic income distributions.
           </p>
         </div>
 
@@ -587,25 +590,14 @@ export default function ScotlandTab() {
         <div className="chart-header">
           <h2>Poverty rates</h2>
           <p className="chart-description">
-            All rates shown are relative poverty: a household is in poverty if its equivalised
-            income (adjusted for household size) falls below 60% of UK median income. BHC (before
-            housing costs) uses total income; AHC (after housing costs) subtracts rent and
-            mortgage payments, resulting in higher poverty rates.
+            Poverty is the key outcome measure for Scottish budget policy. A household is in relative
+            poverty if its equivalised income (adjusted for household size) falls below 60% of UK
+            median income. BHC (before housing costs) uses total income; AHC (after housing costs)
+            subtracts rent and mortgage payments, resulting in higher measured poverty.
           </p>
           <p className="chart-description" style={{ marginTop: "12px" }}>
-            Official statistics from the Scottish Government combine three years of data to
-            produce more stable estimates.{" "}
-            <a
-              href="https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_baseline.csv"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              PolicyEngine estimates
-            </a>{" "}
-            use single-year data from the Family Resources Survey, reweighted to Scottish
-            parliamentary constituencies. PolicyEngine shows higher child poverty rates (28.3%
-            BHC, 31.8% AHC) compared to official statistics (20% BHC, 23% AHC). This 8-9pp gap
-            arises primarily because PolicyEngine{" "}
+            PolicyEngine shows higher child poverty than official statistics (28% vs 20% BHC). This gap
+            arises because PolicyEngine{" "}
             <a
               href="https://github.com/PolicyEngine/policyengine-uk/blob/main/policyengine_uk/parameters/gov/dwp/universal_credit/takeup_rate.yaml"
               target="_blank"
@@ -621,7 +613,9 @@ export default function ScotlandTab() {
             >
               87% in UKMOD
             </a>{" "}
-            (used by Scottish Government).
+            (used by Scottish Government)—lower take-up means more families miss benefits they're
+            entitled to, pushing more children below the poverty line. While absolute levels differ,
+            both models can estimate the relative impact of policy changes on poverty.
           </p>
         </div>
 
@@ -828,14 +822,15 @@ export default function ScotlandTab() {
               </select>
             </div>
             <p className="chart-description">
+              With the baseline validated, we can project how poverty may evolve under current policy.{" "}
               {povertyType.includes("absolute")
-                ? "Percentage of people living in households with income below the 2010/11 poverty threshold (adjusted for inflation). This is the standard measure used by PolicyEngine."
-                : "Percentage of people living in households with income below 60% of UK median income."}
+                ? "Absolute poverty measures income below a fixed 2010/11 threshold (adjusted for inflation)."
+                : "Relative poverty measures income below 60% of UK median income."}
               {povertyType.includes("AHC")
-                ? " After housing costs (AHC) subtracts rent and mortgage payments."
-                : " Before housing costs (BHC) uses total income."}{" "}
-              Scottish Government publishes 3-year rolling averages (solid line, 2021-2023).
-              Dashed line shows PolicyEngine projections (2024-2030).
+                ? " AHC subtracts housing costs."
+                : ""}{" "}
+              Solid lines show official historical data; dashed lines show PolicyEngine projections
+              through 2030, assuming no policy changes beyond those already announced.
             </p>
           </div>
           <ResponsiveContainer width="100%" height={300}>
@@ -924,9 +919,11 @@ export default function ScotlandTab() {
           <div className="chart-header">
             <h2>Income per household</h2>
             <p className="chart-description">
-              Annual disposable income per household (GDHI / households) after taxes paid and benefits received.
-              Mean is the average; median is the middle value. Solid lines show official ONS data
-              (2021-2023); dashed lines show PolicyEngine projections (2024-2030).
+              Income growth is the other side of the poverty story. As household incomes rise, fewer
+              families fall below poverty thresholds. This chart shows annual disposable income per
+              household, with solid lines for official ONS data and dashed lines for PolicyEngine
+              projections. The gap between mean and median reflects income inequality—when the mean
+              exceeds the median, higher earners are pulling up the average.
             </p>
           </div>
           <ResponsiveContainer width="100%" height={300}>
