@@ -498,7 +498,7 @@ export default function ScotlandTab() {
           {/* Income Table */}
       <div className="comparison-section">
         <div className="chart-header">
-          <h2>Household income</h2>
+          <h2>Household income (2023)</h2>
           <p className="chart-description">
             Both sources measure household disposable income (income after taxes and benefits).
             Official data is from ONS regional accounts (GDHI). PolicyEngine calculates
@@ -525,13 +525,11 @@ export default function ScotlandTab() {
                   <a href={OFFICIAL_STATS.totalGDHI.url} target="_blank" rel="noopener noreferrer">
                     £{OFFICIAL_STATS.totalGDHI.value}bn
                   </a>
-                  <span className="value-year">{OFFICIAL_STATS.totalGDHI.year}</span>
                 </td>
                 <td className="pe-value">
                   <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
                     {peMetrics?.year2023 ? `£${peMetrics.year2023.totalDisposableIncomeBn.toFixed(1)}bn` : "—"}
                   </a>
-                  <span className="value-year">2023</span>
                 </td>
                 <td className="difference">
                   {formatDifference(peMetrics?.year2023?.totalDisposableIncomeBn, OFFICIAL_STATS.totalGDHI.value)}
@@ -545,13 +543,11 @@ export default function ScotlandTab() {
                   <a href={OFFICIAL_STATS.gdhiPerHead.url} target="_blank" rel="noopener noreferrer">
                     £{OFFICIAL_STATS.gdhiPerHead.value.toLocaleString("en-GB")}
                   </a>
-                  <span className="value-year">{OFFICIAL_STATS.gdhiPerHead.year}</span>
                 </td>
                 <td className="pe-value">
                   <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
                     {peMetrics?.year2023 ? `£${peMetrics.year2023.meanIncomePerHead.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
                   </a>
-                  <span className="value-year">2023</span>
                 </td>
                 <td className="difference">
                   {formatDifference(peMetrics?.year2023?.meanIncomePerHead, OFFICIAL_STATS.gdhiPerHead.value)}
@@ -565,13 +561,11 @@ export default function ScotlandTab() {
                   <a href={OFFICIAL_STATS.gdhiPerHead.url} target="_blank" rel="noopener noreferrer">
                     £{Math.round(OFFICIAL_STATS.gdhiPerHead.value * 0.87).toLocaleString("en-GB")}
                   </a>
-                  <span className="value-year">Derived from GDHI</span>
                 </td>
                 <td className="pe-value">
                   <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
                     {peMetrics?.year2023 ? `£${peMetrics.year2023.medianIncomePerHead.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
                   </a>
-                  <span className="value-year">2023</span>
                 </td>
                 <td className="difference">
                   {formatDifference(peMetrics?.year2023?.medianIncomePerHead, Math.round(OFFICIAL_STATS.gdhiPerHead.value * 0.87))}
@@ -585,13 +579,11 @@ export default function ScotlandTab() {
                   <a href={OFFICIAL_STATS.totalGDHI.url} target="_blank" rel="noopener noreferrer">
                     £{Math.round((OFFICIAL_STATS.totalGDHI.value * 1e9) / (OFFICIAL_STATS.households.value * 1e6)).toLocaleString("en-GB")}
                   </a>
-                  <span className="value-year">GDHI / households</span>
                 </td>
                 <td className="pe-value">
                   <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
                     {peMetrics?.year2023 ? `£${peMetrics.year2023.meanHouseholdIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
                   </a>
-                  <span className="value-year">2023</span>
                 </td>
                 <td className="difference">
                   {formatDifference(peMetrics?.year2023?.meanHouseholdIncome, Math.round((OFFICIAL_STATS.totalGDHI.value * 1e9) / (OFFICIAL_STATS.households.value * 1e6)))}
@@ -605,13 +597,11 @@ export default function ScotlandTab() {
                   <a href={OFFICIAL_STATS.totalGDHI.url} target="_blank" rel="noopener noreferrer">
                     £{Math.round((OFFICIAL_STATS.totalGDHI.value * 1e9) / (OFFICIAL_STATS.households.value * 1e6) * 0.87).toLocaleString("en-GB")}
                   </a>
-                  <span className="value-year">Derived from GDHI</span>
                 </td>
                 <td className="pe-value">
                   <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
                     {peMetrics?.year2023 ? `£${peMetrics.year2023.medianHouseholdIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
                   </a>
-                  <span className="value-year">2023</span>
                 </td>
                 <td className="difference">
                   {formatDifference(peMetrics?.year2023?.medianHouseholdIncome, Math.round((OFFICIAL_STATS.totalGDHI.value * 1e9) / (OFFICIAL_STATS.households.value * 1e6) * 0.87))}
