@@ -418,7 +418,7 @@ export default function ScotlandTab() {
           >
             PolicyEngine
           </a>, an open-source microsimulation model that calculates the impact of tax and benefit
-          policies on household incomes. To produce Scotland-specific projections, PolicyEngine{" "}
+          policies on household incomes. PolicyEngine{" "}
           <a
             href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
             target="_blank"
@@ -427,8 +427,7 @@ export default function ScotlandTab() {
             reweights
           </a>{" "}
           the Family Resources Survey to match Scottish demographics and calibrates to official
-          statistics from the National Records of Scotland and HMRC. This approach enables detailed
-          projections for income, poverty, and the effects of policy changes at the Scotland level.
+          statistics from the National Records of Scotland and HMRC.
         </p>
         <p className="chart-description" style={{ marginTop: "12px" }}>
           PolicyEngine also produced a{" "}
@@ -696,7 +695,7 @@ export default function ScotlandTab() {
       <div className="section-box">
         <p className="chart-description">
           The Family Resources Survey (FRS) samples approximately 20,000 UK households annually.
-          To produce Scotland-specific estimates, PolicyEngine{" "}
+          PolicyEngine{" "}
           <a
             href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
             target="_blank"
@@ -704,12 +703,9 @@ export default function ScotlandTab() {
           >
             reweights
           </a>{" "}
-          the survey so that weighted totals match official demographic targets from the
-          National Records of Scotland (NRS). This calibration adjusts for sampling variation
-          and ensures the microsimulation represents Scotland's actual population structure.
-          The table shows 2023 mid-year estimates. NRS publishes population by age and sex,
-          household estimates, and projections. PolicyEngine targets total population, household
-          count, and age breakdowns (including children under 16) as calibration targets.
+          the survey to match official demographic targets from the National Records of Scotland
+          (NRS), including total population, household count, and age breakdowns. The table below
+          compares PolicyEngine's calibrated estimates against 2023 mid-year estimates from NRS.
         </p>
 
         <div className="comparison-table-container">
