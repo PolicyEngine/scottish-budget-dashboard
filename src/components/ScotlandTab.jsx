@@ -204,6 +204,20 @@ const OFFICIAL_STATS = {
     url: "https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome/bulletins/regionalgrossdisposablehouseholdincomegdhi/1997to2023",
     note: "Total £bn",
   },
+  medianHouseholdIncomeBHC: {
+    value: 33600,
+    year: "2023-24",
+    source: "ICAEW/FRS",
+    url: "https://www.icaew.com/insights/viewpoints-on-the-news/2025/apr-2025/chart-of-the-week-regional-incomes",
+    note: "Before housing costs",
+  },
+  medianHouseholdIncomeAHC: {
+    value: 30600,
+    year: "2023-24",
+    source: "ICAEW/FRS",
+    url: "https://www.icaew.com/insights/viewpoints-on-the-news/2025/apr-2025/chart-of-the-week-regional-incomes",
+    note: "After housing costs",
+  },
   population: {
     value: 5.45,
     year: "2023",
@@ -500,10 +514,9 @@ export default function ScotlandTab() {
         <div className="chart-header">
           <h2>Income</h2>
           <p className="chart-description">
-            Income metrics compare PolicyEngine estimates with official statistics from ONS.
-            GDHI (Gross Disposable Household Income) measures total income after taxes and
-            benefits received. Scotland-specific household income distributions are not
-            published separately by ONS, so we compare aggregate totals.
+            Household income metrics compare PolicyEngine estimates with official statistics.
+            Median household income is from the Family Resources Survey; GDHI (Gross Disposable
+            Household Income) totals are from ONS regional accounts.
           </p>
         </div>
 
@@ -518,6 +531,48 @@ export default function ScotlandTab() {
               </tr>
             </thead>
             <tbody>
+              <tr>
+                <td className="metric-name">
+                  <strong>Median household income</strong>
+                  <span className="metric-subtitle">Before housing costs</span>
+                </td>
+                <td className="official-value">
+                  <a href={OFFICIAL_STATS.medianHouseholdIncomeBHC.url} target="_blank" rel="noopener noreferrer">
+                    £{OFFICIAL_STATS.medianHouseholdIncomeBHC.value.toLocaleString("en-GB")}
+                  </a>
+                  <span className="value-year">{OFFICIAL_STATS.medianHouseholdIncomeBHC.year}</span>
+                </td>
+                <td className="pe-value">
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2023 ? `£${peMetrics.year2023.medianHouseholdIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  </a>
+                  <span className="value-year">2023</span>
+                </td>
+                <td className="difference">
+                  {formatDifference(peMetrics?.year2023?.medianHouseholdIncome, OFFICIAL_STATS.medianHouseholdIncomeBHC.value)}
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Mean household income</strong>
+                  <span className="metric-subtitle">Before housing costs</span>
+                </td>
+                <td className="official-value">
+                  <a href={OFFICIAL_STATS.totalGDHI.url} target="_blank" rel="noopener noreferrer">
+                    £{Math.round((OFFICIAL_STATS.totalGDHI.value * 1e9) / (OFFICIAL_STATS.households.value * 1e6)).toLocaleString("en-GB")}
+                  </a>
+                  <span className="value-year">GDHI / households</span>
+                </td>
+                <td className="pe-value">
+                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
+                    {peMetrics?.year2023 ? `£${peMetrics.year2023.meanHouseholdIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
+                  </a>
+                  <span className="value-year">2023</span>
+                </td>
+                <td className="difference">
+                  {formatDifference(peMetrics?.year2023?.meanHouseholdIncome, Math.round((OFFICIAL_STATS.totalGDHI.value * 1e9) / (OFFICIAL_STATS.households.value * 1e6)))}
+                </td>
+              </tr>
               <tr>
                 <td className="metric-name">
                   <strong>Total disposable income</strong>
@@ -537,84 +592,6 @@ export default function ScotlandTab() {
                 </td>
                 <td className="difference">
                   {formatDifference(peMetrics?.year2023?.totalDisposableIncomeBn, OFFICIAL_STATS.totalGDHI.value)}
-                </td>
-              </tr>
-              <tr>
-                <td className="metric-name">
-                  <strong>Mean per person</strong>
-                  <span className="metric-subtitle">GDHI per head</span>
-                </td>
-                <td className="official-value">
-                  <a href={OFFICIAL_STATS.gdhiPerHead.url} target="_blank" rel="noopener noreferrer">
-                    £{OFFICIAL_STATS.gdhiPerHead.value.toLocaleString("en-GB")}
-                  </a>
-                  <span className="value-year">{OFFICIAL_STATS.gdhiPerHead.year}</span>
-                </td>
-                <td className="pe-value">
-                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
-                    {peMetrics?.year2023 ? `£${peMetrics.year2023.meanIncomePerHead.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
-                  </a>
-                  <span className="value-year">2023</span>
-                </td>
-                <td className="difference">
-                  {formatDifference(peMetrics?.year2023?.meanIncomePerHead, OFFICIAL_STATS.gdhiPerHead.value)}
-                </td>
-              </tr>
-              <tr>
-                <td className="metric-name">
-                  <strong>Median per person</strong>
-                  <span className="metric-subtitle">Disposable income</span>
-                </td>
-                <td className="official-value">
-                  <span className="derived-value">£{Math.round(OFFICIAL_STATS.gdhiPerHead.value * 0.87).toLocaleString("en-GB")}</span>
-                  <span className="value-year">~87% of mean</span>
-                </td>
-                <td className="pe-value">
-                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
-                    {peMetrics?.year2023 ? `£${peMetrics.year2023.medianIncomePerHead.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
-                  </a>
-                  <span className="value-year">2023</span>
-                </td>
-                <td className="difference">
-                  {formatDifference(peMetrics?.year2023?.medianIncomePerHead, Math.round(OFFICIAL_STATS.gdhiPerHead.value * 0.87))}
-                </td>
-              </tr>
-              <tr>
-                <td className="metric-name">
-                  <strong>Mean per household</strong>
-                  <span className="metric-subtitle">Household disposable income</span>
-                </td>
-                <td className="official-value">
-                  <span className="derived-value">£{Math.round((OFFICIAL_STATS.totalGDHI.value * 1e9) / (OFFICIAL_STATS.households.value * 1e6)).toLocaleString("en-GB")}</span>
-                  <span className="value-year">GDHI / households</span>
-                </td>
-                <td className="pe-value">
-                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
-                    {peMetrics?.year2023 ? `£${peMetrics.year2023.meanHouseholdIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
-                  </a>
-                  <span className="value-year">2023</span>
-                </td>
-                <td className="difference">
-                  {formatDifference(peMetrics?.year2023?.meanHouseholdIncome, Math.round((OFFICIAL_STATS.totalGDHI.value * 1e9) / (OFFICIAL_STATS.households.value * 1e6)))}
-                </td>
-              </tr>
-              <tr>
-                <td className="metric-name">
-                  <strong>Median per household</strong>
-                  <span className="metric-subtitle">Household disposable income</span>
-                </td>
-                <td className="official-value">
-                  <span className="derived-value">£{Math.round((OFFICIAL_STATS.totalGDHI.value * 1e9) / (OFFICIAL_STATS.households.value * 1e6) * 0.87).toLocaleString("en-GB")}</span>
-                  <span className="value-year">~87% of mean</span>
-                </td>
-                <td className="pe-value">
-                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
-                    {peMetrics?.year2023 ? `£${peMetrics.year2023.medianHouseholdIncome.toLocaleString("en-GB", { maximumFractionDigits: 0 })}` : "—"}
-                  </a>
-                  <span className="value-year">2023</span>
-                </td>
-                <td className="difference">
-                  {formatDifference(peMetrics?.year2023?.medianHouseholdIncome, Math.round((OFFICIAL_STATS.totalGDHI.value * 1e9) / (OFFICIAL_STATS.households.value * 1e6) * 0.87))}
                 </td>
               </tr>
             </tbody>
