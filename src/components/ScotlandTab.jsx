@@ -11,7 +11,7 @@ import {
 } from "recharts";
 import "./ScotlandTab.css";
 
-// Format year for display (e.g., 2026 -> "2026-27")
+// Format year for display (e.g., 2026 -> "2026–27")
 const formatYearRange = (year) => `${year}-${(year + 1).toString().slice(-2)}`;
 
 // Format difference with + for positive values
@@ -129,63 +129,63 @@ const renderCustomLegend = (props, labelMap) => {
 const OFFICIAL_STATS = {
   povertyBHC: {
     value: 18,
-    year: "2021-24",
+    year: "2021–24",
     source: "Scottish Government",
     url: "https://data.gov.scot/poverty/",
     note: "3-year average",
   },
   povertyAHC: {
     value: 20,
-    year: "2021-24",
+    year: "2021–24",
     source: "Scottish Government",
     url: "https://data.gov.scot/poverty/",
     note: "3-year average",
   },
   childPovertyBHC: {
     value: 20,
-    year: "2021-24",
+    year: "2021–24",
     source: "Scottish Government",
     url: "https://data.gov.scot/poverty/",
     note: "Relative poverty",
   },
   childPovertyAHC: {
     value: 23,
-    year: "2021-24",
+    year: "2021–24",
     source: "Scottish Government",
     url: "https://data.gov.scot/poverty/",
     note: "Relative poverty",
   },
   workingAgePovertyBHC: {
     value: 14,
-    year: "2021-24",
+    year: "2021–24",
     source: "Scottish Government",
     url: "https://data.gov.scot/poverty/",
     note: "Relative poverty",
   },
   workingAgePovertyAHC: {
     value: 17,
-    year: "2021-24",
+    year: "2021–24",
     source: "Scottish Government",
     url: "https://data.gov.scot/poverty/",
     note: "Relative poverty",
   },
   pensionerPovertyBHC: {
     value: 13,
-    year: "2021-24",
+    year: "2021–24",
     source: "Scottish Government",
     url: "https://data.gov.scot/poverty/",
     note: "Relative poverty",
   },
   pensionerPovertyAHC: {
     value: 15,
-    year: "2021-24",
+    year: "2021–24",
     source: "Scottish Government",
     url: "https://data.gov.scot/poverty/",
     note: "Relative poverty",
   },
   medianIncome: {
     value: 29800,
-    year: "2025-26",
+    year: "2025–26",
     source: "Scottish Government",
     url: "https://www.gov.scot/publications/scottish-income-tax-2025-2026-factsheet/pages/2/",
     note: "Taxpayer income",
@@ -329,7 +329,7 @@ export default function ScotlandTab() {
         >
           announce
         </a>{" "}
-        the Scottish Budget 2026-27 on 13 January 2026.{" "}
+        the Scottish Budget 2026–27 on 13 January 2026.{" "}
         <a
           href="https://policyengine.org"
           target="_blank"
@@ -379,7 +379,7 @@ export default function ScotlandTab() {
         <p className="chart-description">
           Mean income is total disposable income divided by number of households. Median income
           is the middle value when all households are ranked by income (half have more, half have
-          less). Solid lines show official ONS data (2021-2023), calculated as total Scotland GDHI divided
+          less). Solid lines show official ONS data (2021–2023), calculated as Scotland's total GDHI divided
           by NRS household estimates. Dashed lines show PolicyEngine projections through 2030,
           which apply OBR forecasts for earnings growth and inflation to the baseline survey data.
         </p>
@@ -497,7 +497,7 @@ export default function ScotlandTab() {
           {povertyType.includes("AHC")
             ? " After housing costs (AHC) subtracts rent, mortgage interest, and other housing costs from income before comparing to the threshold."
             : " Before housing costs (BHC) uses total net income without deducting housing costs."}{" "}
-          Solid lines show official Scottish Government data (2021-2023). Dashed lines show
+          Solid lines show official Scottish Government data (2021–2023). Dashed lines show
           PolicyEngine projections through 2030, based on OBR economic forecasts for earnings
           growth, inflation, and benefit uprating under current policy.
         </p>
@@ -706,10 +706,10 @@ export default function ScotlandTab() {
           available for spending or saving after taxes, benefits, pension contributions, and
           property income. ONS publishes GDHI for Scotland as part of regional accounts, derived
           from national accounts data and survey sources. PolicyEngine calculates household net income by simulating the full UK tax-benefit system
-          for each FRS household: employment and self-employment income, minus income tax and National
-          Insurance, plus benefits (Universal Credit, Child Benefit, State Pension, etc.). The per-person
+          for each FRS household, including employment and self-employment income, minus income tax and National
+          Insurance, plus benefits such as Universal Credit, Child Benefit, and State Pension. The per-person
           figures divide total income by population; per-household figures divide by household count.
-          Median values are estimated at 87% of mean based on typical income distributions.
+          Official median values are estimated at 87% of mean based on typical income distributions.
         </p>
 
         <div className="comparison-table-container">
@@ -827,7 +827,7 @@ export default function ScotlandTab() {
           the first adult, 0.5 for additional adults, 0.3 for children). BHC (before housing costs)
           uses total net income; AHC (after housing costs) subtracts rent, mortgage interest, and
           other housing costs, which typically increases measured poverty rates. Official statistics
-          from the Scottish Government combine three years of FRS data (2021-24) to produce more
+          from the Scottish Government combine three years of FRS data (2021–24) to produce more
           stable estimates with smaller confidence intervals. PolicyEngine uses single-year data
           reweighted to Scottish constituencies, which can show more year-to-year variation.
         </p>
@@ -1087,8 +1087,8 @@ export default function ScotlandTab() {
           >
             Commission
           </a>{" "}
-          estimates this will cost £155 million in 2026-27 rising to £198 million by 2029-30,
-          affecting 43,000 children in 2026-27 rising to 50,000 children by 2029-30.{" "}
+          estimates this will cost £155 million in 2026–27 rising to £198 million by 2029–30,
+          affecting 43,000 children in 2026–27 rising to 50,000 children by 2029–30.{" "}
           PolicyEngine{" "}
           <a
             href="https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_two_child_limit.csv"
@@ -1097,8 +1097,8 @@ export default function ScotlandTab() {
           >
             estimates
           </a>{" "}
-          £213 million in 2026-27 rising to £256 million by 2029-30, affecting 69,000 children in
-          2026-27 rising to 73,000 children by 2029-30.
+          £213 million in 2026–27 rising to £256 million by 2029–30, affecting 69,000 children in
+          2026–27 rising to 73,000 children by 2029–30.
         </p>
         <p className="chart-description" style={{ marginTop: "12px" }}>
           The two-child limit restricts Universal Credit child element payments to the first two
