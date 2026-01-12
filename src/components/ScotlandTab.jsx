@@ -431,15 +431,14 @@ export default function ScotlandTab() {
           projections for income, poverty, and the effects of policy changes at the Scotland level.
         </p>
         <p className="chart-description" style={{ marginTop: "12px" }}>
-          See also: PolicyEngine's{" "}
+          PolicyEngine also produced a{" "}
           <a
             href="https://www.policyengine.org/uk/autumn-budget-2025"
             target="_blank"
             rel="noopener noreferrer"
           >
-            UK Autumn Budget 2025 dashboard
-          </a>{" "}
-          and{" "}
+            dashboard for the UK Autumn Budget 2025
+          </a>, and details on how poverty estimates are calculated can be found in our{" "}
           <a
             href="https://www.policyengine.org/uk/research/uk-poverty-analysis"
             target="_blank"
