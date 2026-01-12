@@ -331,11 +331,31 @@ export default function ScotlandTab() {
             rel="noopener noreferrer"
           >
             13 January 2026
-          </a>. This dashboard provides context by comparing PolicyEngine's
-          baseline microsimulation projections with official government statistics. The sections
-          below present comparisons with official data for key metrics, projections for
-          poverty rates and household incomes through to 2030-31, and expected policy
-          changes in the upcoming budget.
+          </a>.{" "}
+          <a
+            href="https://policyengine.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            PolicyEngine
+          </a>{" "}
+          is an open-source microsimulation model that calculates the impact of tax and benefit
+          policies on household incomes. This dashboard uses PolicyEngine to produce Scotland-specific
+          projections by{" "}
+          <a
+            href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            reweighting
+          </a>{" "}
+          the Family Resources Survey to Scottish parliamentary constituencies.
+        </p>
+        <p className="chart-description" style={{ marginTop: "12px" }}>
+          The <strong>Validation</strong> tab compares PolicyEngine's baseline projections with official
+          statistics on population, household income, and poverty rates. The <strong>Budget reforms</strong> tab
+          analyses specific policy changes expected in the upcoming budget, including the two-child
+          limit top-up payment.
         </p>
         <h3 className="subsection-header">Expected policies</h3>
         <p className="chart-description">
