@@ -387,20 +387,31 @@ export default function ScotlandTab() {
         </p>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart
-            data={[
-              ...HISTORICAL_HOUSEHOLD_INCOME_DATA.map(d => ({
-                year: d.year,
-                historicalMean: d.meanIncome,
-                historicalMedian: d.medianIncome,
-              })),
-              ...baselineData
-                .filter(d => d.year >= 2023)
-                .map(d => ({
+            data={(() => {
+              const merged = {};
+              // Add historical data
+              HISTORICAL_HOUSEHOLD_INCOME_DATA.forEach(d => {
+                merged[d.year] = {
                   year: d.year,
-                  projectionMean: d.meanHouseholdIncome,
-                  projectionMedian: d.medianHouseholdIncome,
-                }))
-            ]}
+                  historicalMean: d.meanIncome,
+                  historicalMedian: d.medianIncome,
+                };
+              });
+              // Add/merge PolicyEngine projections
+              baselineData.filter(d => d.year >= 2023).forEach(d => {
+                if (merged[d.year]) {
+                  merged[d.year].projectionMean = d.meanHouseholdIncome;
+                  merged[d.year].projectionMedian = d.medianHouseholdIncome;
+                } else {
+                  merged[d.year] = {
+                    year: d.year,
+                    projectionMean: d.meanHouseholdIncome,
+                    projectionMedian: d.medianHouseholdIncome,
+                  };
+                }
+              });
+              return Object.values(merged).sort((a, b) => a.year - b.year);
+            })()}
             margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
           >
             <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
@@ -505,34 +516,38 @@ export default function ScotlandTab() {
         </p>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart
-            data={[
-              // Historical official data
-              ...HISTORICAL_POVERTY_DATA.map(d => {
+            data={(() => {
+              const merged = {};
+              // Add historical data
+              HISTORICAL_POVERTY_DATA.forEach(d => {
                 let value;
                 if (povertyType === "absoluteBHC") value = d.absoluteBHC;
                 else if (povertyType === "absoluteAHC") value = d.absoluteAHC;
                 else if (povertyType === "relativeBHC") value = d.relativeBHC;
                 else value = d.relativeAHC;
-                return {
+                merged[d.year] = {
                   year: d.year,
                   historical: value,
                 };
-              }),
-              // PolicyEngine projections
-              ...baselineData
-                .filter(d => d.year >= 2023)
-                .map(d => {
-                  let value;
-                  if (povertyType === "absoluteBHC") value = d.absolutePovertyBHC;
-                  else if (povertyType === "absoluteAHC") value = d.absolutePovertyAHC;
-                  else if (povertyType === "relativeBHC") value = d.povertyBHC;
-                  else value = d.povertyAHC;
-                  return {
+              });
+              // Add/merge PolicyEngine projections
+              baselineData.filter(d => d.year >= 2023).forEach(d => {
+                let value;
+                if (povertyType === "absoluteBHC") value = d.absolutePovertyBHC;
+                else if (povertyType === "absoluteAHC") value = d.absolutePovertyAHC;
+                else if (povertyType === "relativeBHC") value = d.povertyBHC;
+                else value = d.povertyAHC;
+                if (merged[d.year]) {
+                  merged[d.year].projection = value;
+                } else {
+                  merged[d.year] = {
                     year: d.year,
                     projection: value,
                   };
-                })
-            ]}
+                }
+              });
+              return Object.values(merged).sort((a, b) => a.year - b.year);
+            })()}
             margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
           >
             <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
