@@ -836,20 +836,20 @@ export default function ScotlandTab() {
       <div className="scotland-charts-grid">
         {/* Poverty rate chart */}
         <div className="chart-wrapper">
-          <div className="chart-title-row">
-            <h2 className="section-title">Poverty rate</h2>
-            <select
-              className="poverty-type-select"
-              value={povertyType}
-              onChange={(e) => setPovertyType(e.target.value)}
-            >
-              <option value="absoluteBHC">Absolute (BHC)</option>
-              <option value="absoluteAHC">Absolute (AHC)</option>
-              <option value="relativeBHC">Relative (BHC)</option>
-              <option value="relativeAHC">Relative (AHC)</option>
-            </select>
-          </div>
+          <h2 className="section-title">Poverty rate</h2>
           <div className="scotland-chart-section">
+            <div className="chart-controls">
+              <select
+                className="poverty-type-select"
+                value={povertyType}
+                onChange={(e) => setPovertyType(e.target.value)}
+              >
+                <option value="absoluteBHC">Absolute (BHC)</option>
+                <option value="absoluteAHC">Absolute (AHC)</option>
+                <option value="relativeBHC">Relative (BHC)</option>
+                <option value="relativeAHC">Relative (AHC)</option>
+              </select>
+            </div>
             <p className="chart-description">
               {povertyType.includes("absolute")
                 ? "Absolute poverty measures income below a fixed threshold, adjusted annually for inflation (CPI). This captures whether living standards are improving in real terms over time."
