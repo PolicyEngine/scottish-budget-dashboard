@@ -1,25 +1,138 @@
+/* Distributional chart - Bold editorial style */
+
 .distributional-chart {
-  background: white;
-  padding: 16px;
-  border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.4s ease 0.2s both;
+  background: var(--pe-surface);
+  padding: var(--pe-space-xl);
+  border-radius: var(--pe-radius-lg);
+  border: 1px solid var(--pe-gray-200);
+  animation: fadeSlideUp 0.5s ease forwards;
 }
 
-.distributional-chart h2 {
-  margin: 0 0 4px 0;
-  color: #374151;
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-@keyframes fadeIn {
+@keyframes fadeSlideUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.distributional-chart .chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--pe-space-lg);
+}
+
+.distributional-chart h2 {
+  font-family: var(--pe-font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--pe-gray-900);
+  margin: 0 0 var(--pe-space-xs) 0;
+  letter-spacing: -0.01em;
+}
+
+.distributional-chart .chart-description {
+  font-family: var(--pe-font-body);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--pe-gray-500);
+  margin: 0;
+  max-width: 600px;
+}
+
+/* Export button */
+.distributional-chart .export-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--pe-gray-100);
+  border: 1px solid var(--pe-gray-200);
+  border-radius: var(--pe-radius-md);
+  color: var(--pe-gray-500);
+  cursor: pointer;
+  transition: all var(--pe-transition-fast);
+  flex-shrink: 0;
+}
+
+.distributional-chart .export-button:hover {
+  background: var(--pe-teal-50);
+  border-color: var(--pe-teal-200);
+  color: var(--pe-teal-600);
+}
+
+/* Recharts overrides for bold styling */
+.distributional-chart .recharts-wrapper {
+  font-family: var(--pe-font-body) !important;
+}
+
+.distributional-chart .recharts-cartesian-axis-tick-value {
+  font-size: 12px;
+  fill: var(--pe-gray-500);
+}
+
+.distributional-chart .recharts-legend-item-text {
+  font-size: 12px;
+  color: var(--pe-gray-600) !important;
+}
+
+.distributional-chart .recharts-tooltip-wrapper {
+  font-family: var(--pe-font-body) !important;
+}
+
+.distributional-chart .recharts-bar-rectangle {
+  transition: opacity 0.2s ease;
+}
+
+.distributional-chart .recharts-bar-rectangle:hover {
+  opacity: 0.85;
+}
+
+/* Custom legend styling */
+.distributional-chart .recharts-default-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: flex-start;
+  padding-top: 16px !important;
+}
+
+.distributional-chart .recharts-legend-item {
+  margin: 0 !important;
+}
+
+/* Reference line */
+.distributional-chart .recharts-reference-line line {
+  stroke: var(--pe-gray-400);
+  stroke-width: 1;
+}
+
+/* Tooltip content */
+.distributional-chart .recharts-tooltip-item {
+  padding: 2px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .distributional-chart {
+    padding: var(--pe-space-lg);
+  }
+
+  .distributional-chart h2 {
+    font-size: 1.1rem;
+  }
+
+  .distributional-chart .chart-header {
+    flex-direction: column;
+    gap: var(--pe-space-md);
+  }
+
+  .distributional-chart .export-button {
+    align-self: flex-end;
   }
 }
