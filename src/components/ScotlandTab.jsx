@@ -809,21 +809,21 @@ export default function ScotlandTab() {
       {/* Charts grid */}
       <div className="scotland-charts-grid">
         {/* Poverty rate chart */}
-        <div className="scotland-chart-section">
-          <div className="chart-header">
-            <div className="chart-header-row">
-              <h2>Poverty rate</h2>
-              <select
-                className="poverty-type-select"
-                value={povertyType}
-                onChange={(e) => setPovertyType(e.target.value)}
-              >
-                <option value="absoluteBHC">Absolute (BHC)</option>
-                <option value="absoluteAHC">Absolute (AHC)</option>
-                <option value="relativeBHC">Relative (BHC)</option>
-                <option value="relativeAHC">Relative (AHC)</option>
-              </select>
-            </div>
+        <div className="chart-wrapper">
+          <div className="chart-title-row">
+            <h2 className="section-title">Poverty rate</h2>
+            <select
+              className="poverty-type-select"
+              value={povertyType}
+              onChange={(e) => setPovertyType(e.target.value)}
+            >
+              <option value="absoluteBHC">Absolute (BHC)</option>
+              <option value="absoluteAHC">Absolute (AHC)</option>
+              <option value="relativeBHC">Relative (BHC)</option>
+              <option value="relativeAHC">Relative (AHC)</option>
+            </select>
+          </div>
+          <div className="scotland-chart-section">
             <p className="chart-description">
               {povertyType.includes("absolute")
                 ? "Absolute poverty: income below a fixed 2010/11 threshold (adjusted for inflation)."
@@ -833,7 +833,6 @@ export default function ScotlandTab() {
                 : ""}{" "}
               Solid lines: official historical data. Dashed lines: PolicyEngine projections through 2030.
             </p>
-          </div>
           <ResponsiveContainer width="100%" height={300}>
             <LineChart
               data={[
@@ -913,18 +912,18 @@ export default function ScotlandTab() {
               />
             </LineChart>
           </ResponsiveContainer>
+          </div>
         </div>
 
         {/* Disposable income per household chart */}
-        <div className="scotland-chart-section">
-          <div className="chart-header">
-            <h2>Income per household</h2>
+        <div className="chart-wrapper">
+          <h2 className="section-title">Income per household</h2>
+          <div className="scotland-chart-section">
             <p className="chart-description">
               Annual disposable income per household. Solid lines: official ONS data (GDHI / households).
               Dashed lines: PolicyEngine projections through 2030.
             </p>
-          </div>
-          <ResponsiveContainer width="100%" height={300}>
+            <ResponsiveContainer width="100%" height={300}>
             <LineChart
               data={[
                 ...HISTORICAL_HOUSEHOLD_INCOME_DATA.map(d => ({
@@ -1012,6 +1011,7 @@ export default function ScotlandTab() {
               />
             </LineChart>
           </ResponsiveContainer>
+          </div>
         </div>
       </div>
         </>

@@ -309,6 +309,26 @@
   margin-bottom: 24px;
 }
 
+.chart-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-wrapper .section-title {
+  margin: 0 0 12px 0;
+}
+
+.chart-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.chart-title-row .section-title {
+  margin: 0;
+}
+
 .scotland-chart-section {
   background: var(--pe-surface);
   border: 1px solid var(--pe-gray-200);
