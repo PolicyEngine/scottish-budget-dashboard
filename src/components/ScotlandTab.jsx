@@ -346,10 +346,7 @@ export default function ScotlandTab() {
           >
             reweighting
           </a>{" "}
-          the Family Resources Survey to Scottish parliamentary constituencies.
-        </p>
-        <p className="chart-description" style={{ marginTop: "12px" }}>
-          PolicyEngine also created an{" "}
+          the Family Resources Survey to Scottish parliamentary constituencies. PolicyEngine also created an{" "}
           <a
             href="https://www.policyengine.org/uk/autumn-budget-2025"
             target="_blank"
