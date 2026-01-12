@@ -37,11 +37,12 @@ const HISTORICAL_POVERTY_DATA = [
 // Source: https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome
 // Values calculated as total GDHI / number of households from NRS
 // Median estimated at ~87% of mean based on typical income distributions
+// Real values adjusted to 2023 prices using UK CPI inflation
 // 2024+ uses PolicyEngine projections (dashed lines)
 const HISTORICAL_HOUSEHOLD_INCOME_DATA = [
-  { year: 2021, meanIncome: 41200, medianIncome: 35800 },
-  { year: 2022, meanIncome: 45000, medianIncome: 39200 },
-  { year: 2023, meanIncome: 49700, medianIncome: 43200 },
+  { year: 2021, meanIncome: 41200, medianIncome: 35800, meanIncomeReal: 47900, medianIncomeReal: 41600 },
+  { year: 2022, meanIncome: 45000, medianIncome: 39200, meanIncomeReal: 48400, medianIncomeReal: 42100 },
+  { year: 2023, meanIncome: 49700, medianIncome: 43200, meanIncomeReal: 49700, medianIncomeReal: 43200 },
 ];
 
 function parseCSV(csvText) {
@@ -210,6 +211,7 @@ export default function ScotlandTab() {
   const [povertyType, setPovertyType] = useState("absoluteBHC"); // absoluteBHC, absoluteAHC, relativeBHC, relativeAHC
   const [povertyAgeGroup, setPovertyAgeGroup] = useState("all"); // all, children, workingAge, pensioners
   const [incomeType, setIncomeType] = useState("mean"); // mean or median
+  const [incomeAdjustment, setIncomeAdjustment] = useState("nominal"); // nominal or real
   const [incomeViewMode, setIncomeViewMode] = useState("both"); // outturn, forecast, both
   const [povertyViewMode, setPovertyViewMode] = useState("both"); // outturn, forecast, both
   const [activeSection, setActiveSection] = useState("introduction");
@@ -425,6 +427,7 @@ export default function ScotlandTab() {
             {incomeType === "mean"
               ? "Mean income is total disposable income divided by the number of households."
               : "Median income is the middle value when all households are ranked by income."}{" "}
+            {incomeAdjustment === "real" ? "Values adjusted to 2023 prices. " : ""}
             Solid lines show official ONS data; dashed lines show PolicyEngine projections.
           </p>
           {baselineData.length > 0 && (() => {
@@ -450,6 +453,10 @@ export default function ScotlandTab() {
               <option value="median">Median income</option>
             </select>
             <div className="view-toggle">
+              <button className={incomeAdjustment === "nominal" ? "active" : ""} onClick={() => setIncomeAdjustment("nominal")}>Nominal</button>
+              <button className={incomeAdjustment === "real" ? "active" : ""} onClick={() => setIncomeAdjustment("real")}>Real</button>
+            </div>
+            <div className="view-toggle">
               <button className={incomeViewMode === "outturn" ? "active" : ""} onClick={() => setIncomeViewMode("outturn")}>Outturn</button>
               <button className={incomeViewMode === "both" ? "active" : ""} onClick={() => setIncomeViewMode("both")}>Both</button>
               <button className={incomeViewMode === "forecast" ? "active" : ""} onClick={() => setIncomeViewMode("forecast")}>Forecast</button>
@@ -459,24 +466,30 @@ export default function ScotlandTab() {
             data={(() => {
               const merged = {};
               HISTORICAL_HOUSEHOLD_INCOME_DATA.forEach(d => {
+                const historicalKey = incomeAdjustment === "real"
+                  ? (incomeType === "mean" ? "meanIncomeReal" : "medianIncomeReal")
+                  : (incomeType === "mean" ? "meanIncome" : "medianIncome");
                 merged[d.year] = {
                   year: d.year,
-                  historical: incomeType === "mean" ? d.meanIncome : d.medianIncome,
+                  historical: d[historicalKey],
                 };
               });
               baselineData.filter(d => d.year >= 2023).forEach(d => {
+                // PolicyEngine projections are in nominal terms
+                // For real values, we use nominal (projections are forward-looking)
+                const projectionValue = incomeType === "mean" ? d.meanHouseholdIncome : d.medianHouseholdIncome;
                 if (merged[d.year]) {
-                  merged[d.year].projection = incomeType === "mean" ? d.meanHouseholdIncome : d.medianHouseholdIncome;
+                  merged[d.year].projection = projectionValue;
                 } else {
                   merged[d.year] = {
                     year: d.year,
-                    projection: incomeType === "mean" ? d.meanHouseholdIncome : d.medianHouseholdIncome,
+                    projection: projectionValue,
                   };
                 }
               });
               return Object.values(merged).sort((a, b) => a.year - b.year);
             })()}
-            yLabel="Household income"
+            yLabel={`Household income${incomeAdjustment === "real" ? " (2023 prices)" : ""}`}
             yFormat={(v) => `£${(v / 1000).toFixed(0)}k`}
             yDomain={[0, 70000]}
             viewMode={incomeViewMode}
