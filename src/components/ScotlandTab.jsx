@@ -506,9 +506,7 @@ export default function ScotlandTab() {
             : "Relative poverty measures income below 60% of contemporary UK median income. This threshold moves with median incomes, so relative poverty can rise even when living standards improve if inequality increases."}
           {povertyType.includes("AHC")
             ? " After housing costs (AHC) subtracts rent, mortgage interest, and other housing costs from income before comparing to the threshold."
-            : " Before housing costs (BHC) uses total net income without deducting housing costs."}
-        </p>
-        <p className="chart-description" style={{ marginTop: "12px" }}>
+            : " Before housing costs (BHC) uses total net income without deducting housing costs."}{" "}
           Solid lines show official Scottish Government data (2021-2023). Dashed lines show
           PolicyEngine projections through 2030, based on OBR economic forecasts for earnings
           growth, inflation, and benefit uprating under current policy.
