@@ -562,11 +562,13 @@ export default function ScotlandTab() {
               <tr>
                 <td className="metric-name">
                   <strong>Median per person</strong>
-                  <span className="metric-subtitle">Middle value</span>
+                  <span className="metric-subtitle">~87% of mean</span>
                 </td>
                 <td className="official-value">
-                  <span className="derived-value">£{Math.round(OFFICIAL_STATS.gdhiPerHead.value * 0.87).toLocaleString("en-GB")}</span>
-                  <span className="value-year">~87% of mean</span>
+                  <a href={OFFICIAL_STATS.gdhiPerHead.url} target="_blank" rel="noopener noreferrer">
+                    £{Math.round(OFFICIAL_STATS.gdhiPerHead.value * 0.87).toLocaleString("en-GB")}
+                  </a>
+                  <span className="value-year">Derived from GDHI</span>
                 </td>
                 <td className="pe-value">
                   <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
@@ -602,11 +604,13 @@ export default function ScotlandTab() {
               <tr>
                 <td className="metric-name">
                   <strong>Median per household</strong>
-                  <span className="metric-subtitle">Middle value</span>
+                  <span className="metric-subtitle">~87% of mean</span>
                 </td>
                 <td className="official-value">
-                  <span className="derived-value">£{Math.round((OFFICIAL_STATS.totalGDHI.value * 1e9) / (OFFICIAL_STATS.households.value * 1e6) * 0.87).toLocaleString("en-GB")}</span>
-                  <span className="value-year">~87% of mean</span>
+                  <a href={OFFICIAL_STATS.totalGDHI.url} target="_blank" rel="noopener noreferrer">
+                    £{Math.round((OFFICIAL_STATS.totalGDHI.value * 1e9) / (OFFICIAL_STATS.households.value * 1e6) * 0.87).toLocaleString("en-GB")}
+                  </a>
+                  <span className="value-year">Derived from GDHI</span>
                 </td>
                 <td className="pe-value">
                   <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
