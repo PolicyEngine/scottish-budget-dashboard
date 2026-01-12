@@ -349,6 +349,24 @@ export default function ScotlandTab() {
           the Family Resources Survey to Scottish parliamentary constituencies.
         </p>
         <p className="chart-description" style={{ marginTop: "12px" }}>
+          PolicyEngine also created an{" "}
+          <a
+            href="https://www.policyengine.org/uk/autumn-budget-2025"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            interactive dashboard for the UK Autumn Budget 2025
+          </a>. For details on how PolicyEngine poverty estimates compare with official DWP statistics,
+          see our{" "}
+          <a
+            href="https://www.policyengine.org/uk/research/uk-poverty-analysis"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            UK poverty analysis
+          </a>.
+        </p>
+        <p className="chart-description" style={{ marginTop: "12px" }}>
           The sections below compare PolicyEngine's baseline projections with official statistics,
           then analyse specific policy changes expected in the upcoming budget.
         </p>
