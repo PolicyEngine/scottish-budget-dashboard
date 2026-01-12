@@ -8,6 +8,9 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  ComposedChart,
+  Bar,
+  Cell,
 } from "recharts";
 import "./ScotlandTab.css";
 
@@ -246,6 +249,7 @@ export default function ScotlandTab() {
   const [loading, setLoading] = useState(true);
   const [baselineData, setBaselineData] = useState([]);
   const [povertyType, setPovertyType] = useState("absoluteBHC"); // absoluteBHC, absoluteAHC, relativeBHC, relativeAHC
+  const [incomeType, setIncomeType] = useState("mean"); // mean or median
   const [activeSection, setActiveSection] = useState("introduction");
 
   // Refs for section elements
@@ -458,112 +462,83 @@ export default function ScotlandTab() {
       <h3 className="subsection-title">Living standard</h3>
       <div className="section-box">
         <p className="chart-description">
-          Mean income is total disposable income divided by number of households. Median income
-          is the middle value when all households are ranked by income (half have more, half have
-          less). Solid lines show official ONS data (2021–2023), calculated as Scotland's total GDHI divided
-          by NRS household estimates. Dashed lines show PolicyEngine projections through 2030,
-          which apply OBR forecasts for earnings growth and inflation to the baseline survey data.
+          {incomeType === "mean"
+            ? "Mean income is total disposable income divided by the number of households."
+            : "Median income is the middle value when all households are ranked by income (half have more, half have less)."}{" "}
+          Grey bars show official ONS data (2021–2023), calculated as Scotland's total GDHI divided
+          by NRS household estimates. Teal bars show PolicyEngine projections through 2030.
         </p>
+        <div className="chart-controls">
+          <select
+            className="poverty-type-select"
+            value={incomeType}
+            onChange={(e) => setIncomeType(e.target.value)}
+          >
+            <option value="mean">Mean income</option>
+            <option value="median">Median income</option>
+          </select>
+        </div>
         <div>
         <ResponsiveContainer width="100%" height={400}>
-          <LineChart
+          <ComposedChart
             data={(() => {
               const merged = {};
               // Add historical data
               HISTORICAL_HOUSEHOLD_INCOME_DATA.forEach(d => {
                 merged[d.year] = {
                   year: d.year,
-                  historicalMean: d.meanIncome,
-                  historicalMedian: d.medianIncome,
+                  historical: incomeType === "mean" ? d.meanIncome : d.medianIncome,
+                  isProjection: false,
                 };
               });
-              // Add/merge PolicyEngine projections
-              baselineData.filter(d => d.year >= 2023).forEach(d => {
-                if (merged[d.year]) {
-                  merged[d.year].projectionMean = d.meanHouseholdIncome;
-                  merged[d.year].projectionMedian = d.medianHouseholdIncome;
-                } else {
-                  merged[d.year] = {
-                    year: d.year,
-                    projectionMean: d.meanHouseholdIncome,
-                    projectionMedian: d.medianHouseholdIncome,
-                  };
-                }
+              // Add/merge PolicyEngine projections (from 2024 onwards)
+              baselineData.filter(d => d.year >= 2024).forEach(d => {
+                merged[d.year] = {
+                  year: d.year,
+                  projection: incomeType === "mean" ? d.meanHouseholdIncome : d.medianHouseholdIncome,
+                  isProjection: true,
+                };
               });
               return Object.values(merged).sort((a, b) => a.year - b.year);
             })()}
-            margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
+            layout="vertical"
+            margin={{ top: 20, right: 30, left: 70, bottom: 20 }}
           >
-            <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" horizontal={true} vertical={false} />
             <XAxis
-              dataKey="year"
-              tickFormatter={(year) => formatYearRange(year)}
-            />
-            <YAxis
+              type="number"
               tickFormatter={(value) => `£${(value / 1000).toFixed(0)}k`}
               domain={[0, 70000]}
-              label={{ value: "Household income", angle: -90, position: "insideLeft", dx: -15, style: { textAnchor: "middle" } }}
+            />
+            <YAxis
+              type="category"
+              dataKey="year"
+              tickFormatter={(year) => formatYearRange(year)}
+              width={60}
             />
             <Tooltip
               formatter={(value, name) => {
                 if (value === null || value === undefined) return [null, null];
-                const labels = {
-                  historicalMean: "Official mean",
-                  historicalMedian: "Official median",
-                  projectionMean: "PolicyEngine mean",
-                  projectionMedian: "PolicyEngine median",
-                };
-                return [`£${value.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`, labels[name] || name];
+                const label = name === "historical" ? "Official" : "PolicyEngine";
+                return [`£${value.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`, label];
               }}
               labelFormatter={(label) => formatYearRange(label)}
             />
-            <Legend
-              content={(props) => renderCustomLegend(props, {
-                historicalMean: "Official mean (historical)",
-                historicalMedian: "Official median (historical)",
-                projectionMean: "PolicyEngine mean (projection)",
-                projectionMedian: "PolicyEngine median (projection)",
-              })}
+            <Bar
+              dataKey="historical"
+              fill="#9CA3AF"
+              barSize={3}
+              radius={[0, 10, 10, 0]}
+              name="historical"
             />
-            <Line
-              type="monotone"
-              dataKey="historicalMean"
-              stroke="#319795"
-              strokeWidth={2}
-              dot={{ fill: "#319795", r: 3 }}
-              name="historicalMean"
-              connectNulls={true}
+            <Bar
+              dataKey="projection"
+              fill="#319795"
+              barSize={3}
+              radius={[0, 10, 10, 0]}
+              name="projection"
             />
-            <Line
-              type="monotone"
-              dataKey="historicalMedian"
-              stroke="#5A8FB8"
-              strokeWidth={2}
-              dot={{ fill: "#5A8FB8", r: 3 }}
-              name="historicalMedian"
-              connectNulls={true}
-            />
-            <Line
-              type="monotone"
-              dataKey="projectionMean"
-              stroke="#319795"
-              strokeWidth={2}
-              strokeDasharray="5 5"
-              dot={{ fill: "#319795", r: 4 }}
-              name="projectionMean"
-              connectNulls={true}
-            />
-            <Line
-              type="monotone"
-              dataKey="projectionMedian"
-              stroke="#5A8FB8"
-              strokeWidth={2}
-              strokeDasharray="5 5"
-              dot={{ fill: "#5A8FB8", r: 4 }}
-              name="projectionMedian"
-              connectNulls={true}
-            />
-          </LineChart>
+          </ComposedChart>
         </ResponsiveContainer>
         </div>
       </div>
