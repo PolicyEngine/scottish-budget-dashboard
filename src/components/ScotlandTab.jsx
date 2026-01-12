@@ -469,27 +469,6 @@ export default function ScotlandTab() {
                   {formatDifference(0.97, OFFICIAL_STATS.childrenUnder16.value)}
                 </td>
               </tr>
-              <tr>
-                <td className="metric-name">
-                  <strong>Households with 3+ children</strong>
-                  <span className="metric-subtitle">Families affected by two-child limit</span>
-                </td>
-                <td className="official-value">
-                  <a href={OFFICIAL_STATS.householdsWith3PlusChildren.url} target="_blank" rel="noopener noreferrer">
-                    {OFFICIAL_STATS.householdsWith3PlusChildren.value}k
-                  </a>
-                  <span className="value-year">{OFFICIAL_STATS.householdsWith3PlusChildren.year}</span>
-                </td>
-                <td className="pe-value">
-                  <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
-                    93k
-                  </a>
-                  <span className="value-year">2022</span>
-                </td>
-                <td className="difference">
-                  {formatDifference(93, OFFICIAL_STATS.householdsWith3PlusChildren.value)}
-                </td>
-              </tr>
             </tbody>
           </table>
         </div>
