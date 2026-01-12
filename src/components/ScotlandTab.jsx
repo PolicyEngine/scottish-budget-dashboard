@@ -228,6 +228,7 @@ export default function ScotlandTab() {
   const [incomeViewMode, setIncomeViewMode] = useState("both"); // outturn, forecast, both
   const [povertyViewMode, setPovertyViewMode] = useState("both"); // outturn, forecast, both
   const [activeSection, setActiveSection] = useState("introduction");
+  const [validationExpanded, setValidationExpanded] = useState(false); // collapsed by default
 
   // Refs for section elements
   const sectionRefs = useRef({});
@@ -447,12 +448,18 @@ export default function ScotlandTab() {
             const year2023 = baselineData.find(d => d.year === 2023);
             const year2030 = baselineData.find(d => d.year === 2030);
             if (!year2023 || !year2030) return null;
-            const startValue = incomeType === "mean" ? year2023.meanHouseholdIncome : year2023.medianHouseholdIncome;
-            const endValue = incomeType === "mean" ? year2030.meanHouseholdIncome : year2030.medianHouseholdIncome;
+            let startValue = incomeType === "mean" ? year2023.meanHouseholdIncome : year2023.medianHouseholdIncome;
+            let endValue = incomeType === "mean" ? year2030.meanHouseholdIncome : year2030.medianHouseholdIncome;
+            // Apply CPI deflation for real values
+            if (incomeAdjustment === "real") {
+              startValue = startValue / CPI_DEFLATORS[2023];
+              endValue = endValue / CPI_DEFLATORS[2030];
+            }
             const pctChange = ((endValue - startValue) / startValue) * 100;
+            const realSuffix = incomeAdjustment === "real" ? " (in 2023 prices)" : "";
             return (
               <p className="chart-summary">
-                {incomeType === "mean" ? "Mean" : "Median"} household income is forecast to {pctChange > 0 ? "increase" : "decrease"} by {Math.abs(pctChange).toFixed(0)}% from £{(startValue / 1000).toFixed(0)}k to £{(endValue / 1000).toFixed(0)}k by 2030.
+                {incomeType === "mean" ? "Mean" : "Median"} household income is forecast to {pctChange > 0 ? "increase" : "decrease"} by {Math.abs(pctChange).toFixed(0)}% from £{(startValue / 1000).toFixed(0)}k to £{(endValue / 1000).toFixed(0)}k by 2030{realSuffix}.
               </p>
             );
           })()}
@@ -698,12 +705,31 @@ export default function ScotlandTab() {
       </div>
 
       {/* Validation Section */}
-      <h2 className="section-title" id="validation" ref={(el) => (sectionRefs.current["validation"] = el)}>Validation</h2>
+      <h2
+        className="section-title section-title-collapsible"
+        id="validation"
+        ref={(el) => (sectionRefs.current["validation"] = el)}
+        onClick={() => setValidationExpanded(!validationExpanded)}
+        style={{ cursor: "pointer" }}
+      >
+        Validation
+        <span className={`collapse-icon ${validationExpanded ? "expanded" : ""}`}>
+          {validationExpanded ? "−" : "+"}
+        </span>
+      </h2>
       <p className="chart-description">
         This section compares PolicyEngine estimates with official government statistics for
-        population, income, and poverty.
+        population, income, and poverty.{" "}
+        <button
+          className="expand-link"
+          onClick={() => setValidationExpanded(!validationExpanded)}
+        >
+          {validationExpanded ? "Hide details" : "Show details"}
+        </button>
       </p>
 
+      {validationExpanded && (
+      <>
       {/* Population Table */}
       <h3 className="subsection-title">Population</h3>
       <div className="section-box">
@@ -1246,6 +1272,8 @@ export default function ScotlandTab() {
           </table>
         </div>
       </div>
+      </>
+      )}
 
     </div>
   );

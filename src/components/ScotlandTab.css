@@ -402,6 +402,56 @@
   }
 }
 
+/* Collapsible section title */
+.section-title-collapsible {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+
+.section-title-collapsible:hover {
+  color: var(--pe-teal-700);
+}
+
+.collapse-icon {
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--pe-gray-400);
+  transition: color var(--pe-transition-fast);
+  margin-left: var(--pe-space-md);
+}
+
+.section-title-collapsible:hover .collapse-icon {
+  color: var(--pe-teal-500);
+}
+
+.collapse-icon.expanded {
+  color: var(--pe-teal-500);
+}
+
+/* Expand/collapse link button */
+.expand-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--pe-font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--pe-teal-600);
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 1px dashed var(--pe-teal-300);
+  transition: border-color var(--pe-transition-fast), color var(--pe-transition-fast);
+}
+
+.expand-link:hover {
+  color: var(--pe-teal-700);
+  border-bottom-style: solid;
+  border-bottom-color: var(--pe-teal-600);
+}
+
 /* Chart container styling for Recharts */
 .section-box .recharts-wrapper {
   font-family: var(--pe-font-body) !important;
