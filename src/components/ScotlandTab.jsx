@@ -372,6 +372,225 @@ export default function ScotlandTab() {
         </p>
       </div>
 
+      {/* Charts grid */}
+      <div className="scotland-charts-grid">
+        {/* Poverty rate chart */}
+        <div className="chart-wrapper">
+          <h3 className="subsection-title">Poverty rate</h3>
+          <div className="scotland-chart-section">
+            <div className="chart-controls">
+              <select
+                className="poverty-type-select"
+                value={povertyType}
+                onChange={(e) => setPovertyType(e.target.value)}
+              >
+                <option value="absoluteBHC">Absolute (BHC)</option>
+                <option value="absoluteAHC">Absolute (AHC)</option>
+                <option value="relativeBHC">Relative (BHC)</option>
+                <option value="relativeAHC">Relative (AHC)</option>
+              </select>
+            </div>
+            <p className="chart-description">
+              {povertyType.includes("absolute")
+                ? "Absolute poverty measures income below a fixed threshold, adjusted annually for inflation (CPI). This captures whether living standards are improving in real terms over time."
+                : "Relative poverty measures income below 60% of contemporary UK median income. This threshold moves with median incomes, so relative poverty can rise even when living standards improve if inequality increases."}
+              {povertyType.includes("AHC")
+                ? " After housing costs (AHC) subtracts rent, mortgage interest, and other housing costs from income before comparing to the threshold."
+                : " Before housing costs (BHC) uses total net income without deducting housing costs."}
+            </p>
+            <p className="chart-description" style={{ marginTop: "12px" }}>
+              Solid lines show official Scottish Government data (2021-2023). Dashed lines show
+              PolicyEngine projections through 2030, based on OBR economic forecasts for earnings
+              growth, inflation, and benefit uprating under current policy.
+            </p>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart
+              data={[
+                // Historical official data
+                ...HISTORICAL_POVERTY_DATA.map(d => {
+                  let value;
+                  if (povertyType === "absoluteBHC") value = d.absoluteBHC;
+                  else if (povertyType === "absoluteAHC") value = d.absoluteAHC;
+                  else if (povertyType === "relativeBHC") value = d.relativeBHC;
+                  else value = d.relativeAHC;
+                  return {
+                    year: d.year,
+                    historical: value,
+                  };
+                }),
+                // PolicyEngine projections
+                ...baselineData
+                  .filter(d => d.year >= 2024)
+                  .map(d => {
+                    let value;
+                    if (povertyType === "absoluteBHC") value = d.absolutePovertyBHC;
+                    else if (povertyType === "absoluteAHC") value = d.absolutePovertyAHC;
+                    else if (povertyType === "relativeBHC") value = d.povertyBHC;
+                    else value = d.povertyAHC;
+                    return {
+                      year: d.year,
+                      projection: value,
+                    };
+                  })
+              ]}
+              margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+              <XAxis
+                dataKey="year"
+                tickFormatter={(year) => formatYearRange(year)}
+              />
+              <YAxis
+                tickFormatter={(value) => `${value.toFixed(0)}%`}
+                domain={[0, 30]}
+              />
+              <Tooltip
+                formatter={(value, name) => {
+                  if (value === null || value === undefined) return [null, null];
+                  const labels = {
+                    historical: "Official (historical)",
+                    projection: "PolicyEngine (projection)",
+                  };
+                  return [`${value.toFixed(1)}%`, labels[name] || name];
+                }}
+                labelFormatter={(label) => formatYearRange(label)}
+              />
+              <Legend
+                content={(props) => renderCustomLegend(props, {
+                  historical: "Official (historical)",
+                  projection: "PolicyEngine (projection)",
+                })}
+              />
+              <Line
+                type="monotone"
+                dataKey="historical"
+                stroke="#319795"
+                strokeWidth={2}
+                dot={{ fill: "#319795", r: 3 }}
+                name="historical"
+                connectNulls={true}
+              />
+              <Line
+                type="monotone"
+                dataKey="projection"
+                stroke="#319795"
+                strokeWidth={2}
+                strokeDasharray="5 5"
+                dot={{ fill: "#319795", r: 4 }}
+                name="projection"
+                connectNulls={true}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Disposable income per household chart */}
+        <div className="chart-wrapper">
+          <h3 className="subsection-title">Income per household</h3>
+          <div className="scotland-chart-section">
+            <p className="chart-description">
+              Mean income is total disposable income divided by number of households. Median income
+              is the middle value when all households are ranked by income (half have more, half have
+              less).
+            </p>
+            <p className="chart-description" style={{ marginTop: "12px" }}>
+              Solid lines show official ONS data (2021-2023), calculated as total Scotland GDHI divided
+              by NRS household estimates. Dashed lines show PolicyEngine projections through 2030,
+              which apply OBR forecasts for earnings growth and inflation to the baseline survey data.
+            </p>
+            <ResponsiveContainer width="100%" height={300}>
+            <LineChart
+              data={[
+                ...HISTORICAL_HOUSEHOLD_INCOME_DATA.map(d => ({
+                  year: d.year,
+                  historicalMean: d.meanIncome,
+                  historicalMedian: d.medianIncome,
+                })),
+                ...baselineData
+                  .filter(d => d.year >= 2024)
+                  .map(d => ({
+                    year: d.year,
+                    projectionMean: d.meanHouseholdIncome,
+                    projectionMedian: d.medianHouseholdIncome,
+                  }))
+              ]}
+              margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+              <XAxis
+                dataKey="year"
+                tickFormatter={(year) => formatYearRange(year)}
+              />
+              <YAxis
+                tickFormatter={(value) => `£${(value / 1000).toFixed(0)}k`}
+                domain={[0, 70000]}
+              />
+              <Tooltip
+                formatter={(value, name) => {
+                  if (value === null || value === undefined) return [null, null];
+                  const labels = {
+                    historicalMean: "Official mean",
+                    historicalMedian: "Official median",
+                    projectionMean: "PolicyEngine mean",
+                    projectionMedian: "PolicyEngine median",
+                  };
+                  return [`£${value.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`, labels[name] || name];
+                }}
+                labelFormatter={(label) => formatYearRange(label)}
+              />
+              <Legend
+                content={(props) => renderCustomLegend(props, {
+                  historicalMean: "Official mean (historical)",
+                  historicalMedian: "Official median (historical)",
+                  projectionMean: "PolicyEngine mean (projection)",
+                  projectionMedian: "PolicyEngine median (projection)",
+                })}
+              />
+              <Line
+                type="monotone"
+                dataKey="historicalMean"
+                stroke="#319795"
+                strokeWidth={2}
+                dot={{ fill: "#319795", r: 3 }}
+                name="historicalMean"
+                connectNulls={true}
+              />
+              <Line
+                type="monotone"
+                dataKey="historicalMedian"
+                stroke="#5A8FB8"
+                strokeWidth={2}
+                dot={{ fill: "#5A8FB8", r: 3 }}
+                name="historicalMedian"
+                connectNulls={true}
+              />
+              <Line
+                type="monotone"
+                dataKey="projectionMean"
+                stroke="#319795"
+                strokeWidth={2}
+                strokeDasharray="5 5"
+                dot={{ fill: "#319795", r: 4 }}
+                name="projectionMean"
+                connectNulls={true}
+              />
+              <Line
+                type="monotone"
+                dataKey="projectionMedian"
+                stroke="#5A8FB8"
+                strokeWidth={2}
+                strokeDasharray="5 5"
+                dot={{ fill: "#5A8FB8", r: 4 }}
+                name="projectionMedian"
+                connectNulls={true}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+          </div>
+        </div>
+      </div>
+
       {/* Validation Section */}
           {/* Population Table - Start with who we're measuring */}
       <h3 className="subsection-title">Population</h3>
@@ -808,225 +1027,6 @@ export default function ScotlandTab() {
               </tr>
             </tbody>
           </table>
-        </div>
-      </div>
-
-      {/* Charts grid */}
-      <div className="scotland-charts-grid">
-        {/* Poverty rate chart */}
-        <div className="chart-wrapper">
-          <h3 className="subsection-title">Poverty rate</h3>
-          <div className="scotland-chart-section">
-            <div className="chart-controls">
-              <select
-                className="poverty-type-select"
-                value={povertyType}
-                onChange={(e) => setPovertyType(e.target.value)}
-              >
-                <option value="absoluteBHC">Absolute (BHC)</option>
-                <option value="absoluteAHC">Absolute (AHC)</option>
-                <option value="relativeBHC">Relative (BHC)</option>
-                <option value="relativeAHC">Relative (AHC)</option>
-              </select>
-            </div>
-            <p className="chart-description">
-              {povertyType.includes("absolute")
-                ? "Absolute poverty measures income below a fixed threshold, adjusted annually for inflation (CPI). This captures whether living standards are improving in real terms over time."
-                : "Relative poverty measures income below 60% of contemporary UK median income. This threshold moves with median incomes, so relative poverty can rise even when living standards improve if inequality increases."}
-              {povertyType.includes("AHC")
-                ? " After housing costs (AHC) subtracts rent, mortgage interest, and other housing costs from income before comparing to the threshold."
-                : " Before housing costs (BHC) uses total net income without deducting housing costs."}
-            </p>
-            <p className="chart-description" style={{ marginTop: "12px" }}>
-              Solid lines show official Scottish Government data (2021-2023). Dashed lines show
-              PolicyEngine projections through 2030, based on OBR economic forecasts for earnings
-              growth, inflation, and benefit uprating under current policy.
-            </p>
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart
-              data={[
-                // Historical official data
-                ...HISTORICAL_POVERTY_DATA.map(d => {
-                  let value;
-                  if (povertyType === "absoluteBHC") value = d.absoluteBHC;
-                  else if (povertyType === "absoluteAHC") value = d.absoluteAHC;
-                  else if (povertyType === "relativeBHC") value = d.relativeBHC;
-                  else value = d.relativeAHC;
-                  return {
-                    year: d.year,
-                    historical: value,
-                  };
-                }),
-                // PolicyEngine projections
-                ...baselineData
-                  .filter(d => d.year >= 2024)
-                  .map(d => {
-                    let value;
-                    if (povertyType === "absoluteBHC") value = d.absolutePovertyBHC;
-                    else if (povertyType === "absoluteAHC") value = d.absolutePovertyAHC;
-                    else if (povertyType === "relativeBHC") value = d.povertyBHC;
-                    else value = d.povertyAHC;
-                    return {
-                      year: d.year,
-                      projection: value,
-                    };
-                  })
-              ]}
-              margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-              <XAxis
-                dataKey="year"
-                tickFormatter={(year) => formatYearRange(year)}
-              />
-              <YAxis
-                tickFormatter={(value) => `${value.toFixed(0)}%`}
-                domain={[0, 30]}
-              />
-              <Tooltip
-                formatter={(value, name) => {
-                  if (value === null || value === undefined) return [null, null];
-                  const labels = {
-                    historical: "Official (historical)",
-                    projection: "PolicyEngine (projection)",
-                  };
-                  return [`${value.toFixed(1)}%`, labels[name] || name];
-                }}
-                labelFormatter={(label) => formatYearRange(label)}
-              />
-              <Legend
-                content={(props) => renderCustomLegend(props, {
-                  historical: "Official (historical)",
-                  projection: "PolicyEngine (projection)",
-                })}
-              />
-              <Line
-                type="monotone"
-                dataKey="historical"
-                stroke="#319795"
-                strokeWidth={2}
-                dot={{ fill: "#319795", r: 3 }}
-                name="historical"
-                connectNulls={true}
-              />
-              <Line
-                type="monotone"
-                dataKey="projection"
-                stroke="#319795"
-                strokeWidth={2}
-                strokeDasharray="5 5"
-                dot={{ fill: "#319795", r: 4 }}
-                name="projection"
-                connectNulls={true}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-          </div>
-        </div>
-
-        {/* Disposable income per household chart */}
-        <div className="chart-wrapper">
-          <h3 className="subsection-title">Income per household</h3>
-          <div className="scotland-chart-section">
-            <p className="chart-description">
-              Mean income is total disposable income divided by number of households. Median income
-              is the middle value when all households are ranked by income (half have more, half have
-              less).
-            </p>
-            <p className="chart-description" style={{ marginTop: "12px" }}>
-              Solid lines show official ONS data (2021-2023), calculated as total Scotland GDHI divided
-              by NRS household estimates. Dashed lines show PolicyEngine projections through 2030,
-              which apply OBR forecasts for earnings growth and inflation to the baseline survey data.
-            </p>
-            <ResponsiveContainer width="100%" height={300}>
-            <LineChart
-              data={[
-                ...HISTORICAL_HOUSEHOLD_INCOME_DATA.map(d => ({
-                  year: d.year,
-                  historicalMean: d.meanIncome,
-                  historicalMedian: d.medianIncome,
-                })),
-                ...baselineData
-                  .filter(d => d.year >= 2024)
-                  .map(d => ({
-                    year: d.year,
-                    projectionMean: d.meanHouseholdIncome,
-                    projectionMedian: d.medianHouseholdIncome,
-                  }))
-              ]}
-              margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
-            >
-              <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-              <XAxis
-                dataKey="year"
-                tickFormatter={(year) => formatYearRange(year)}
-              />
-              <YAxis
-                tickFormatter={(value) => `£${(value / 1000).toFixed(0)}k`}
-                domain={[0, 70000]}
-              />
-              <Tooltip
-                formatter={(value, name) => {
-                  if (value === null || value === undefined) return [null, null];
-                  const labels = {
-                    historicalMean: "Official mean",
-                    historicalMedian: "Official median",
-                    projectionMean: "PolicyEngine mean",
-                    projectionMedian: "PolicyEngine median",
-                  };
-                  return [`£${value.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`, labels[name] || name];
-                }}
-                labelFormatter={(label) => formatYearRange(label)}
-              />
-              <Legend
-                content={(props) => renderCustomLegend(props, {
-                  historicalMean: "Official mean (historical)",
-                  historicalMedian: "Official median (historical)",
-                  projectionMean: "PolicyEngine mean (projection)",
-                  projectionMedian: "PolicyEngine median (projection)",
-                })}
-              />
-              <Line
-                type="monotone"
-                dataKey="historicalMean"
-                stroke="#319795"
-                strokeWidth={2}
-                dot={{ fill: "#319795", r: 3 }}
-                name="historicalMean"
-                connectNulls={true}
-              />
-              <Line
-                type="monotone"
-                dataKey="historicalMedian"
-                stroke="#5A8FB8"
-                strokeWidth={2}
-                dot={{ fill: "#5A8FB8", r: 3 }}
-                name="historicalMedian"
-                connectNulls={true}
-              />
-              <Line
-                type="monotone"
-                dataKey="projectionMean"
-                stroke="#319795"
-                strokeWidth={2}
-                strokeDasharray="5 5"
-                dot={{ fill: "#319795", r: 4 }}
-                name="projectionMean"
-                connectNulls={true}
-              />
-              <Line
-                type="monotone"
-                dataKey="projectionMedian"
-                stroke="#5A8FB8"
-                strokeWidth={2}
-                strokeDasharray="5 5"
-                dot={{ fill: "#5A8FB8", r: 4 }}
-                name="projectionMedian"
-                connectNulls={true}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-          </div>
         </div>
       </div>
 
