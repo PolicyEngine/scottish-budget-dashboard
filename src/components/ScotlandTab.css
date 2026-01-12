@@ -416,19 +416,32 @@
 }
 
 .collapse-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
   font-size: 1.25rem;
-  font-weight: 400;
-  color: var(--pe-gray-400);
-  transition: color var(--pe-transition-fast);
+  font-weight: 700;
+  color: var(--pe-teal-600);
+  background: var(--pe-teal-50);
+  border: 2px solid var(--pe-teal-200);
+  border-radius: 50%;
+  transition: all var(--pe-transition-fast);
   margin-left: var(--pe-space-md);
+  flex-shrink: 0;
 }
 
 .section-title-collapsible:hover .collapse-icon {
-  color: var(--pe-teal-500);
+  background: var(--pe-teal-100);
+  border-color: var(--pe-teal-400);
+  color: var(--pe-teal-700);
 }
 
 .collapse-icon.expanded {
-  color: var(--pe-teal-500);
+  background: var(--pe-teal-500);
+  border-color: var(--pe-teal-500);
+  color: white;
 }
 
 /* Expand/collapse link button */
