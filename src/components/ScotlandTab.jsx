@@ -630,21 +630,21 @@ export default function ScotlandTab() {
           PolicyEngine shows higher child poverty than official statistics (28% vs 20% BHC). This gap
           arises from different benefit take-up assumptions. PolicyEngine{" "}
           <a
-            href="https://github.com/PolicyEngine/policyengine-uk/blob/main/policyengine_uk/parameters/gov/dwp/universal_credit/takeup_rate.yaml"
+            href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/parameters/take_up/universal_credit.yaml"
             target="_blank"
             rel="noopener noreferrer"
           >
-            assumes 55% UC take-up
+            uses a 55% UC take-up rate
           </a>{" "}
-          based on DWP administrative data, meaning 45% of eligible families do not claim. The Scottish
-          Government uses{" "}
+          to stochastically assign claiming behaviour, then calibrates weights to match official UC
+          expenditure totals. The Scottish Government uses{" "}
           <a
             href="https://www.gov.scot/publications/impact-of-withdrawing-emergency-benefit-measures/pages/annex-a-methodology/"
             target="_blank"
             rel="noopener noreferrer"
           >
             UKMOD with 87% take-up
-          </a>. Lower take-up means fewer families receive benefits they are entitled to, resulting in
+          </a>. Lower take-up means fewer families are modelled as receiving benefits, resulting in
           lower incomes and higher measured poverty.
         </p>
 
