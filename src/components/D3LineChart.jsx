@@ -93,7 +93,7 @@ export default function D3LineChart({
       .call(
         d3
           .axisBottom(x)
-          .tickValues(data.map((d) => d[xKey]))
+          .tickValues(data.filter((d, i) => i % 2 === 0).map((d) => d[xKey]))
           .tickFormat((d) => formatYearRange(d))
           .tickSize(0)
           .tickPadding(12)
