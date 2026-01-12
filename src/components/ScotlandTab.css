@@ -268,6 +268,12 @@
   font-size: 0.85rem;
 }
 
+.comparison-table .derived-value {
+  color: var(--pe-gray-600);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
 /* Difference column */
 .comparison-table .difference {
   font-weight: 600;
