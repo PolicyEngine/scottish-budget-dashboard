@@ -951,8 +951,8 @@ export default function ScotlandTab() {
           <div className="scotland-chart-section">
             <p className="chart-description">
               Mean income is total disposable income divided by number of households. Median income
-              is the middle value when all households are ranked by income—half have more, half have
-              less. The gap between mean and median indicates income inequality: a larger gap means
+              is the middle value when all households are ranked by income (half have more, half have
+              less). The gap between mean and median indicates income inequality: a larger gap means
               high earners are pulling up the average.
             </p>
             <p className="chart-description" style={{ marginTop: "12px" }}>
