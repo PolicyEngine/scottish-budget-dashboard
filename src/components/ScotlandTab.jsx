@@ -394,7 +394,7 @@ export default function ScotlandTab() {
                 historicalMedian: d.medianIncome,
               })),
               ...baselineData
-                .filter(d => d.year >= 2024)
+                .filter(d => d.year >= 2023)
                 .map(d => ({
                   year: d.year,
                   projectionMean: d.meanHouseholdIncome,
@@ -520,7 +520,7 @@ export default function ScotlandTab() {
               }),
               // PolicyEngine projections
               ...baselineData
-                .filter(d => d.year >= 2024)
+                .filter(d => d.year >= 2023)
                 .map(d => {
                   let value;
                   if (povertyType === "absoluteBHC") value = d.absolutePovertyBHC;
