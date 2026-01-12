@@ -417,7 +417,7 @@ export default function ScotlandTab() {
             <YAxis
               tickFormatter={(value) => `£${(value / 1000).toFixed(0)}k`}
               domain={[0, 70000]}
-              label={{ value: "Household income", angle: -90, position: "insideLeft", style: { textAnchor: "middle" } }}
+              label={{ value: "Household income", angle: -90, position: "insideLeft", dx: -15, style: { textAnchor: "middle" } }}
             />
             <Tooltip
               formatter={(value, name) => {
@@ -553,7 +553,7 @@ export default function ScotlandTab() {
             <YAxis
               tickFormatter={(value) => `${value.toFixed(0)}%`}
               domain={[0, 30]}
-              label={{ value: "Poverty rate", angle: -90, position: "insideLeft", style: { textAnchor: "middle" } }}
+              label={{ value: "Poverty rate", angle: -90, position: "insideLeft", dx: -15, style: { textAnchor: "middle" } }}
             />
             <Tooltip
               formatter={(value, name) => {
