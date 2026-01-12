@@ -487,7 +487,7 @@ export default function ScotlandTab() {
 
         {/* Disposable income per household chart */}
         <div className="chart-wrapper">
-          <h3 className="subsection-title">Income per household</h3>
+          <h3 className="subsection-title">Living standard</h3>
           <div className="scotland-chart-section">
             <p className="chart-description">
               Mean income is total disposable income divided by number of households. Median income
