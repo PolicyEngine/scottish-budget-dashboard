@@ -40,10 +40,23 @@ const HISTORICAL_POVERTY_DATA = [
 // Real values adjusted to 2023 prices using UK CPI inflation
 // 2024+ uses PolicyEngine projections (dashed lines)
 const HISTORICAL_HOUSEHOLD_INCOME_DATA = [
-  { year: 2021, meanIncome: 41200, medianIncome: 35800, meanIncomeReal: 47900, medianIncomeReal: 41600 },
-  { year: 2022, meanIncome: 45000, medianIncome: 39200, meanIncomeReal: 48400, medianIncomeReal: 42100 },
+  { year: 2021, meanIncome: 41200, medianIncome: 35800, meanIncomeReal: 48000, medianIncomeReal: 41700 },
+  { year: 2022, meanIncome: 45000, medianIncome: 39200, meanIncomeReal: 48000, medianIncomeReal: 41800 },
   { year: 2023, meanIncome: 49700, medianIncome: 43200, meanIncomeReal: 49700, medianIncomeReal: 43200 },
 ];
+
+// CPI deflators to convert future nominal values to 2023 real prices
+// Based on OBR inflation forecasts (~3% 2024, ~2% thereafter)
+const CPI_DEFLATORS = {
+  2023: 1.00,
+  2024: 1.03,
+  2025: 1.05,
+  2026: 1.07,
+  2027: 1.09,
+  2028: 1.11,
+  2029: 1.13,
+  2030: 1.16,
+};
 
 function parseCSV(csvText) {
   const lines = csvText.trim().split("\n");
@@ -476,8 +489,11 @@ export default function ScotlandTab() {
               });
               baselineData.filter(d => d.year >= 2023).forEach(d => {
                 // PolicyEngine projections are in nominal terms
-                // For real values, we use nominal (projections are forward-looking)
-                const projectionValue = incomeType === "mean" ? d.meanHouseholdIncome : d.medianHouseholdIncome;
+                // For real values, deflate by CPI to 2023 prices
+                let projectionValue = incomeType === "mean" ? d.meanHouseholdIncome : d.medianHouseholdIncome;
+                if (incomeAdjustment === "real" && CPI_DEFLATORS[d.year]) {
+                  projectionValue = projectionValue / CPI_DEFLATORS[d.year];
+                }
                 if (merged[d.year]) {
                   merged[d.year].projection = projectionValue;
                 } else {
