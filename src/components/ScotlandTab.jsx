@@ -410,6 +410,13 @@ export default function ScotlandTab() {
           potential impact of proposed measures on Scottish families.
         </p>
         <p className="chart-description" style={{ marginTop: "12px" }}>
+          The dashboard is organised into three sections: <strong>Economic outlook</strong> presents
+          projections for household incomes and poverty rates through 2030 under current policy;{" "}
+          <strong>Validation</strong> compares PolicyEngine estimates against official government
+          statistics for population, income, and poverty; and <strong>Scottish Budget 2026</strong>{" "}
+          analyses the potential impact of proposed policy changes.
+        </p>
+        <p className="chart-description" style={{ marginTop: "12px" }}>
           The analysis is powered by{" "}
           <a
             href="https://policyengine.org"
