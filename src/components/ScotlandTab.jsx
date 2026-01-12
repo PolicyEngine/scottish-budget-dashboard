@@ -497,7 +497,11 @@ export default function ScotlandTab() {
             })()}
             yLabel={`Household income${incomeAdjustment === "real" ? " (2023 prices)" : ""}`}
             yFormat={(v) => `£${(v / 1000).toFixed(0)}k`}
-            yDomain={incomeAdjustment === "real" ? [0, 55000] : [0, 70000]}
+            yDomain={
+              incomeType === "mean"
+                ? (incomeAdjustment === "real" ? [0, 85000] : [0, 90000])
+                : (incomeAdjustment === "real" ? [0, 50000] : [0, 55000])
+            }
             viewMode={incomeViewMode}
           />
         </div>
