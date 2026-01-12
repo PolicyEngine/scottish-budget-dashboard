@@ -169,6 +169,9 @@ def calculate_scotland_baseline(output_dir: Path = None) -> pd.DataFrame:
         hh_income = sim.calculate(
             "hbai_household_net_income", year, map_to="household"
         ).values
+        hh_income_real = sim.calculate(
+            "real_hbai_household_net_income", year, map_to="household"
+        ).values
         hh_weight = sim.calculate(
             "household_weight", year, map_to="household"
         ).values
@@ -177,8 +180,11 @@ def calculate_scotland_baseline(output_dir: Path = None) -> pd.DataFrame:
         mean_income = (
             hh_income[hh_scotland] * hh_weight[hh_scotland]
         ).sum() / total_hh
+        mean_income_real = (
+            hh_income_real[hh_scotland] * hh_weight[hh_scotland]
+        ).sum() / total_hh
 
-        # Median income
+        # Median income (nominal)
         scot_incomes = hh_income[hh_scotland]
         scot_hh_weights = hh_weight[hh_scotland]
         sorted_idx = np.argsort(scot_incomes)
@@ -187,6 +193,15 @@ def calculate_scotland_baseline(output_dir: Path = None) -> pd.DataFrame:
         cum_w = np.cumsum(sorted_w)
         med_idx = np.searchsorted(cum_w, total_hh / 2)
         median_income = sorted_inc[min(med_idx, len(sorted_inc) - 1)]
+
+        # Median income (real)
+        scot_incomes_real = hh_income_real[hh_scotland]
+        sorted_idx_real = np.argsort(scot_incomes_real)
+        sorted_inc_real = scot_incomes_real[sorted_idx_real]
+        sorted_w_real = scot_hh_weights[sorted_idx_real]
+        cum_w_real = np.cumsum(sorted_w_real)
+        med_idx_real = np.searchsorted(cum_w_real, total_hh / 2)
+        median_income_real = sorted_inc_real[min(med_idx_real, len(sorted_inc_real) - 1)]
 
         # Taxpayer stats
         total_income = sim.calculate(
@@ -240,6 +255,8 @@ def calculate_scotland_baseline(output_dir: Path = None) -> pd.DataFrame:
                 "year": year,
                 "mean_disposable_income": mean_income,
                 "median_disposable_income": median_income,
+                "mean_disposable_income_real": mean_income_real,
+                "median_disposable_income_real": median_income_real,
                 "median_taxpayer_income": taxpayer_median,
                 "taxpayer_income_p25": taxpayer_p25,
                 "taxpayer_income_p75": taxpayer_p75,
