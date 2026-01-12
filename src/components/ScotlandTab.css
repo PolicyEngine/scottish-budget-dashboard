@@ -25,7 +25,7 @@
 
 .charts-row .section-box {
   min-width: 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* Remove the floating dots navigation */
