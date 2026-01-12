@@ -52,7 +52,7 @@
 }
 
 .title-row h1 {
-  font-size: 1.5rem;
+  font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 600;
   color: var(--pe-gray-900);
   margin: 0;
@@ -676,7 +676,7 @@
   }
 
   .title-row h1 {
-    font-size: 1.25rem;
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
   }
 
   .tab-navigation {

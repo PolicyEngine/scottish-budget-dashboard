@@ -319,52 +319,54 @@ export default function ScotlandTab() {
     <div className="scotland-tab">
       {/* Introduction */}
       <h2 className="section-title">Introduction</h2>
-      <p className="chart-description">
-        This dashboard projects Scotland's economy and poverty levels under current policy, and
-        estimates the impact of proposed budget measures. Finance Secretary Shona Robison will{" "}
-        <a
-          href="https://www.gov.scot/budget/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          announce
-        </a>{" "}
-        the Scottish Budget 2026–27 on 13 January 2026.{" "}
-        <a
-          href="https://policyengine.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          PolicyEngine
-        </a>{" "}
-        is an open-source microsimulation model that calculates the impact of tax and benefit
-        policies on household incomes. This dashboard uses PolicyEngine to produce Scotland-specific
-        projections by{" "}
-        <a
-          href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          reweighting
-        </a>{" "}
-        the Family Resources Survey to Scottish parliamentary constituencies. PolicyEngine also created a{" "}
-        <a
-          href="https://www.policyengine.org/uk/autumn-budget-2025"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          dashboard
-        </a>{" "}
-        for the UK Autumn Budget 2025. For details on how PolicyEngine poverty estimates compare with official DWP statistics,
-        see our{" "}
-        <a
-          href="https://www.policyengine.org/uk/research/uk-poverty-analysis"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          analysis
-        </a>.
-      </p>
+      <div className="section-box">
+        <p className="chart-description">
+          This dashboard projects Scotland's economy and poverty levels under current policy, and
+          estimates the impact of proposed budget measures. Finance Secretary Shona Robison will{" "}
+          <a
+            href="https://www.gov.scot/budget/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            announce
+          </a>{" "}
+          the Scottish Budget 2026–27 on 13 January 2026.{" "}
+          <a
+            href="https://policyengine.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            PolicyEngine
+          </a>{" "}
+          is an open-source microsimulation model that calculates the impact of tax and benefit
+          policies on household incomes. This dashboard uses PolicyEngine to produce Scotland-specific
+          projections by{" "}
+          <a
+            href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            reweighting
+          </a>{" "}
+          the Family Resources Survey to Scottish parliamentary constituencies. PolicyEngine also created a{" "}
+          <a
+            href="https://www.policyengine.org/uk/autumn-budget-2025"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            dashboard
+          </a>{" "}
+          for the UK Autumn Budget 2025. For details on how PolicyEngine poverty estimates compare with official DWP statistics,
+          see our{" "}
+          <a
+            href="https://www.policyengine.org/uk/research/uk-poverty-analysis"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            analysis
+          </a>.
+        </p>
+      </div>
 
       {/* Economic outlook section */}
       <h2 className="section-title">Economic outlook</h2>
