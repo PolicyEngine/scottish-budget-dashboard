@@ -379,7 +379,7 @@ export default function ScotlandTab() {
           by NRS household estimates. Dashed lines show PolicyEngine projections through 2030,
           which apply OBR forecasts for earnings growth and inflation to the baseline survey data.
         </p>
-        <div style={{ maxWidth: "700px", margin: "0 auto" }}>
+        <div style={{ maxWidth: "700px", margin: "20px auto 0" }}>
         <ResponsiveContainer width="100%" height={400}>
           <LineChart
             data={(() => {
@@ -508,7 +508,7 @@ export default function ScotlandTab() {
           PolicyEngine projections through 2030, based on OBR economic forecasts for earnings
           growth, inflation, and benefit uprating under current policy.
         </p>
-        <div style={{ maxWidth: "700px", margin: "0 auto" }}>
+        <div style={{ maxWidth: "700px", margin: "20px auto 0" }}>
         <ResponsiveContainer width="100%" height={400}>
           <LineChart
             data={(() => {
