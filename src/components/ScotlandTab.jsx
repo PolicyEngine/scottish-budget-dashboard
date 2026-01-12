@@ -42,15 +42,15 @@ const HISTORICAL_POVERTY_DATA = [
   { year: 2023, relativeBHC: 18, relativeAHC: 20, absoluteBHC: 15, absoluteAHC: 17 },
 ];
 
-// Historical official income per head data (ONS GDHI per head)
+// Historical household income data (derived from GDHI / households)
 // Source: https://www.ons.gov.uk/economy/regionalaccounts/grossdisposablehouseholdincome
-// 2021 estimated from growth rates, 2022-2023 are official ONS values
+// Values calculated as total GDHI / number of households from NRS
 // Median estimated at ~87% of mean based on typical income distributions
-// 2024+ uses PolicyEngine projections (solid lines)
-const HISTORICAL_INCOME_DATA = [
-  { year: 2021, meanIncome: 19100, medianIncome: 16600 },
-  { year: 2022, meanIncome: 20854, medianIncome: 18100 },
-  { year: 2023, meanIncome: 22908, medianIncome: 19900 },
+// 2024+ uses PolicyEngine projections (dashed lines)
+const HISTORICAL_HOUSEHOLD_INCOME_DATA = [
+  { year: 2021, meanIncome: 41200, medianIncome: 35800 },
+  { year: 2022, meanIncome: 45000, medianIncome: 39200 },
+  { year: 2023, meanIncome: 49700, medianIncome: 43200 },
 ];
 
 function parseCSV(csvText) {
@@ -919,12 +919,12 @@ export default function ScotlandTab() {
           </ResponsiveContainer>
         </div>
 
-        {/* Disposable income per head chart */}
+        {/* Disposable income per household chart */}
         <div className="scotland-chart-section">
           <div className="chart-header">
-            <h2>Income per person</h2>
+            <h2>Income per household</h2>
             <p className="chart-description">
-              Annual disposable income per person (GDHI per head) after taxes paid and benefits received.
+              Annual disposable income per household (GDHI / households) after taxes paid and benefits received.
               Mean is the average; median is the middle value. Solid lines show official ONS data
               (2021-2023); dashed lines show PolicyEngine projections (2024-2030).
             </p>
@@ -932,7 +932,7 @@ export default function ScotlandTab() {
           <ResponsiveContainer width="100%" height={300}>
             <LineChart
               data={[
-                ...HISTORICAL_INCOME_DATA.map(d => ({
+                ...HISTORICAL_HOUSEHOLD_INCOME_DATA.map(d => ({
                   year: d.year,
                   historicalMean: d.meanIncome,
                   historicalMedian: d.medianIncome,
@@ -941,8 +941,8 @@ export default function ScotlandTab() {
                   .filter(d => d.year >= 2024)
                   .map(d => ({
                     year: d.year,
-                    projectionMean: d.meanIncome,
-                    projectionMedian: d.medianIncome,
+                    projectionMean: d.meanHouseholdIncome,
+                    projectionMedian: d.medianHouseholdIncome,
                   }))
               ]}
               margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
@@ -954,7 +954,7 @@ export default function ScotlandTab() {
               />
               <YAxis
                 tickFormatter={(value) => `£${(value / 1000).toFixed(0)}k`}
-                domain={[0, 40000]}
+                domain={[0, 70000]}
               />
               <Tooltip
                 formatter={(value, name) => {

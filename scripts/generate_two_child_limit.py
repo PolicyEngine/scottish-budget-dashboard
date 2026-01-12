@@ -22,6 +22,18 @@ if LOCAL_PE_UK_PATH.exists():
 import numpy as np
 import pandas as pd
 from policyengine_uk import Microsimulation
+from policyengine_uk.data import UKSingleYearDataset
+
+# Use local policyengine-uk-data dataset
+LOCAL_PE_UK_DATA_PATH = Path(__file__).parent.parent.parent / "policyengine-uk-data"
+if LOCAL_PE_UK_DATA_PATH.exists():
+    import sys
+    sys.path.insert(0, str(LOCAL_PE_UK_DATA_PATH))
+    from policyengine_uk_data.storage import STORAGE_FOLDER
+    LOCAL_DATASET = STORAGE_FOLDER / "enhanced_frs_2023_24.h5"
+    print(f"Using local dataset from: {LOCAL_DATASET}")
+else:
+    LOCAL_DATASET = None
 
 # Years to calculate
 YEARS = [2026, 2027, 2028, 2029, 2030]
@@ -57,12 +69,20 @@ def calculate_scotland_two_child_limit(output_dir: Path = None) -> pd.DataFrame:
     if output_dir is None:
         output_dir = script_dir.parent / "public" / "data"
 
-    # Create simulations
-    # Reform (current law): Two-child limit removed
-    sim_reform = Microsimulation()
-
-    # Baseline: Two-child limit in place
-    sim_baseline = Microsimulation(reform=create_two_child_limit_reform())
+    # Create simulations with local dataset if available
+    if LOCAL_DATASET and LOCAL_DATASET.exists():
+        dataset = UKSingleYearDataset(LOCAL_DATASET)
+        # Reform (current law): Two-child limit removed
+        sim_reform = Microsimulation(dataset=dataset)
+        # Baseline: Two-child limit in place
+        sim_baseline = Microsimulation(dataset=dataset, reform=create_two_child_limit_reform())
+        print(f"Loaded local dataset: {LOCAL_DATASET}")
+    else:
+        # Reform (current law): Two-child limit removed
+        sim_reform = Microsimulation()
+        # Baseline: Two-child limit in place
+        sim_baseline = Microsimulation(reform=create_two_child_limit_reform())
+        print("Using default dataset (no local dataset found)")
 
     results = []
 
