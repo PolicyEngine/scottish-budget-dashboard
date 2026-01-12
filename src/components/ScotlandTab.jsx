@@ -356,7 +356,7 @@ export default function ScotlandTab() {
 
       {/* Validation Section */}
           {/* Population Table - Start with who we're measuring */}
-      <h2 className="section-title">Population</h2>
+      <h3 className="subsection-title">Population</h3>
       <div className="comparison-section">
         <p className="chart-description">
           The Family Resources Survey (FRS) samples approximately 20,000 UK households annually.
@@ -449,7 +449,7 @@ export default function ScotlandTab() {
       </div>
 
           {/* Income Table */}
-      <h2 className="section-title">Household income</h2>
+      <h3 className="subsection-title">Household income</h3>
       <div className="comparison-section">
         <p className="chart-description">
           Gross Disposable Household Income (GDHI) measures the amount of money households have
@@ -572,7 +572,7 @@ export default function ScotlandTab() {
       </div>
 
       {/* Poverty Rates Table */}
-      <h2 className="section-title">Poverty rates</h2>
+      <h3 className="subsection-title">Poverty rates</h3>
       <div className="comparison-section">
         <p className="chart-description">
           A household is in relative poverty if its equivalised income falls below 60% of UK median
@@ -797,7 +797,7 @@ export default function ScotlandTab() {
       <div className="scotland-charts-grid">
         {/* Poverty rate chart */}
         <div className="chart-wrapper">
-          <h2 className="section-title">Poverty rate</h2>
+          <h3 className="subsection-title">Poverty rate</h3>
           <div className="scotland-chart-section">
             <div className="chart-controls">
               <select
@@ -908,7 +908,7 @@ export default function ScotlandTab() {
 
         {/* Disposable income per household chart */}
         <div className="chart-wrapper">
-          <h2 className="section-title">Income per household</h2>
+          <h3 className="subsection-title">Income per household</h3>
           <div className="scotland-chart-section">
             <p className="chart-description">
               Mean income is total disposable income divided by number of households. Median income
@@ -1035,7 +1035,7 @@ export default function ScotlandTab() {
       </div>
 
       {/* Two-child limit section */}
-      <h2 className="section-title">Two-child limit top-up payment</h2>
+      <h3 className="subsection-title">Two-child limit top-up payment</h3>
       <div className="comparison-section">
         <p className="chart-description">
           The Scottish Government{" "}

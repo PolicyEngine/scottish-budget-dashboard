@@ -14,6 +14,14 @@
   margin-top: 0;
 }
 
+/* Subsection titles */
+.subsection-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--pe-gray-700);
+  margin: 20px 0 10px 0;
+}
+
 /* Tab navigation */
 .scotland-tabs {
   display: flex;
@@ -316,7 +324,8 @@
   flex-direction: column;
 }
 
-.chart-wrapper .section-title {
+.chart-wrapper .section-title,
+.chart-wrapper .subsection-title {
   margin: 0 0 12px 0;
 }
 
@@ -333,7 +342,8 @@
   margin-bottom: 12px;
 }
 
-.chart-title-row .section-title {
+.chart-title-row .section-title,
+.chart-title-row .subsection-title {
   margin: 0;
 }
 
