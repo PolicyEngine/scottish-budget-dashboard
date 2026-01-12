@@ -381,8 +381,8 @@ export default function ScotlandTab() {
         <div className="chart-header">
           <h2>Population</h2>
           <p className="chart-description">
-            This section compares PolicyEngine's microsimulation with official statistics from
-            the National Records of Scotland (NRS). PolicyEngine{" "}
+            Comparing PolicyEngine's microsimulation with official statistics from
+            the National Records of Scotland (NRS) for 2023. PolicyEngine{" "}
             <a
               href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
               target="_blank"
@@ -400,7 +400,7 @@ export default function ScotlandTab() {
             <thead>
               <tr>
                 <th>Metric</th>
-                <th>Official</th>
+                <th>Official (NRS)</th>
                 <th>PolicyEngine</th>
                 <th>Difference</th>
               </tr>
@@ -409,19 +409,16 @@ export default function ScotlandTab() {
               <tr>
                 <td className="metric-name">
                   <strong>Population</strong>
-                  <span className="metric-subtitle">Scotland total</span>
                 </td>
                 <td className="official-value">
                   <a href={OFFICIAL_STATS.population.url} target="_blank" rel="noopener noreferrer">
                     {OFFICIAL_STATS.population.value}m
                   </a>
-                  <span className="value-year">{OFFICIAL_STATS.population.year}</span>
                 </td>
                 <td className="pe-value">
                   <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
                     {peMetrics?.year2023 ? `${(peMetrics.year2023.totalPopulation / 1e6).toFixed(2)}m` : "—"}
                   </a>
-                  <span className="value-year">2023</span>
                 </td>
                 <td className="difference">
                   {formatDifference(peMetrics?.year2023?.totalPopulation / 1e6, OFFICIAL_STATS.population.value)}
@@ -430,19 +427,16 @@ export default function ScotlandTab() {
               <tr>
                 <td className="metric-name">
                   <strong>Households</strong>
-                  <span className="metric-subtitle">Scotland total</span>
                 </td>
                 <td className="official-value">
                   <a href={OFFICIAL_STATS.households.url} target="_blank" rel="noopener noreferrer">
                     {OFFICIAL_STATS.households.value}m
                   </a>
-                  <span className="value-year">{OFFICIAL_STATS.households.year}</span>
                 </td>
                 <td className="pe-value">
                   <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
                     {peMetrics?.year2023 ? `${(peMetrics.year2023.totalHouseholds / 1e6).toFixed(2)}m` : "—"}
                   </a>
-                  <span className="value-year">2023</span>
                 </td>
                 <td className="difference">
                   {formatDifference(peMetrics?.year2023?.totalHouseholds / 1e6, OFFICIAL_STATS.households.value)}
@@ -450,20 +444,17 @@ export default function ScotlandTab() {
               </tr>
               <tr>
                 <td className="metric-name">
-                  <strong>Children</strong>
-                  <span className="metric-subtitle">Under 16</span>
+                  <strong>Children under 16</strong>
                 </td>
                 <td className="official-value">
                   <a href={OFFICIAL_STATS.childrenUnder16.url} target="_blank" rel="noopener noreferrer">
                     {OFFICIAL_STATS.childrenUnder16.value}m
                   </a>
-                  <span className="value-year">{OFFICIAL_STATS.childrenUnder16.year}</span>
                 </td>
                 <td className="pe-value">
                   <a href={PE_DATA_URLS.baseline} target="_blank" rel="noopener noreferrer">
                     0.97m
                   </a>
-                  <span className="value-year">2023</span>
                 </td>
                 <td className="difference">
                   {formatDifference(0.97, OFFICIAL_STATS.childrenUnder16.value)}
