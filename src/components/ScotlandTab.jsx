@@ -852,7 +852,7 @@ export default function ScotlandTab() {
           <div className="scotland-chart-section">
             <p className="chart-description">
               {povertyType.includes("absolute")
-                ? "Absolute poverty measures income below a fixed threshold set in 2010/11, adjusted annually for inflation (CPI). This captures whether living standards are improving in real terms over time."
+                ? "Absolute poverty measures income below a fixed threshold, adjusted annually for inflation (CPI). This captures whether living standards are improving in real terms over time."
                 : "Relative poverty measures income below 60% of contemporary UK median income. This threshold moves with median incomes, so relative poverty can rise even when living standards improve if inequality increases."}
               {povertyType.includes("AHC")
                 ? " After housing costs (AHC) subtracts rent, mortgage interest, and other housing costs from income before comparing to the threshold."
@@ -952,8 +952,7 @@ export default function ScotlandTab() {
             <p className="chart-description">
               Mean income is total disposable income divided by number of households. Median income
               is the middle value when all households are ranked by income (half have more, half have
-              less). The gap between mean and median indicates income inequality: a larger gap means
-              high earners are pulling up the average.
+              less).
             </p>
             <p className="chart-description" style={{ marginTop: "12px" }}>
               Solid lines show official ONS data (2021-2023), calculated as total Scotland GDHI divided
