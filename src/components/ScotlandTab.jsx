@@ -498,10 +498,10 @@ export default function ScotlandTab() {
           {/* Income Table */}
       <div className="comparison-section">
         <div className="chart-header">
-          <h2>Household income (2023)</h2>
+          <h2>Household income</h2>
           <p className="chart-description">
-            Both sources measure household disposable income (income after taxes and benefits).
-            Official data is from ONS regional accounts (GDHI). PolicyEngine calculates
+            Both sources measure household disposable income (income after taxes and benefits)
+            for 2023. Official data is from ONS regional accounts (GDHI). PolicyEngine calculates
             household net income from FRS microdata using the same definition.
           </p>
         </div>
