@@ -54,6 +54,26 @@
   margin-top: 0;
 }
 
+.section-title-collapsible {
+  cursor: pointer;
+  user-select: none;
+}
+
+.section-title-collapsible:hover {
+  color: var(--pe-teal-700);
+}
+
+.collapse-indicator {
+  display: inline-block;
+  margin-right: var(--pe-space-sm);
+  font-size: 0.8em;
+  transition: transform 0.2s ease;
+}
+
+.collapse-indicator.expanded {
+  transform: rotate(90deg);
+}
+
 /* Space after section title before content */
 .section-title + p,
 .section-title + .charts-row,

@@ -213,6 +213,7 @@ export default function ScotlandTab() {
   const [incomeViewMode, setIncomeViewMode] = useState("both"); // outturn, forecast, both
   const [povertyViewMode, setPovertyViewMode] = useState("both"); // outturn, forecast, both
   const [activeSection, setActiveSection] = useState("introduction");
+  const [validationExpanded, setValidationExpanded] = useState(false);
 
   // Refs for section elements
   const sectionRefs = useRef({});
@@ -669,12 +670,22 @@ export default function ScotlandTab() {
       </div>
 
       {/* Validation Section */}
-      <h2 className="section-title" id="validation" ref={(el) => (sectionRefs.current["validation"] = el)}>Validation</h2>
+      <h2
+        className="section-title section-title-collapsible"
+        id="validation"
+        ref={(el) => (sectionRefs.current["validation"] = el)}
+        onClick={() => setValidationExpanded(!validationExpanded)}
+      >
+        <span className={`collapse-indicator ${validationExpanded ? "expanded" : ""}`}>▶</span>
+        Validation
+      </h2>
       <p className="chart-description">
         This section compares PolicyEngine estimates with official government statistics for
         population, income, and poverty.
       </p>
 
+      {validationExpanded && (
+        <>
       {/* Population Table */}
       <h3 className="subsection-title">Population</h3>
       <div className="section-box">
@@ -1217,6 +1228,8 @@ export default function ScotlandTab() {
           </table>
         </div>
       </div>
+        </>
+      )}
 
     </div>
   );
