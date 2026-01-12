@@ -369,17 +369,15 @@ export default function ScotlandTab() {
       {/* Economic outlook section */}
       <h2 className="section-title">Economic outlook</h2>
       <p className="chart-description">
-        Under current policy, Scottish household incomes are projected to grow steadily while poverty
-        rates remain relatively stable through 2030. These projections assume no new policy changes
-        beyond those already legislated.
+        This section shows PolicyEngine projections for household incomes and poverty rates through
+        2030, assuming current legislated policy with no further changes.
       </p>
 
       {/* Living standard chart */}
       <h3 className="subsection-title">Living standard</h3>
       <p className="chart-description">
-        Average household income in Scotland is projected to rise from £50,000 in 2023 to £62,000
-        by 2030. Solid lines show official ONS data (2021-2023). Dashed lines show PolicyEngine
-        projections based on OBR forecasts for earnings growth and inflation.
+        Solid lines show official ONS data (2021-2023). Dashed lines show PolicyEngine projections
+        based on OBR forecasts for earnings growth and inflation.
       </p>
         <div style={{ maxWidth: "700px", margin: "20px auto 0" }}>
         <ResponsiveContainer width="100%" height={400}>
@@ -487,10 +485,9 @@ export default function ScotlandTab() {
       {/* Poverty rate chart */}
       <h3 className="subsection-title">Poverty rate</h3>
       <p className="chart-description">
-        Poverty in Scotland is projected to remain around 15-18% through 2030 under current policy.
         {povertyType.includes("absolute")
-          ? " Absolute poverty measures income below a fixed threshold adjusted for inflation."
-          : " Relative poverty measures income below 60% of UK median income."}
+          ? "Absolute poverty measures income below a fixed threshold adjusted for inflation."
+          : "Relative poverty measures income below 60% of UK median income."}
         {povertyType.includes("AHC")
           ? " After housing costs (AHC) deducts rent and mortgage from income."
           : " Before housing costs (BHC) uses total net income."}{" "}
@@ -597,9 +594,8 @@ export default function ScotlandTab() {
       {/* Validation Section */}
       <h2 className="section-title">Validation</h2>
       <p className="chart-description">
-        PolicyEngine estimates closely match official statistics for Scotland's population and income,
-        providing confidence in the model's accuracy. Poverty estimates differ due to benefit take-up
-        assumptions explained below.
+        This section compares PolicyEngine estimates with official government statistics for
+        population, income, and poverty.
       </p>
 
       {/* Population Table - Start with who we're measuring */}
@@ -614,7 +610,6 @@ export default function ScotlandTab() {
           reweights
         </a>{" "}
         the Family Resources Survey to match National Records of Scotland demographic targets.
-        The model accurately represents Scotland's 5.45 million people in 2.53 million households.
       </p>
 
       <div className="comparison-table-container">
@@ -689,9 +684,8 @@ export default function ScotlandTab() {
       {/* Income Table */}
       <h3 className="subsection-title">Household income</h3>
       <p className="chart-description">
-        PolicyEngine's total disposable income estimate closely matches ONS Gross Disposable Household
-        Income for Scotland. The model simulates employment income, taxes, and benefits for each
-        household to calculate net income.
+        PolicyEngine simulates employment income, taxes, and benefits for each household. ONS
+        publishes Gross Disposable Household Income for Scotland as part of regional accounts.
       </p>
 
       <div className="comparison-table-container">
