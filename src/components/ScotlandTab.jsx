@@ -890,7 +890,7 @@ export default function ScotlandTab() {
         </p>
         <p className="chart-description" style={{ marginTop: "12px" }}>
           PolicyEngine shows higher child poverty than official statistics (28% vs 20% BHC). This
-          gap arises from different benefit take-up assumptions. PolicyEngine{" "}
+          gap arises from two factors. First, different benefit take-up assumptions: PolicyEngine{" "}
           <a
             href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/parameters/take_up/universal_credit.yaml"
             target="_blank"
@@ -899,7 +899,7 @@ export default function ScotlandTab() {
             assumes
           </a>{" "}
           55% UC take-up to stochastically assign claiming behaviour, then calibrates weights to
-          match official UC expenditure totals. The Scottish Government uses{" "}
+          match official UC expenditure totals, while the Scottish Government uses{" "}
           <a
             href="https://www.gov.scot/publications/impact-of-withdrawing-emergency-benefit-measures/pages/annex-a-methodology/"
             target="_blank"
@@ -908,7 +908,9 @@ export default function ScotlandTab() {
             UKMOD
           </a>{" "}
           with 87% take-up. Lower take-up means fewer families are modelled as receiving benefits,
-          resulting in lower incomes and higher measured poverty.
+          resulting in lower incomes and higher measured poverty. Second, PolicyEngine calibrates
+          to high-income household targets from tax data, which can shift the income distribution
+          and affect relative poverty thresholds.
         </p>
 
         <div className="comparison-table-container">
