@@ -498,12 +498,11 @@ export default function ScotlandTab() {
           {/* Income Table */}
       <div className="comparison-section">
         <div className="chart-header">
-          <h2>Income</h2>
+          <h2>Household income</h2>
           <p className="chart-description">
-            Income metrics compare PolicyEngine estimates with official statistics from ONS.
-            GDHI (Gross Disposable Household Income) measures total income after taxes and
-            benefits received. Scotland-specific household income distributions are not
-            published separately by ONS, so we compare aggregate totals.
+            Both sources measure household disposable income (income after taxes and benefits).
+            Official data is from ONS regional accounts (GDHI). PolicyEngine calculates
+            household net income from FRS microdata using the same definition.
           </p>
         </div>
 
@@ -512,7 +511,7 @@ export default function ScotlandTab() {
             <thead>
               <tr>
                 <th>Metric</th>
-                <th>Official</th>
+                <th>Official (GDHI)</th>
                 <th>PolicyEngine</th>
                 <th>Difference</th>
               </tr>
@@ -520,8 +519,8 @@ export default function ScotlandTab() {
             <tbody>
               <tr>
                 <td className="metric-name">
-                  <strong>Total disposable income</strong>
-                  <span className="metric-subtitle">Scotland GDHI</span>
+                  <strong>Total</strong>
+                  <span className="metric-subtitle">Scotland aggregate</span>
                 </td>
                 <td className="official-value">
                   <a href={OFFICIAL_STATS.totalGDHI.url} target="_blank" rel="noopener noreferrer">
@@ -542,7 +541,7 @@ export default function ScotlandTab() {
               <tr>
                 <td className="metric-name">
                   <strong>Mean per person</strong>
-                  <span className="metric-subtitle">GDHI per head</span>
+                  <span className="metric-subtitle">Total / population</span>
                 </td>
                 <td className="official-value">
                   <a href={OFFICIAL_STATS.gdhiPerHead.url} target="_blank" rel="noopener noreferrer">
@@ -563,7 +562,7 @@ export default function ScotlandTab() {
               <tr>
                 <td className="metric-name">
                   <strong>Median per person</strong>
-                  <span className="metric-subtitle">Disposable income</span>
+                  <span className="metric-subtitle">Middle value</span>
                 </td>
                 <td className="official-value">
                   <span className="derived-value">£{Math.round(OFFICIAL_STATS.gdhiPerHead.value * 0.87).toLocaleString("en-GB")}</span>
@@ -582,10 +581,12 @@ export default function ScotlandTab() {
               <tr>
                 <td className="metric-name">
                   <strong>Mean per household</strong>
-                  <span className="metric-subtitle">Household disposable income</span>
+                  <span className="metric-subtitle">Total / households</span>
                 </td>
                 <td className="official-value">
-                  <span className="derived-value">£{Math.round((OFFICIAL_STATS.totalGDHI.value * 1e9) / (OFFICIAL_STATS.households.value * 1e6)).toLocaleString("en-GB")}</span>
+                  <a href={OFFICIAL_STATS.totalGDHI.url} target="_blank" rel="noopener noreferrer">
+                    £{Math.round((OFFICIAL_STATS.totalGDHI.value * 1e9) / (OFFICIAL_STATS.households.value * 1e6)).toLocaleString("en-GB")}
+                  </a>
                   <span className="value-year">GDHI / households</span>
                 </td>
                 <td className="pe-value">
@@ -601,7 +602,7 @@ export default function ScotlandTab() {
               <tr>
                 <td className="metric-name">
                   <strong>Median per household</strong>
-                  <span className="metric-subtitle">Household disposable income</span>
+                  <span className="metric-subtitle">Middle value</span>
                 </td>
                 <td className="official-value">
                   <span className="derived-value">£{Math.round((OFFICIAL_STATS.totalGDHI.value * 1e9) / (OFFICIAL_STATS.households.value * 1e6) * 0.87).toLocaleString("en-GB")}</span>
