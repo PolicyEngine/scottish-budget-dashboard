@@ -136,14 +136,17 @@
   border-radius: 12px;
   padding: 2rem;
   margin-bottom: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
-.section-box > * {
-  width: 100%;
+/* Only constrain chart containers, not text */
+.section-box > div:has(.recharts-responsive-container) {
   max-width: 700px;
+  margin: 0 auto;
+}
+
+.section-box .chart-controls {
+  max-width: 700px;
+  margin: 0 auto 1rem auto;
 }
 
 /* Tables */
