@@ -422,7 +422,7 @@ export default function ScotlandTab() {
             <thead>
               <tr>
                 <th>Metric</th>
-                <th>Official (NRS)</th>
+                <th>Official</th>
                 <th>PolicyEngine</th>
                 <th>Difference</th>
               </tr>
