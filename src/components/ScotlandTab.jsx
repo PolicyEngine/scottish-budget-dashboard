@@ -208,6 +208,7 @@ export default function ScotlandTab() {
   const [loading, setLoading] = useState(true);
   const [baselineData, setBaselineData] = useState([]);
   const [povertyType, setPovertyType] = useState("absoluteBHC"); // absoluteBHC, absoluteAHC, relativeBHC, relativeAHC
+  const [povertyAgeGroup, setPovertyAgeGroup] = useState("all"); // all, children, workingAge, pensioners
   const [incomeType, setIncomeType] = useState("mean"); // mean or median
   const [incomeViewMode, setIncomeViewMode] = useState("both"); // outturn, forecast, both
   const [povertyViewMode, setPovertyViewMode] = useState("both"); // outturn, forecast, both
@@ -426,6 +427,19 @@ export default function ScotlandTab() {
               : "Median income is the middle value when all households are ranked by income."}{" "}
             Solid lines show official ONS data; dashed lines show PolicyEngine projections.
           </p>
+          {baselineData.length > 0 && (() => {
+            const year2023 = baselineData.find(d => d.year === 2023);
+            const year2030 = baselineData.find(d => d.year === 2030);
+            if (!year2023 || !year2030) return null;
+            const startValue = incomeType === "mean" ? year2023.meanHouseholdIncome : year2023.medianHouseholdIncome;
+            const endValue = incomeType === "mean" ? year2030.meanHouseholdIncome : year2030.medianHouseholdIncome;
+            const pctChange = ((endValue - startValue) / startValue) * 100;
+            return (
+              <p className="chart-summary">
+                {incomeType === "mean" ? "Mean" : "Median"} household income is forecast to {pctChange > 0 ? "increase" : "decrease"} by {Math.abs(pctChange).toFixed(0)}% from £{(startValue / 1000).toFixed(0)}k to £{(endValue / 1000).toFixed(0)}k by 2030.
+              </p>
+            );
+          })()}
           <div className="chart-controls">
             <select
               className="chart-select"
@@ -478,6 +492,40 @@ export default function ScotlandTab() {
               : "Relative poverty measures income below 60% of UK median income."}{" "}
             {povertyType.includes("AHC") ? "After housing costs." : "Before housing costs."}
           </p>
+          {baselineData.length > 0 && (() => {
+            const year2023 = baselineData.find(d => d.year === 2023);
+            const year2030 = baselineData.find(d => d.year === 2030);
+            if (!year2023 || !year2030) return null;
+
+            const isAHC = povertyType.includes("AHC");
+            const isAbsolute = povertyType.includes("absolute");
+            let startValue, endValue;
+
+            if (povertyAgeGroup === "all") {
+              if (povertyType === "absoluteBHC") { startValue = year2023.absolutePovertyBHC; endValue = year2030.absolutePovertyBHC; }
+              else if (povertyType === "absoluteAHC") { startValue = year2023.absolutePovertyAHC; endValue = year2030.absolutePovertyAHC; }
+              else if (povertyType === "relativeBHC") { startValue = year2023.povertyBHC; endValue = year2030.povertyBHC; }
+              else { startValue = year2023.povertyAHC; endValue = year2030.povertyAHC; }
+            } else if (povertyAgeGroup === "children") {
+              if (isAbsolute) { startValue = year2023.childAbsolutePoverty; endValue = year2030.childAbsolutePoverty; }
+              else { startValue = isAHC ? year2023.childPovertyAHC : year2023.childPovertyBHC; endValue = isAHC ? year2030.childPovertyAHC : year2030.childPovertyBHC; }
+            } else if (povertyAgeGroup === "workingAge") {
+              startValue = isAHC ? year2023.workingAgePovertyAHC : year2023.workingAgePovertyBHC;
+              endValue = isAHC ? year2030.workingAgePovertyAHC : year2030.workingAgePovertyBHC;
+            } else if (povertyAgeGroup === "pensioners") {
+              startValue = isAHC ? year2023.pensionerPovertyAHC : year2023.pensionerPovertyBHC;
+              endValue = isAHC ? year2030.pensionerPovertyAHC : year2030.pensionerPovertyBHC;
+            }
+
+            if (startValue == null || endValue == null) return null;
+            const ppChange = endValue - startValue;
+            const ageLabel = povertyAgeGroup === "all" ? "" : povertyAgeGroup === "children" ? " child" : povertyAgeGroup === "workingAge" ? " working-age" : " pensioner";
+            return (
+              <p className="chart-summary">
+                The{ageLabel} poverty rate is forecast to {ppChange > 0 ? "increase" : "decrease"} by {Math.abs(ppChange).toFixed(1)}pp from {startValue.toFixed(1)}% to {endValue.toFixed(1)}% by 2030.
+              </p>
+            );
+          })()}
           <div className="chart-controls">
             <select
               className="chart-select"
@@ -489,6 +537,16 @@ export default function ScotlandTab() {
               <option value="relativeBHC">Relative (BHC)</option>
               <option value="relativeAHC">Relative (AHC)</option>
             </select>
+            <select
+              className="chart-select"
+              value={povertyAgeGroup}
+              onChange={(e) => setPovertyAgeGroup(e.target.value)}
+            >
+              <option value="all">All people</option>
+              <option value="children">Children</option>
+              <option value="workingAge">Working-age</option>
+              <option value="pensioners">Pensioners</option>
+            </select>
             <div className="view-toggle">
               <button className={povertyViewMode === "outturn" ? "active" : ""} onClick={() => setPovertyViewMode("outturn")}>Outturn</button>
               <button className={povertyViewMode === "both" ? "active" : ""} onClick={() => setPovertyViewMode("both")}>Both</button>
@@ -498,23 +556,42 @@ export default function ScotlandTab() {
           <D3LineChart
             data={(() => {
               const merged = {};
-              HISTORICAL_POVERTY_DATA.forEach(d => {
-                let value;
-                if (povertyType === "absoluteBHC") value = d.absoluteBHC;
-                else if (povertyType === "absoluteAHC") value = d.absoluteAHC;
-                else if (povertyType === "relativeBHC") value = d.relativeBHC;
-                else value = d.relativeAHC;
-                merged[d.year] = {
-                  year: d.year,
-                  historical: value,
-                };
-              });
+              // Historical data only available for all people
+              if (povertyAgeGroup === "all") {
+                HISTORICAL_POVERTY_DATA.forEach(d => {
+                  let value;
+                  if (povertyType === "absoluteBHC") value = d.absoluteBHC;
+                  else if (povertyType === "absoluteAHC") value = d.absoluteAHC;
+                  else if (povertyType === "relativeBHC") value = d.relativeBHC;
+                  else value = d.relativeAHC;
+                  merged[d.year] = {
+                    year: d.year,
+                    historical: value,
+                  };
+                });
+              }
               baselineData.filter(d => d.year >= 2023).forEach(d => {
                 let value;
-                if (povertyType === "absoluteBHC") value = d.absolutePovertyBHC;
-                else if (povertyType === "absoluteAHC") value = d.absolutePovertyAHC;
-                else if (povertyType === "relativeBHC") value = d.povertyBHC;
-                else value = d.povertyAHC;
+                const isAHC = povertyType.includes("AHC");
+                const isAbsolute = povertyType.includes("absolute");
+
+                if (povertyAgeGroup === "all") {
+                  if (povertyType === "absoluteBHC") value = d.absolutePovertyBHC;
+                  else if (povertyType === "absoluteAHC") value = d.absolutePovertyAHC;
+                  else if (povertyType === "relativeBHC") value = d.povertyBHC;
+                  else value = d.povertyAHC;
+                } else if (povertyAgeGroup === "children") {
+                  // Children have relative BHC/AHC and absolute poverty
+                  if (isAbsolute) value = d.childAbsolutePoverty;
+                  else value = isAHC ? d.childPovertyAHC : d.childPovertyBHC;
+                } else if (povertyAgeGroup === "workingAge") {
+                  // Working-age only has relative poverty (use relative for absolute)
+                  value = isAHC ? d.workingAgePovertyAHC : d.workingAgePovertyBHC;
+                } else if (povertyAgeGroup === "pensioners") {
+                  // Pensioners only has relative poverty (use relative for absolute)
+                  value = isAHC ? d.pensionerPovertyAHC : d.pensionerPovertyBHC;
+                }
+
                 if (merged[d.year]) {
                   merged[d.year].projection = value;
                 } else {
@@ -575,16 +652,9 @@ export default function ScotlandTab() {
             plans
           </a>{" "}
           to introduce a top-up payment for families with three or more children on Universal Credit
-          from April 2026, compensating for the UK-wide two-child limit. The Scottish Fiscal{" "}
-          <a
-            href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Commission
-          </a>{" "}
-          estimates this will cost £155 million in 2026–27 rising to £198 million by 2029–30,
-          affecting 43,000 children in 2026–27 rising to 50,000 children by 2029–30.{" "}
+          from April 2026, compensating for the UK-wide two-child limit. The two-child limit restricts
+          Universal Credit child element payments to the first two children, so the top-up payment
+          cost depends on how many Scottish families claim UC and have three or more children.
           PolicyEngine{" "}
           <a
             href="https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_two_child_limit.csv"
@@ -593,30 +663,8 @@ export default function ScotlandTab() {
           >
             estimates
           </a>{" "}
-          £213 million in 2026–27 rising to £256 million by 2029–30, affecting 69,000 children in
-          2026–27 rising to 73,000 children by 2029–30.
-        </p>
-        <p className="chart-description" style={{ marginTop: "12px" }}>
-          The two-child limit restricts Universal Credit child element payments to the first two
-          children, so the top-up payment cost depends on how many Scottish families claim UC and
-          have three or more children. The difference between estimates arises from different data
-          sources: SFC uses DWP administrative{" "}
-          <a
-            href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            data
-          </a>{" "}
-          on actual UC claimants, while PolicyEngine uses Family Resources Survey data{" "}
-          <a
-            href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            reweighted
-          </a>{" "}
-          to Scotland, which estimates more families with three or more children receiving UC.
+          this will cost £213 million in 2026–27 rising to £256 million by 2029–30, affecting
+          69,000 children in 2026–27 rising to 73,000 children by 2029–30.
         </p>
       </div>
 
@@ -1050,6 +1098,119 @@ export default function ScotlandTab() {
                 </td>
                 <td className="difference">
                   {formatAbsDifference(peMetrics?.year2023?.pensionerPovertyAHC, OFFICIAL_STATS.pensionerPovertyAHC.value)}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Two-child limit Table */}
+      <h3 className="subsection-title">Two-child limit mitigation</h3>
+      <div className="section-box">
+        <p className="chart-description">
+          The Scottish Fiscal{" "}
+          <a
+            href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Commission
+          </a>{" "}
+          (SFC) uses DWP administrative data on actual UC claimants, while PolicyEngine uses Family
+          Resources Survey data{" "}
+          <a
+            href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            reweighted
+          </a>{" "}
+          to Scotland. PolicyEngine estimates more families with three or more children receiving UC,
+          resulting in higher cost and beneficiary estimates.
+        </p>
+
+        <div className="comparison-table-container">
+          <table className="comparison-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>SFC</th>
+                <th>PolicyEngine</th>
+                <th>Difference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="metric-name">
+                  <strong>Cost 2026–27</strong>
+                </td>
+                <td className="official-value">
+                  <a href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/" target="_blank" rel="noopener noreferrer">
+                    £155m
+                  </a>
+                </td>
+                <td className="pe-value">
+                  <a href={PE_DATA_URLS.twoChildLimit} target="_blank" rel="noopener noreferrer">
+                    £213m
+                  </a>
+                </td>
+                <td className="difference">
+                  +37%
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Cost 2029–30</strong>
+                </td>
+                <td className="official-value">
+                  <a href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/" target="_blank" rel="noopener noreferrer">
+                    £198m
+                  </a>
+                </td>
+                <td className="pe-value">
+                  <a href={PE_DATA_URLS.twoChildLimit} target="_blank" rel="noopener noreferrer">
+                    £256m
+                  </a>
+                </td>
+                <td className="difference">
+                  +29%
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Children affected 2026–27</strong>
+                </td>
+                <td className="official-value">
+                  <a href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/" target="_blank" rel="noopener noreferrer">
+                    43,000
+                  </a>
+                </td>
+                <td className="pe-value">
+                  <a href={PE_DATA_URLS.twoChildLimit} target="_blank" rel="noopener noreferrer">
+                    69,000
+                  </a>
+                </td>
+                <td className="difference">
+                  +60%
+                </td>
+              </tr>
+              <tr>
+                <td className="metric-name">
+                  <strong>Children affected 2029–30</strong>
+                </td>
+                <td className="official-value">
+                  <a href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/" target="_blank" rel="noopener noreferrer">
+                    50,000
+                  </a>
+                </td>
+                <td className="pe-value">
+                  <a href={PE_DATA_URLS.twoChildLimit} target="_blank" rel="noopener noreferrer">
+                    73,000
+                  </a>
+                </td>
+                <td className="difference">
+                  +46%
                 </td>
               </tr>
             </tbody>

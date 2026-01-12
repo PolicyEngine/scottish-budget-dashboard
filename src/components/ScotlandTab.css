@@ -95,6 +95,18 @@
   border-bottom-color: var(--pe-teal-600);
 }
 
+.chart-summary {
+  font-family: var(--pe-font-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--pe-gray-700);
+  margin: var(--pe-space-sm) 0 var(--pe-space-md) 0;
+  padding: var(--pe-space-sm) var(--pe-space-md);
+  background: var(--pe-gray-50);
+  border-left: 3px solid var(--pe-teal-500);
+  border-radius: 0 var(--pe-radius-sm) var(--pe-radius-sm) 0;
+}
+
 /* Chart controls */
 .chart-controls {
   display: flex;
