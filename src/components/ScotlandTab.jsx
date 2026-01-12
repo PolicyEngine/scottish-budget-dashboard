@@ -374,7 +374,7 @@ export default function ScotlandTab() {
 
       {/* Living standard chart */}
       <h3 className="subsection-title">Living standard</h3>
-      <div className="scotland-chart-section">
+      <div className="scotland-chart-section" style={{ maxWidth: "700px" }}>
         <p className="chart-description">
           Mean income is total disposable income divided by number of households. Median income
           is the middle value when all households are ranked by income (half have more, half have
@@ -488,7 +488,7 @@ export default function ScotlandTab() {
 
       {/* Poverty rate chart */}
       <h3 className="subsection-title">Poverty rate</h3>
-      <div className="scotland-chart-section">
+      <div className="scotland-chart-section" style={{ maxWidth: "700px" }}>
         <div className="chart-controls">
           <select
             className="poverty-type-select"
