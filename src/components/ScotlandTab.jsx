@@ -485,18 +485,6 @@ export default function ScotlandTab() {
       {/* Poverty rate chart */}
       <h3 className="subsection-title">Poverty rate</h3>
       <div className="scotland-chart-section">
-        <div className="chart-controls">
-          <select
-            className="poverty-type-select"
-            value={povertyType}
-            onChange={(e) => setPovertyType(e.target.value)}
-          >
-            <option value="absoluteBHC">Absolute (BHC)</option>
-            <option value="absoluteAHC">Absolute (AHC)</option>
-            <option value="relativeBHC">Relative (BHC)</option>
-            <option value="relativeAHC">Relative (AHC)</option>
-          </select>
-        </div>
         <p className="chart-description">
           {povertyType.includes("absolute")
             ? "Absolute poverty measures income below a fixed threshold, adjusted annually for inflation (CPI). This captures whether living standards are improving in real terms over time."
@@ -508,7 +496,18 @@ export default function ScotlandTab() {
           PolicyEngine projections through 2030, based on OBR economic forecasts for earnings
           growth, inflation, and benefit uprating under current policy.
         </p>
-        <div style={{ maxWidth: "700px", margin: "20px auto 0" }}>
+        <div style={{ maxWidth: "700px", margin: "20px auto 0", position: "relative" }}>
+          <select
+            className="poverty-type-select"
+            value={povertyType}
+            onChange={(e) => setPovertyType(e.target.value)}
+            style={{ position: "absolute", top: "10px", right: "10px", zIndex: 10 }}
+          >
+            <option value="absoluteBHC">Absolute (BHC)</option>
+            <option value="absoluteAHC">Absolute (AHC)</option>
+            <option value="relativeBHC">Relative (BHC)</option>
+            <option value="relativeAHC">Relative (AHC)</option>
+          </select>
         <ResponsiveContainer width="100%" height={400}>
           <LineChart
             data={(() => {
