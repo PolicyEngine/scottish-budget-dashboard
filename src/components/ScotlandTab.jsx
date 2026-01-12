@@ -374,7 +374,7 @@ export default function ScotlandTab() {
 
       {/* Living standard chart */}
       <h3 className="subsection-title">Living standard</h3>
-      <div className="scotland-chart-section" style={{ maxWidth: "700px" }}>
+      <div className="scotland-chart-section">
         <p className="chart-description">
           Mean income is total disposable income divided by number of households. Median income
           is the middle value when all households are ranked by income (half have more, half have
@@ -385,6 +385,7 @@ export default function ScotlandTab() {
           by NRS household estimates. Dashed lines show PolicyEngine projections through 2030,
           which apply OBR forecasts for earnings growth and inflation to the baseline survey data.
         </p>
+        <div style={{ maxWidth: "700px" }}>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart
             data={(() => {
@@ -484,11 +485,12 @@ export default function ScotlandTab() {
             />
           </LineChart>
         </ResponsiveContainer>
+        </div>
       </div>
 
       {/* Poverty rate chart */}
       <h3 className="subsection-title">Poverty rate</h3>
-      <div className="scotland-chart-section" style={{ maxWidth: "700px" }}>
+      <div className="scotland-chart-section">
         <div className="chart-controls">
           <select
             className="poverty-type-select"
@@ -514,6 +516,7 @@ export default function ScotlandTab() {
           PolicyEngine projections through 2030, based on OBR economic forecasts for earnings
           growth, inflation, and benefit uprating under current policy.
         </p>
+        <div style={{ maxWidth: "700px" }}>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart
             data={(() => {
@@ -597,6 +600,7 @@ export default function ScotlandTab() {
             />
           </LineChart>
         </ResponsiveContainer>
+        </div>
       </div>
 
       {/* Validation Section */}
