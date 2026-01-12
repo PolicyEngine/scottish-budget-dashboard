@@ -4,13 +4,12 @@ import "./App.css";
 function App() {
   return (
     <div className="app">
-      <main className="main-content">
-        {/* Title row */}
-        <div className="title-row">
-          <h1>Scotland economic outlook pre-budget 2026</h1>
+      <header className="title-row">
+        <div className="title-row-inner">
+          <h1>Scotland's economic outlook</h1>
         </div>
-
-        {/* Dashboard content */}
+      </header>
+      <main className="main-content">
         <ScotlandTab />
       </main>
     </div>

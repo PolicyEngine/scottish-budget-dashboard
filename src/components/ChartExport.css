@@ -4,8 +4,8 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 8px;
+  gap: var(--pe-space-md);
+  margin-bottom: var(--pe-space-md);
 }
 
 .chart-header > div {
@@ -17,30 +17,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   padding: 0;
-  background: #f3f4f6;
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
-  color: #6b7280;
+  background: var(--pe-gray-100);
+  border: 1px solid var(--pe-gray-200);
+  border-radius: var(--pe-radius-md);
+  color: var(--pe-gray-500);
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all var(--pe-transition-fast);
 }
 
 .export-button:hover {
-  background: #e5e7eb;
-  color: #374151;
-  border-color: #d1d5db;
+  background: var(--pe-teal-50);
+  color: var(--pe-teal-600);
+  border-color: var(--pe-teal-200);
 }
 
 .export-button:active {
-  background: #d1d5db;
+  background: var(--pe-teal-100);
 }
 
 .export-button:focus {
-  outline: 2px solid #319795;
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: var(--pe-shadow-focus);
 }
 
 .export-button svg {

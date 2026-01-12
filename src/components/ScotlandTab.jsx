@@ -1,17 +1,5 @@
 import { useState, useEffect, useMemo, useRef, useCallback } from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  ComposedChart,
-  Bar,
-  Cell,
-} from "recharts";
+import D3LineChart from "./D3LineChart";
 import "./ScotlandTab.css";
 
 // Format year for display (e.g., 2026 -> "2026–27")
@@ -98,35 +86,6 @@ const PE_DATA_URLS = {
   twoChildLimit: "https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_two_child_limit.csv",
 };
 
-// Custom legend renderer to show dashed vs solid lines
-const renderCustomLegend = (props, labelMap) => {
-  const { payload } = props;
-  return (
-    <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "16px", paddingTop: "12px" }}>
-      {payload.map((entry, index) => {
-        const isDashed = entry.dataKey.includes("historical");
-        const label = labelMap[entry.dataKey] || entry.value;
-        return (
-          <div key={`legend-${index}`} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-            <svg width="24" height="12">
-              <line
-                x1="0"
-                y1="6"
-                x2="24"
-                y2="6"
-                stroke={entry.color}
-                strokeWidth={2}
-                strokeDasharray={isDashed ? "4 3" : "0"}
-              />
-              <circle cx="12" cy="6" r="3" fill={entry.color} />
-            </svg>
-            <span style={{ fontSize: "0.85rem", color: "#4B5563" }}>{label}</span>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
 
 // Official statistics data with sources
 const OFFICIAL_STATS = {
@@ -250,6 +209,8 @@ export default function ScotlandTab() {
   const [baselineData, setBaselineData] = useState([]);
   const [povertyType, setPovertyType] = useState("absoluteBHC"); // absoluteBHC, absoluteAHC, relativeBHC, relativeAHC
   const [incomeType, setIncomeType] = useState("mean"); // mean or median
+  const [incomeViewMode, setIncomeViewMode] = useState("both"); // outturn, forecast, both
+  const [povertyViewMode, setPovertyViewMode] = useState("both"); // outturn, forecast, both
   const [activeSection, setActiveSection] = useState("introduction");
 
   // Refs for section elements
@@ -398,58 +359,55 @@ export default function ScotlandTab() {
 
       {/* Introduction */}
       <h2 className="section-title" id="introduction" ref={(el) => (sectionRefs.current["introduction"] = el)}>Introduction</h2>
-      <div className="section-box">
-        <p className="chart-description">
-          This dashboard, powered by{" "}
-          <a
-            href="https://policyengine.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            PolicyEngine
-          </a>, presents a data-driven view of Scotland's economic outlook ahead of the Scottish
-          Budget 2026–27, which Finance Secretary Shona Robison will{" "}
-          <a
-            href="https://www.gov.scot/budget/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            announce
-          </a>{" "}
-          on 13 January 2026. It is organised into three sections: <strong>Economic outlook</strong>{" "}
-          projects household incomes and poverty rates through 2030 under current policy;{" "}
-          <strong>Validation</strong> compares estimates against official government statistics;
-          and <strong>Scottish Budget 2026</strong> analyses the potential impact of proposed
-          policy changes.
-        </p>
-        <p className="chart-description" style={{ marginTop: "12px" }}>
-          PolicyEngine is an open-source microsimulation model that{" "}
-          <a
-            href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            reweights
-          </a>{" "}
-          the Family Resources Survey to match Scottish demographics and calibrates to official
-          statistics from the National Records of Scotland and HMRC. See also: PolicyEngine's{" "}
-          <a
-            href="https://www.policyengine.org/uk/autumn-budget-2025"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            dashboard
-          </a>{" "}
-          for the UK Autumn Budget 2025 and our poverty{" "}
-          <a
-            href="https://www.policyengine.org/uk/research/uk-poverty-analysis"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            methodology
-          </a>.
-        </p>
-      </div>
+      <p className="chart-description">
+        This dashboard, powered by{" "}
+        <a
+          href="https://policyengine.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          PolicyEngine
+        </a>, presents a data-driven view of Scotland's economic outlook ahead of the Scottish
+        Budget 2026–27, which Finance Secretary Shona Robison will{" "}
+        <a
+          href="https://www.gov.scot/budget/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          announce
+        </a>{" "}
+        on 13 January 2026. It is organised into three sections: <strong>Economic outlook</strong>{" "}
+        projects household incomes and poverty rates through 2030 under current policy;{" "}
+        <strong>Scottish Budget 2026</strong> analyses the potential impact of proposed
+        policy changes; and <strong>Validation</strong> compares estimates against official government statistics.
+      </p>
+      <p className="chart-description" style={{ marginTop: "12px" }}>
+        PolicyEngine is an open-source microsimulation model that{" "}
+        <a
+          href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          reweights
+        </a>{" "}
+        the Family Resources Survey to match Scottish demographics and calibrates to official
+        statistics from the National Records of Scotland and HMRC. See also: PolicyEngine's{" "}
+        <a
+          href="https://www.policyengine.org/uk/autumn-budget-2025"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          dashboard
+        </a>{" "}
+        for the UK Autumn Budget 2025 and our poverty{" "}
+        <a
+          href="https://www.policyengine.org/uk/research/uk-poverty-analysis"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          methodology
+        </a>.
+      </p>
 
       {/* Economic outlook section */}
       <h2 className="section-title" id="economic-outlook" ref={(el) => (sectionRefs.current["economic-outlook"] = el)}>Economic outlook</h2>
@@ -458,39 +416,40 @@ export default function ScotlandTab() {
         2030, assuming current legislated policy with no further changes.
       </p>
 
-      {/* Living standard chart */}
-      <h3 className="subsection-title">Living standard</h3>
-      <div className="section-box">
-        <p className="chart-description">
-          {incomeType === "mean"
-            ? "Mean income is total disposable income divided by the number of households."
-            : "Median income is the middle value when all households are ranked by income (half have more, half have less)."}{" "}
-          Solid lines show official ONS data (2021–2023), calculated as Scotland's total GDHI divided
-          by NRS household estimates. Dashed lines show PolicyEngine projections through 2030.
-        </p>
-        <div className="chart-controls">
-          <select
-            className="poverty-type-select"
-            value={incomeType}
-            onChange={(e) => setIncomeType(e.target.value)}
-          >
-            <option value="mean">Mean income</option>
-            <option value="median">Median income</option>
-          </select>
-        </div>
-        <div>
-        <ResponsiveContainer width="100%" height={400}>
-          <LineChart
+      <div className="charts-row">
+        {/* Living standard chart */}
+        <div className="section-box">
+          <h3 className="chart-title">Living standards</h3>
+          <p className="chart-description">
+            {incomeType === "mean"
+              ? "Mean income is total disposable income divided by the number of households."
+              : "Median income is the middle value when all households are ranked by income."}{" "}
+            Solid lines show official ONS data; dashed lines show PolicyEngine projections.
+          </p>
+          <div className="chart-controls">
+            <select
+              className="chart-select"
+              value={incomeType}
+              onChange={(e) => setIncomeType(e.target.value)}
+            >
+              <option value="mean">Mean income</option>
+              <option value="median">Median income</option>
+            </select>
+            <div className="view-toggle">
+              <button className={incomeViewMode === "outturn" ? "active" : ""} onClick={() => setIncomeViewMode("outturn")}>Outturn</button>
+              <button className={incomeViewMode === "both" ? "active" : ""} onClick={() => setIncomeViewMode("both")}>Both</button>
+              <button className={incomeViewMode === "forecast" ? "active" : ""} onClick={() => setIncomeViewMode("forecast")}>Forecast</button>
+            </div>
+          </div>
+          <D3LineChart
             data={(() => {
               const merged = {};
-              // Add historical data
               HISTORICAL_HOUSEHOLD_INCOME_DATA.forEach(d => {
                 merged[d.year] = {
                   year: d.year,
                   historical: incomeType === "mean" ? d.meanIncome : d.medianIncome,
                 };
               });
-              // Add/merge PolicyEngine projections
               baselineData.filter(d => d.year >= 2023).forEach(d => {
                 if (merged[d.year]) {
                   merged[d.year].projection = incomeType === "mean" ? d.meanHouseholdIncome : d.medianHouseholdIncome;
@@ -503,88 +462,42 @@ export default function ScotlandTab() {
               });
               return Object.values(merged).sort((a, b) => a.year - b.year);
             })()}
-            margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-            <XAxis
-              dataKey="year"
-              tickFormatter={(year) => formatYearRange(year)}
-            />
-            <YAxis
-              tickFormatter={(value) => `£${(value / 1000).toFixed(0)}k`}
-              domain={[0, 70000]}
-              label={{ value: "Household income", angle: -90, position: "insideLeft", dx: -15, style: { textAnchor: "middle" } }}
-            />
-            <Tooltip
-              formatter={(value, name) => {
-                if (value === null || value === undefined) return [null, null];
-                const label = name === "historical" ? "Official" : "PolicyEngine";
-                return [`£${value.toLocaleString("en-GB", { maximumFractionDigits: 0 })}`, label];
-              }}
-              labelFormatter={(label) => formatYearRange(label)}
-            />
-            <Legend
-              content={(props) => renderCustomLegend(props, {
-                historical: "Official (historical)",
-                projection: "PolicyEngine (projection)",
-              })}
-            />
-            <Line
-              type="monotone"
-              dataKey="historical"
-              stroke="#9CA3AF"
-              strokeWidth={2}
-              dot={{ fill: "#9CA3AF", r: 3 }}
-              name="historical"
-              connectNulls={true}
-            />
-            <Line
-              type="monotone"
-              dataKey="projection"
-              stroke="#319795"
-              strokeWidth={2}
-              strokeDasharray="5 5"
-              dot={{ fill: "#319795", r: 4 }}
-              name="projection"
-              connectNulls={true}
-            />
-          </LineChart>
-        </ResponsiveContainer>
+            yLabel="Household income"
+            yFormat={(v) => `£${(v / 1000).toFixed(0)}k`}
+            yDomain={[0, 70000]}
+            viewMode={incomeViewMode}
+          />
         </div>
-      </div>
 
-      {/* Poverty rate chart */}
-      <h3 className="subsection-title">Poverty rate</h3>
-      <div className="section-box">
-        <p className="chart-description">
-          {povertyType.includes("absolute")
-            ? "Absolute poverty measures income below a fixed threshold, adjusted annually for inflation (CPI). This captures whether living standards are improving in real terms over time."
-            : "Relative poverty measures income below 60% of contemporary UK median income. This threshold moves with median incomes, so relative poverty can rise even when living standards improve if inequality increases."}
-          {povertyType.includes("AHC")
-            ? " After housing costs (AHC) subtracts rent, mortgage interest, and other housing costs from income before comparing to the threshold."
-            : " Before housing costs (BHC) uses total net income without deducting housing costs."}{" "}
-          Solid lines show official Scottish Government data (2021–2023). Dashed lines show
-          PolicyEngine projections through 2030, based on OBR economic forecasts for earnings
-          growth, inflation, and benefit uprating under current policy.
-        </p>
-        <div className="chart-controls">
-          <select
-            className="poverty-type-select"
-            value={povertyType}
-            onChange={(e) => setPovertyType(e.target.value)}
-          >
-            <option value="absoluteBHC">Absolute (BHC)</option>
-            <option value="absoluteAHC">Absolute (AHC)</option>
-            <option value="relativeBHC">Relative (BHC)</option>
-            <option value="relativeAHC">Relative (AHC)</option>
-          </select>
-        </div>
-        <div>
-        <ResponsiveContainer width="100%" height={400}>
-          <LineChart
+        {/* Poverty rate chart */}
+        <div className="section-box">
+          <h3 className="chart-title">Poverty rate</h3>
+          <p className="chart-description">
+            {povertyType.includes("absolute")
+              ? "Absolute poverty measures income below a fixed threshold adjusted for inflation."
+              : "Relative poverty measures income below 60% of UK median income."}{" "}
+            {povertyType.includes("AHC") ? "After housing costs." : "Before housing costs."}
+          </p>
+          <div className="chart-controls">
+            <select
+              className="chart-select"
+              value={povertyType}
+              onChange={(e) => setPovertyType(e.target.value)}
+            >
+              <option value="absoluteBHC">Absolute (BHC)</option>
+              <option value="absoluteAHC">Absolute (AHC)</option>
+              <option value="relativeBHC">Relative (BHC)</option>
+              <option value="relativeAHC">Relative (AHC)</option>
+            </select>
+            <div className="view-toggle">
+              <button className={povertyViewMode === "outturn" ? "active" : ""} onClick={() => setPovertyViewMode("outturn")}>Outturn</button>
+              <button className={povertyViewMode === "both" ? "active" : ""} onClick={() => setPovertyViewMode("both")}>Both</button>
+              <button className={povertyViewMode === "forecast" ? "active" : ""} onClick={() => setPovertyViewMode("forecast")}>Forecast</button>
+            </div>
+          </div>
+          <D3LineChart
             data={(() => {
               const merged = {};
-              // Add historical data
               HISTORICAL_POVERTY_DATA.forEach(d => {
                 let value;
                 if (povertyType === "absoluteBHC") value = d.absoluteBHC;
@@ -596,7 +509,6 @@ export default function ScotlandTab() {
                   historical: value,
                 };
               });
-              // Add/merge PolicyEngine projections
               baselineData.filter(d => d.year >= 2023).forEach(d => {
                 let value;
                 if (povertyType === "absoluteBHC") value = d.absolutePovertyBHC;
@@ -614,57 +526,98 @@ export default function ScotlandTab() {
               });
               return Object.values(merged).sort((a, b) => a.year - b.year);
             })()}
-            margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-            <XAxis
-              dataKey="year"
-              tickFormatter={(year) => formatYearRange(year)}
-            />
-            <YAxis
-              tickFormatter={(value) => `${value.toFixed(0)}%`}
-              domain={[0, 30]}
-              label={{ value: "Poverty rate", angle: -90, position: "insideLeft", dx: -15, style: { textAnchor: "middle" } }}
-            />
-            <Tooltip
-              formatter={(value, name) => {
-                if (value === null || value === undefined) return [null, null];
-                const labels = {
-                  historical: "Official (historical)",
-                  projection: "PolicyEngine (projection)",
-                };
-                return [`${value.toFixed(1)}%`, labels[name] || name];
-              }}
-              labelFormatter={(label) => formatYearRange(label)}
-            />
-            <Legend
-              content={(props) => renderCustomLegend(props, {
-                historical: "Official (historical)",
-                projection: "PolicyEngine (projection)",
-              })}
-            />
-            <Line
-              type="monotone"
-              dataKey="historical"
-              stroke="#319795"
-              strokeWidth={2}
-              dot={{ fill: "#319795", r: 3 }}
-              name="historical"
-              connectNulls={true}
-            />
-            <Line
-              type="monotone"
-              dataKey="projection"
-              stroke="#319795"
-              strokeWidth={2}
-              strokeDasharray="5 5"
-              dot={{ fill: "#319795", r: 4 }}
-              name="projection"
-              connectNulls={true}
-            />
-          </LineChart>
-        </ResponsiveContainer>
+            yLabel="Poverty rate"
+            yFormat={(v) => `${v.toFixed(0)}%`}
+            yDomain={[0, 30]}
+            viewMode={povertyViewMode}
+          />
         </div>
+      </div>
+
+      {/* Scottish Budget 2026 section */}
+      <h2 className="section-title" id="scottish-budget" ref={(el) => (sectionRefs.current["scottish-budget"] = el)}>Scottish Budget 2026</h2>
+      <p className="chart-description">
+        The Scottish Government is expected to announce measures on child poverty, income tax, and
+        council tax. This section examines the likely policies and their estimated costs.
+      </p>
+
+      <h3 className="subsection-title">Expected policies</h3>
+      <div className="section-box">
+        <p className="chart-description">
+          According to BBC{" "}
+          <a
+            href="https://www.bbc.co.uk/news/articles/cpwndd10rejo"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Scotland
+          </a>, the following policy areas may feature in the budget. The Scottish child payment may
+          be increased following the UK Government's decision to abolish the two-child limit, with
+          First Minister John Swinney pledging to use funding to tackle child poverty. Scotland's
+          six income tax bands (compared to three in the rest of the UK) may face pressure for cuts
+          from opposition parties. The council tax freeze ended last year and is not expected to be
+          reimposed, meaning households could face increases from April. Business groups have called
+          for lower non-domestic rates. Scottish Labour have called for health funding to reduce
+          waiting lists and reform the NHS.
+        </p>
+      </div>
+
+      {/* Two-child limit section */}
+      <h3 className="subsection-title">Two-child limit top-up payment</h3>
+      <div className="section-box">
+        <p className="chart-description">
+          The Scottish Government{" "}
+          <a
+            href="https://www.bbc.co.uk/news/articles/cpwndd10rejo"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            plans
+          </a>{" "}
+          to introduce a top-up payment for families with three or more children on Universal Credit
+          from April 2026, compensating for the UK-wide two-child limit. The Scottish Fiscal{" "}
+          <a
+            href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Commission
+          </a>{" "}
+          estimates this will cost £155 million in 2026–27 rising to £198 million by 2029–30,
+          affecting 43,000 children in 2026–27 rising to 50,000 children by 2029–30.{" "}
+          PolicyEngine{" "}
+          <a
+            href="https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_two_child_limit.csv"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            estimates
+          </a>{" "}
+          £213 million in 2026–27 rising to £256 million by 2029–30, affecting 69,000 children in
+          2026–27 rising to 73,000 children by 2029–30.
+        </p>
+        <p className="chart-description" style={{ marginTop: "12px" }}>
+          The two-child limit restricts Universal Credit child element payments to the first two
+          children, so the top-up payment cost depends on how many Scottish families claim UC and
+          have three or more children. The difference between estimates arises from different data
+          sources: SFC uses DWP administrative{" "}
+          <a
+            href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            data
+          </a>{" "}
+          on actual UC claimants, while PolicyEngine uses Family Resources Survey data{" "}
+          <a
+            href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            reweighted
+          </a>{" "}
+          to Scotland, which estimates more families with three or more children receiving UC.
+        </p>
       </div>
 
       {/* Validation Section */}
@@ -674,7 +627,7 @@ export default function ScotlandTab() {
         population, income, and poverty.
       </p>
 
-      {/* Population Table - Start with who we're measuring */}
+      {/* Population Table */}
       <h3 className="subsection-title">Population</h3>
       <div className="section-box">
         <p className="chart-description">
@@ -777,19 +730,19 @@ export default function ScotlandTab() {
         </p>
 
         <div className="comparison-table-container">
-            <table className="comparison-table">
-              <thead>
-                <tr>
-                  <th>Metric</th>
-                  <th>Official</th>
-                  <th>PolicyEngine</th>
-                  <th>Difference</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="metric-name">
-                    <strong>Total</strong>
+          <table className="comparison-table">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Official</th>
+                <th>PolicyEngine</th>
+                <th>Difference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="metric-name">
+                  <strong>Total</strong>
                 </td>
                 <td className="official-value">
                   <a href={OFFICIAL_STATS.totalGDHI.url} target="_blank" rel="noopener noreferrer">
@@ -905,7 +858,7 @@ export default function ScotlandTab() {
           >
             assumes
           </a>{" "}
-          55% UC take-up to stochastically assign claiming behaviour, then calibrates weights to
+          55% UC take-up at the margin to stochastically assign claiming behaviour, then calibrates weights to
           match official UC expenditure totals, while the Scottish Government uses{" "}
           <a
             href="https://www.gov.scot/publications/impact-of-withdrawing-emergency-benefit-measures/pages/annex-a-methodology/"
@@ -1102,92 +1055,6 @@ export default function ScotlandTab() {
             </tbody>
           </table>
         </div>
-      </div>
-
-      {/* Scottish Budget 2026 section */}
-      <h2 className="section-title" id="scottish-budget" ref={(el) => (sectionRefs.current["scottish-budget"] = el)}>Scottish Budget 2026</h2>
-      <p className="chart-description">
-        The Scottish Government is expected to announce measures on child poverty, income tax, and
-        council tax. This section examines the likely policies and their estimated costs.
-      </p>
-
-      <h3 className="subsection-title">Expected policies</h3>
-      <div className="section-box">
-        <p className="chart-description">
-          According to BBC{" "}
-          <a
-            href="https://www.bbc.co.uk/news/articles/cpwndd10rejo"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Scotland
-          </a>, the following policy areas may feature in the budget. The Scottish child payment may
-          be increased following the UK Government's decision to abolish the two-child limit, with
-          First Minister John Swinney pledging to use funding to tackle child poverty. Scotland's
-          six income tax bands (compared to three in the rest of the UK) may face pressure for cuts
-          from opposition parties. The council tax freeze ended last year and is not expected to be
-          reimposed, meaning households could face increases from April. Business groups have called
-          for lower non-domestic rates. Scottish Labour have called for health funding to reduce
-          waiting lists and reform the NHS.
-        </p>
-      </div>
-
-      {/* Two-child limit section */}
-      <h3 className="subsection-title">Two-child limit top-up payment</h3>
-      <div className="section-box">
-        <p className="chart-description">
-          The Scottish Government{" "}
-          <a
-            href="https://www.bbc.co.uk/news/articles/cpwndd10rejo"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            plans
-          </a>{" "}
-          to introduce a top-up payment for families with three or more children on Universal Credit
-          from April 2026, compensating for the UK-wide two-child limit. The Scottish Fiscal{" "}
-          <a
-            href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Commission
-          </a>{" "}
-          estimates this will cost £155 million in 2026–27 rising to £198 million by 2029–30,
-          affecting 43,000 children in 2026–27 rising to 50,000 children by 2029–30.{" "}
-          PolicyEngine{" "}
-          <a
-            href="https://github.com/PolicyEngine/scottish-budget-dashboard/blob/main/public/data/scotland_two_child_limit.csv"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            estimates
-          </a>{" "}
-          £213 million in 2026–27 rising to £256 million by 2029–30, affecting 69,000 children in
-          2026–27 rising to 73,000 children by 2029–30.
-        </p>
-        <p className="chart-description" style={{ marginTop: "12px" }}>
-          The two-child limit restricts Universal Credit child element payments to the first two
-          children, so the top-up payment cost depends on how many Scottish families claim UC and
-          have three or more children. The difference between estimates arises from different data
-          sources: SFC uses DWP administrative{" "}
-          <a
-            href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            data
-          </a>{" "}
-          on actual UC claimants, while PolicyEngine uses Family Resources Survey data{" "}
-          <a
-            href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            reweighted
-          </a>{" "}
-          to Scotland, which estimates more families with three or more children receiving UC.
-        </p>
       </div>
 
     </div>

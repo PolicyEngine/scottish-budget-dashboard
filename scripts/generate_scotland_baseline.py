@@ -167,7 +167,7 @@ def calculate_scotland_baseline(output_dir: Path = None) -> pd.DataFrame:
         hh_region = sim.calculate("region", year, map_to="household").values
         hh_scotland = hh_region == "SCOTLAND"
         hh_income = sim.calculate(
-            "household_net_income", year, map_to="household"
+            "hbai_household_net_income", year, map_to="household"
         ).values
         hh_weight = sim.calculate(
             "household_weight", year, map_to="household"

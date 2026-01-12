@@ -1,0 +1,81 @@
+/* D3 line chart styling */
+
+.d3-chart-container {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.d3-chart-container svg {
+  display: block;
+  overflow: visible;
+}
+
+/* Tooltip */
+.chart-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: var(--pe-gray-900);
+  color: white;
+  padding: 10px 14px;
+  border-radius: var(--pe-radius-md);
+  font-family: var(--pe-font-body);
+  font-size: 13px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 100;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  min-width: 140px;
+}
+
+.tooltip-year {
+  font-weight: 600;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tooltip-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.tooltip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tooltip-dot.historical {
+  background: #9CA3AF;
+}
+
+.tooltip-dot.projection {
+  background: #319795;
+}
+
+.tooltip-label {
+  color: rgba(255, 255, 255, 0.7);
+  flex: 1;
+}
+
+.tooltip-value {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hover states for dots */
+.d3-chart-container .dot-historical,
+.d3-chart-container .dot-projection {
+  cursor: pointer;
+  transition: r 0.15s ease;
+}
+
+.d3-chart-container .dot-historical:hover,
+.d3-chart-container .dot-projection:hover {
+  r: 8;
+}
