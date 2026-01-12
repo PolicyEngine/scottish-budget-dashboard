@@ -321,14 +321,15 @@ export default function ScotlandTab() {
       <h2 className="section-title">Introduction</h2>
       <div className="comparison-section">
         <p className="chart-description">
-          Finance Secretary Shona Robison will announce the Scottish Budget 2026-27 on{" "}
+          Finance Secretary Shona Robison will{" "}
           <a
             href="https://www.gov.scot/budget/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            13 January 2026
-          </a>.{" "}
+            announce
+          </a>{" "}
+          the Scottish Budget 2026-27 on 13 January 2026.{" "}
           <a
             href="https://policyengine.org"
             target="_blank"
@@ -346,21 +347,22 @@ export default function ScotlandTab() {
           >
             reweighting
           </a>{" "}
-          the Family Resources Survey to Scottish parliamentary constituencies. PolicyEngine also created an{" "}
+          the Family Resources Survey to Scottish parliamentary constituencies. PolicyEngine also created a{" "}
           <a
             href="https://www.policyengine.org/uk/autumn-budget-2025"
             target="_blank"
             rel="noopener noreferrer"
           >
-            interactive dashboard for the UK Autumn Budget 2025
-          </a>. For details on how PolicyEngine poverty estimates compare with official DWP statistics,
+            dashboard
+          </a>{" "}
+          for the UK Autumn Budget 2025. For details on how PolicyEngine poverty estimates compare with official DWP statistics,
           see our{" "}
           <a
             href="https://www.policyengine.org/uk/research/uk-poverty-analysis"
             target="_blank"
             rel="noopener noreferrer"
           >
-            UK poverty analysis
+            analysis
           </a>.
         </p>
         <p className="chart-description" style={{ marginTop: "12px" }}>
@@ -826,17 +828,18 @@ export default function ScotlandTab() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            uses a 55% UC take-up rate
+            assumes
           </a>{" "}
-          to stochastically assign claiming behaviour, then calibrates weights to match official UC
+          55% UC take-up to stochastically assign claiming behaviour, then calibrates weights to match official UC
           expenditure totals. The Scottish Government uses{" "}
           <a
             href="https://www.gov.scot/publications/impact-of-withdrawing-emergency-benefit-measures/pages/annex-a-methodology/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            UKMOD with 87% take-up
-          </a>. Lower take-up means fewer families are modelled as receiving benefits, resulting in
+            UKMOD
+          </a>{" "}
+          with 87% take-up. Lower take-up means fewer families are modelled as receiving benefits, resulting in
           lower incomes and higher measured poverty.
         </p>
 
@@ -1028,13 +1031,13 @@ export default function ScotlandTab() {
       <h2 className="section-title">Expected policies</h2>
       <div className="comparison-section">
         <p className="chart-description">
-          According to{" "}
+          According to BBC{" "}
           <a
             href="https://www.bbc.co.uk/news/articles/cpwndd10rejo"
             target="_blank"
             rel="noopener noreferrer"
           >
-            BBC Scotland
+            Scotland
           </a>, the following policy areas may feature in the budget. The Scottish child payment may
           be increased following the UK Government's decision to abolish the two-child limit, with
           First Minister John Swinney pledging to use funding to tackle child poverty. Scotland's
@@ -1059,13 +1062,13 @@ export default function ScotlandTab() {
             plans
           </a>{" "}
           to introduce a top-up payment for families with three or more children on Universal Credit
-          from April 2026, compensating for the UK-wide two-child limit. The{" "}
+          from April 2026, compensating for the UK-wide two-child limit. The Scottish Fiscal{" "}
           <a
             href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Scottish Fiscal Commission
+            Commission
           </a>{" "}
           estimates this will cost £155 million in 2026-27 rising to £198 million by 2029-30,
           affecting 43,000 children in 2026-27 rising to 50,000 children by 2029-30.{" "}
@@ -1084,22 +1087,23 @@ export default function ScotlandTab() {
           The two-child limit restricts Universal Credit child element payments to the first two
           children, so the top-up payment cost depends on how many Scottish families claim UC and
           have three or more children. The difference between estimates arises from different data
-          sources: SFC uses{" "}
+          sources: SFC uses DWP administrative{" "}
           <a
             href="https://fiscalcommission.scot/mitigating-the-two-child-limit-and-the-scottish-budget/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            DWP administrative data
+            data
           </a>{" "}
-          on actual UC claimants, while PolicyEngine uses{" "}
+          on actual UC claimants, while PolicyEngine uses Family Resources Survey data{" "}
           <a
             href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Family Resources Survey data reweighted to Scotland
-          </a>, which estimates more families with three or more children receiving UC.
+            reweighted
+          </a>{" "}
+          to Scotland, which estimates more families with three or more children receiving UC.
         </p>
       </div>
 
