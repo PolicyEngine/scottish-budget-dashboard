@@ -137,6 +137,13 @@
   border-radius: 12px;
   padding: 2rem;
   margin-bottom: 1.5rem;
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.section-box.in-view {
+  background: #eef1f4;
+  border-color: #dde2e8;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
 /* Only constrain chart containers, not text */

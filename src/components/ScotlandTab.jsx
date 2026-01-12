@@ -280,6 +280,27 @@ export default function ScotlandTab() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Intersection Observer for box highlighting
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in-view");
+          } else {
+            entry.target.classList.remove("in-view");
+          }
+        });
+      },
+      { threshold: 0.3, rootMargin: "-100px 0px -100px 0px" }
+    );
+
+    const boxes = document.querySelectorAll(".section-box");
+    boxes.forEach((box) => observer.observe(box));
+
+    return () => observer.disconnect();
+  }, [loading]);
+
   // Load Scotland baseline data
   useEffect(() => {
     const loadData = async () => {
