@@ -436,14 +436,15 @@ export default function ScotlandTab() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            dashboard for the UK Autumn Budget 2025
-          </a>, and details on how poverty estimates are calculated can be found in our{" "}
+            dashboard
+          </a>{" "}
+          for the UK Autumn Budget 2025, and details on how poverty estimates are calculated can be found in our{" "}
           <a
             href="https://www.policyengine.org/uk/research/uk-poverty-analysis"
             target="_blank"
             rel="noopener noreferrer"
           >
-            poverty methodology
+            methodology
           </a>.
         </p>
       </div>
