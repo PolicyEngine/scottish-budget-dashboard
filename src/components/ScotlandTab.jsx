@@ -520,7 +520,6 @@ export default function ScotlandTab() {
               <tr>
                 <td className="metric-name">
                   <strong>Total</strong>
-                  <span className="metric-subtitle">Scotland aggregate</span>
                 </td>
                 <td className="official-value">
                   <a href={OFFICIAL_STATS.totalGDHI.url} target="_blank" rel="noopener noreferrer">
@@ -541,7 +540,6 @@ export default function ScotlandTab() {
               <tr>
                 <td className="metric-name">
                   <strong>Mean per person</strong>
-                  <span className="metric-subtitle">Total / population</span>
                 </td>
                 <td className="official-value">
                   <a href={OFFICIAL_STATS.gdhiPerHead.url} target="_blank" rel="noopener noreferrer">
@@ -562,7 +560,6 @@ export default function ScotlandTab() {
               <tr>
                 <td className="metric-name">
                   <strong>Median per person</strong>
-                  <span className="metric-subtitle">~87% of mean</span>
                 </td>
                 <td className="official-value">
                   <a href={OFFICIAL_STATS.gdhiPerHead.url} target="_blank" rel="noopener noreferrer">
@@ -583,7 +580,6 @@ export default function ScotlandTab() {
               <tr>
                 <td className="metric-name">
                   <strong>Mean per household</strong>
-                  <span className="metric-subtitle">Total / households</span>
                 </td>
                 <td className="official-value">
                   <a href={OFFICIAL_STATS.totalGDHI.url} target="_blank" rel="noopener noreferrer">
@@ -604,7 +600,6 @@ export default function ScotlandTab() {
               <tr>
                 <td className="metric-name">
                   <strong>Median per household</strong>
-                  <span className="metric-subtitle">~87% of mean</span>
                 </td>
                 <td className="official-value">
                   <a href={OFFICIAL_STATS.totalGDHI.url} target="_blank" rel="noopener noreferrer">
