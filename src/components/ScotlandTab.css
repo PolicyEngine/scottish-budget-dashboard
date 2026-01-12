@@ -104,30 +104,34 @@
 
 /* Poverty type selector */
 .poverty-type-select {
-  padding: 10px 36px 10px 16px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  padding: 12px 44px 12px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 2px solid #2C6496;
+  border-radius: 25px;
   background: white;
-  color: #374151;
+  color: #2C6496;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%232C6496' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 12px center;
+  background-position: right 16px center;
+  box-shadow: 0 2px 8px rgba(44, 100, 150, 0.15);
 }
 
 .poverty-type-select:hover {
-  border-color: #2C6496;
-  background-color: #f9fafb;
+  background-color: #2C6496;
+  color: white;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  box-shadow: 0 4px 12px rgba(44, 100, 150, 0.3);
+  transform: translateY(-1px);
 }
 
 .poverty-type-select:focus {
   outline: none;
   border-color: #2C6496;
-  box-shadow: 0 0 0 3px rgba(44, 100, 150, 0.1);
+  box-shadow: 0 0 0 3px rgba(44, 100, 150, 0.2);
 }
 
 /* Section boxes */
