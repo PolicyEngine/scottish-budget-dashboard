@@ -1,13 +1,16 @@
 .scotland-tab {
   padding: 0;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-/* Section titles outside boxes */
+/* Main section titles */
 .section-title {
-  font-size: 1.1rem;
+  font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 600;
-  color: var(--pe-gray-800);
-  margin: 24px 0 12px 0;
+  color: #1a1a2e;
+  margin: clamp(3rem, 6vh, 5rem) 0 1rem 0;
+  line-height: 1.2;
 }
 
 .section-title:first-of-type {
@@ -16,58 +19,200 @@
 
 /* Subsection titles */
 .subsection-title {
-  font-size: 1rem;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
   font-weight: 600;
-  color: var(--pe-gray-700);
-  margin: 20px 0 10px 0;
+  color: #2C6496;
+  margin: clamp(2rem, 4vh, 3rem) 0 0.75rem 0;
+  line-height: 1.3;
 }
 
-/* Tab navigation */
-.scotland-tabs {
-  display: flex;
-  gap: 0;
-  margin-bottom: 24px;
-  border-bottom: 2px solid var(--pe-gray-200);
+/* Description text */
+.chart-description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #4b5563;
+  margin: 0 0 1.5rem 0;
 }
 
-.scotland-tab-button {
-  padding: 12px 24px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--pe-gray-600);
-  background: transparent;
-  border: none;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
+/* Links in descriptions */
+.chart-description a {
+  color: #2C6496;
+  text-decoration: none;
+  border-bottom: 1px solid #a3c4e0;
+  transition: border-color 0.2s ease;
+}
+
+.chart-description a:hover {
+  border-bottom-color: #2C6496;
+}
+
+/* Poverty type selector */
+.poverty-type-select {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  background: white;
+  color: #374151;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.scotland-tab-button:hover {
-  color: var(--pe-gray-800);
-  background: var(--pe-gray-50);
+.poverty-type-select:hover {
+  border-color: #2C6496;
 }
 
-.scotland-tab-button.active {
-  color: var(--pe-teal-700);
-  border-bottom-color: var(--pe-teal-600);
+.poverty-type-select:focus {
+  outline: none;
+  border-color: #2C6496;
+  box-shadow: 0 0 0 3px rgba(44, 100, 150, 0.1);
+}
+
+/* Tables */
+.comparison-table-container {
+  overflow-x: auto;
+  margin: 1.5rem 0 3rem 0;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.comparison-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-bottom: 2px solid #e5e7eb;
+  background: transparent;
+}
+
+.comparison-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: top;
+}
+
+.comparison-table tr:last-child td {
+  border-bottom: none;
+}
+
+.comparison-table tr:hover td {
+  background: #f9fafb;
+}
+
+/* Metric name column */
+.comparison-table .metric-name {
+  min-width: 160px;
+}
+
+.comparison-table .metric-name strong {
+  display: block;
+  color: #1f2937;
   font-weight: 600;
 }
 
+.comparison-table .metric-subtitle {
+  display: block;
+  font-size: 0.8rem;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+/* Value columns */
+.comparison-table .pe-value,
+.comparison-table .official-value {
+  min-width: 120px;
+}
+
+.comparison-table .pe-value {
+  color: #2C6496;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.comparison-table .pe-value a {
+  color: #2C6496;
+  text-decoration: none;
+  border-bottom: 1px dashed #a3c4e0;
+}
+
+.comparison-table .pe-value a:hover {
+  border-bottom-style: solid;
+}
+
+.comparison-table .official-value {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #374151;
+}
+
+.comparison-table .official-value a {
+  color: #374151;
+  text-decoration: none;
+  border-bottom: 1px dashed #d1d5db;
+}
+
+.comparison-table .official-value a:hover {
+  border-bottom-style: solid;
+}
+
+.comparison-table .value-year {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+.comparison-table .not-available {
+  color: #d1d5db;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.comparison-table .derived-value {
+  color: #6b7280;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Difference column */
+.comparison-table .difference {
+  font-weight: 600;
+  color: #6b7280;
+  min-width: 80px;
+}
+
+/* Notes column */
+.comparison-table .notes {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  line-height: 1.4;
+  max-width: 200px;
+}
+
+/* Loading state */
 .scotland-tab-loading {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 400px;
-  color: var(--pe-gray-500);
+  color: #9ca3af;
 }
 
 .scotland-tab-loading .loading-spinner {
   width: 40px;
   height: 40px;
-  border: 3px solid var(--pe-gray-200);
-  border-top-color: var(--pe-teal-600);
+  border: 3px solid #e5e7eb;
+  border-top-color: #2C6496;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 16px;
@@ -79,496 +224,27 @@
   }
 }
 
-/* Introduction section */
-.scotland-intro {
-  margin-bottom: 32px;
-}
-
-.scotland-intro p {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--pe-gray-600);
-  margin-bottom: 0;
-}
-
-/* Section headers */
-.chart-header {
-  margin-bottom: 20px;
-}
-
-.chart-header h2 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--pe-gray-800);
-  margin: 0 0 8px 0;
-}
-
-.chart-header-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.chart-header-row h2 {
-  margin: 0;
-}
-
-.poverty-type-select {
-  padding: 6px 12px;
-  font-size: 0.85rem;
-  border: 1px solid var(--pe-gray-300);
-  border-radius: 6px;
-  background: var(--pe-surface);
-  color: var(--pe-gray-700);
-  cursor: pointer;
-}
-
-.poverty-type-select:hover {
-  border-color: var(--pe-teal-500);
-}
-
-.poverty-type-select:focus {
-  outline: none;
-  border-color: var(--pe-teal-600);
-  box-shadow: 0 0 0 2px rgba(49, 151, 149, 0.2);
-}
-
-.chart-description {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--pe-gray-600);
-  margin: 0;
-}
-
-.subsection-header {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--pe-gray-700);
-  margin: 16px 0 8px 0;
-}
-
-/* Comparison Section */
-.comparison-section {
-  background: var(--pe-surface);
-  border: 1px solid var(--pe-gray-200);
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 24px;
-}
-
-.comparison-table-container {
-  overflow-x: auto;
-  margin-top: 20px;
-}
-
-.comparison-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9rem;
-}
-
-.comparison-table th {
-  text-align: left;
-  padding: 12px 16px;
-  background: var(--pe-gray-200);
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--pe-gray-700);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-bottom: 2px solid var(--pe-gray-300);
-}
-
-.comparison-table td {
-  padding: 16px;
-  border-bottom: 1px solid var(--pe-gray-100);
-  vertical-align: top;
-}
-
-.comparison-table tr:last-child td {
-  border-bottom: none;
-}
-
-.comparison-table tr:hover td {
-  background: var(--pe-gray-50);
-}
-
-/* Section header rows within tables */
-.comparison-table .section-header-row td {
-  padding: 0;
-  background: transparent;
-}
-
-.comparison-table .section-header-row:hover td {
-  background: transparent;
-}
-
-.comparison-table .section-header {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--pe-gray-500);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 16px 16px 8px 16px;
-  border-bottom: none;
-  background: transparent;
-}
-
-.comparison-table tr.section-header-row + tr td {
-  border-top: 1px solid var(--pe-gray-200);
-}
-
-/* Metric name column */
-.comparison-table .metric-name {
-  min-width: 160px;
-}
-
-.comparison-table .metric-name strong {
-  display: block;
-  color: var(--pe-gray-800);
-  font-weight: 600;
-}
-
-.comparison-table .metric-subtitle {
-  display: block;
-  font-size: 0.8rem;
-  color: var(--pe-gray-500);
-  margin-top: 2px;
-}
-
-/* Value columns */
-.comparison-table .pe-value,
-.comparison-table .official-value {
-  min-width: 120px;
-}
-
-.comparison-table .pe-value {
-  color: var(--pe-teal-700);
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-.comparison-table .pe-value a {
-  color: var(--pe-teal-700);
-  text-decoration: none;
-  border-bottom: 1px dashed var(--pe-teal-500);
-}
-
-.comparison-table .pe-value a:hover {
-  border-bottom-style: solid;
-}
-
-.comparison-table .official-value {
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-.comparison-table .official-value a {
-  color: var(--pe-teal-700);
-  text-decoration: none;
-  border-bottom: 1px dashed var(--pe-teal-500);
-}
-
-.comparison-table .official-value a:hover {
-  border-bottom-style: solid;
-}
-
-.comparison-table .value-year {
-  display: block;
-  font-size: 0.75rem;
-  font-weight: 400;
-  color: var(--pe-gray-500);
-  margin-top: 2px;
-}
-
-.comparison-table .not-available {
-  color: var(--pe-gray-400);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 0.85rem;
-}
-
-.comparison-table .derived-value {
-  color: var(--pe-gray-600);
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-/* Difference column */
-.comparison-table .difference {
-  font-weight: 600;
-  color: var(--pe-gray-600);
-  min-width: 80px;
-}
-
-/* Notes column */
-.comparison-table .notes {
-  font-size: 0.8rem;
-  color: var(--pe-gray-500);
-  line-height: 1.4;
-  max-width: 200px;
-}
-
-/* Charts grid */
-.scotland-charts-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  margin-bottom: 24px;
-  align-items: stretch;
-}
-
-.chart-wrapper {
-  display: flex;
-  flex-direction: column;
-}
-
-.chart-wrapper .section-title,
-.chart-wrapper .subsection-title {
-  margin: 0 0 12px 0;
-}
-
-.chart-wrapper .scotland-chart-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.chart-title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.chart-title-row .section-title,
-.chart-title-row .subsection-title {
-  margin: 0;
-}
-
-.chart-controls {
-  margin-bottom: 16px;
-}
-
-.scotland-chart-section {
-  background: var(--pe-surface);
-  border: 1px solid var(--pe-gray-200);
-  border-radius: 12px;
-  padding: 24px;
-}
-
-.scotland-chart-section .chart-header {
-  margin-bottom: 16px;
-}
-
-/* Chart reference bar */
-.chart-reference {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-top: 16px;
-  padding: 12px 16px;
-  background: var(--pe-gray-50);
-  border-radius: 8px;
-  font-size: 0.8rem;
-}
-
-.chart-reference .reference-label {
-  color: var(--pe-gray-500);
-  font-weight: 500;
-}
-
-.chart-reference .reference-value {
-  color: var(--pe-gray-700);
-  font-weight: 600;
-}
-
-.chart-reference .reference-value.bhc {
-  color: var(--pe-teal-600);
-}
-
-.chart-reference .reference-value.ahc {
-  color: #D97706;
-}
-
-/* Additional stats section */
-.additional-stats {
-  background: var(--pe-surface);
-  border: 1px solid var(--pe-gray-200);
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 24px;
-}
-
-.stats-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.stat-card {
-  background: var(--pe-gray-50);
-  border-radius: 8px;
-  padding: 20px;
-}
-
-.stat-card h3 {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--pe-gray-800);
-  margin: 0 0 8px 0;
-}
-
-.stat-card .stat-source {
-  font-size: 0.75rem;
-  color: var(--pe-gray-500);
-  margin: 0 0 16px 0;
-}
-
-.stat-card .stat-source a {
-  color: var(--pe-teal-600);
-  text-decoration: none;
-}
-
-.stat-card .stat-source a:hover {
-  text-decoration: underline;
-}
-
-/* Mini tables inside stat cards */
-.mini-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.85rem;
-}
-
-.mini-table th,
-.mini-table td {
-  padding: 8px 10px;
-  text-align: left;
-  border-bottom: 1px solid var(--pe-gray-200);
-}
-
-.mini-table th {
-  font-size: 0.7rem;
-  font-weight: 600;
-  color: var(--pe-gray-500);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  background: var(--pe-gray-100);
-}
-
-.mini-table td {
-  color: var(--pe-gray-700);
-}
-
-.mini-table tr:last-child td {
-  border-bottom: none;
-}
-
-/* Policy changes section */
-.policy-changes-section {
-  background: var(--pe-surface);
-  border: 1px solid var(--pe-gray-200);
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 24px;
-}
-
-.policy-bullets {
-  margin: 0 0 20px 0;
-  padding-left: 24px;
-}
-
-.policy-bullets li {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: var(--pe-gray-600);
-  margin-bottom: 16px;
-}
-
-.policy-bullets li:last-child {
-  margin-bottom: 0;
-}
-
-.policy-bullets li strong {
-  color: var(--pe-gray-800);
-}
-
-.policy-source {
-  font-size: 0.8rem;
-  color: var(--pe-gray-500);
-  margin: 0;
-}
-
-.policy-source a {
-  color: var(--pe-teal-600);
-  text-decoration: none;
-}
-
-.policy-source a:hover {
-  text-decoration: underline;
-}
-
-/* Methodology note */
-.methodology-note {
-  background: var(--pe-gray-50);
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 24px;
-}
-
-.methodology-note h3 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--pe-gray-800);
-  margin: 0 0 16px 0;
-}
-
-.note-content {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-}
-
-.note-item strong {
-  display: block;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--pe-gray-700);
-  margin-bottom: 8px;
-}
-
-.note-item p {
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: var(--pe-gray-600);
-  margin: 0;
-}
-
 /* Responsive design */
-@media (max-width: 1024px) {
-  .scotland-charts-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .stats-cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .note-content {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-}
-
 @media (max-width: 768px) {
-  .stats-cards {
-    grid-template-columns: 1fr;
+  .scotland-tab {
+    padding: 0 1rem;
+  }
+
+  .section-title {
+    margin: 2.5rem 0 0.75rem 0;
+  }
+
+  .subsection-title {
+    margin: 2rem 0 0.5rem 0;
+  }
+
+  .chart-description {
+    font-size: 1rem;
+    line-height: 1.7;
   }
 
   .comparison-table {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
   }
 
   .comparison-table th,
@@ -578,14 +254,5 @@
 
   .comparison-table .notes {
     display: none;
-  }
-
-  .chart-reference {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .scotland-chart-section {
-    padding: 16px;
   }
 }
