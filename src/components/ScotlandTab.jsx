@@ -381,8 +381,7 @@ export default function ScotlandTab() {
         <div className="chart-header">
           <h2>Population</h2>
           <p className="chart-description">
-            Before analysing policy impacts, we first verify that PolicyEngine's sample
-            accurately represents Scotland. PolicyEngine{" "}
+            PolicyEngine{" "}
             <a
               href="https://github.com/PolicyEngine/policyengine-uk-data/blob/main/policyengine_uk_data/datasets/local_areas/constituencies/calibrate.py"
               target="_blank"
@@ -391,8 +390,7 @@ export default function ScotlandTab() {
               reweights
             </a>{" "}
             the Family Resources Survey to match official demographic targets from the
-            National Records of Scotland (NRS). The close alignment below confirms that
-            policy simulations will apply to the correct number of people and households.
+            National Records of Scotland (NRS) for 2023.
           </p>
         </div>
 
@@ -471,11 +469,9 @@ export default function ScotlandTab() {
         <div className="chart-header">
           <h2>Household income</h2>
           <p className="chart-description">
-            With population validated, we next check that PolicyEngine captures how much money
-            Scottish households actually have. Both sources measure disposable income (income after
-            taxes and benefits) for 2023. Official data comes from ONS regional accounts (GDHI);
-            PolicyEngine calculates household net income from survey microdata. Close alignment here
-            means tax and benefit calculations are producing realistic income distributions.
+            Both sources measure disposable income (income after taxes and benefits) for 2023.
+            Official data is from ONS regional accounts (GDHI). PolicyEngine calculates
+            household net income from Family Resources Survey microdata.
           </p>
         </div>
 
@@ -590,32 +586,27 @@ export default function ScotlandTab() {
         <div className="chart-header">
           <h2>Poverty rates</h2>
           <p className="chart-description">
-            Poverty is the key outcome measure for Scottish budget policy. A household is in relative
-            poverty if its equivalised income (adjusted for household size) falls below 60% of UK
-            median income. BHC (before housing costs) uses total income; AHC (after housing costs)
-            subtracts rent and mortgage payments, resulting in higher measured poverty.
+            Relative poverty: equivalised income below 60% of UK median. BHC (before housing costs)
+            uses total income; AHC (after housing costs) subtracts rent and mortgage payments.
+            Official statistics are 3-year averages from the Scottish Government.
           </p>
           <p className="chart-description" style={{ marginTop: "12px" }}>
-            PolicyEngine shows higher child poverty than official statistics (28% vs 20% BHC). This gap
-            arises because PolicyEngine{" "}
+            PolicyEngine shows higher child poverty than official statistics (28% vs 20% BHC).
+            PolicyEngine{" "}
             <a
               href="https://github.com/PolicyEngine/policyengine-uk/blob/main/policyengine_uk/parameters/gov/dwp/universal_credit/takeup_rate.yaml"
               target="_blank"
               rel="noopener noreferrer"
             >
               assumes 55% UC take-up
-            </a>{" "}
-            versus{" "}
+            </a>; the Scottish Government uses{" "}
             <a
               href="https://www.gov.scot/publications/impact-of-withdrawing-emergency-benefit-measures/pages/annex-a-methodology/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              87% in UKMOD
-            </a>{" "}
-            (used by Scottish Government)—lower take-up means more families miss benefits they're
-            entitled to, pushing more children below the poverty line. While absolute levels differ,
-            both models can estimate the relative impact of policy changes on poverty.
+              UKMOD with 87% take-up
+            </a>.
           </p>
         </div>
 
@@ -822,15 +813,13 @@ export default function ScotlandTab() {
               </select>
             </div>
             <p className="chart-description">
-              With the baseline validated, we can project how poverty may evolve under current policy.{" "}
               {povertyType.includes("absolute")
-                ? "Absolute poverty measures income below a fixed 2010/11 threshold (adjusted for inflation)."
-                : "Relative poverty measures income below 60% of UK median income."}
+                ? "Absolute poverty: income below a fixed 2010/11 threshold (adjusted for inflation)."
+                : "Relative poverty: income below 60% of UK median."}
               {povertyType.includes("AHC")
                 ? " AHC subtracts housing costs."
                 : ""}{" "}
-              Solid lines show official historical data; dashed lines show PolicyEngine projections
-              through 2030, assuming no policy changes beyond those already announced.
+              Solid lines: official historical data. Dashed lines: PolicyEngine projections through 2030.
             </p>
           </div>
           <ResponsiveContainer width="100%" height={300}>
@@ -919,11 +908,8 @@ export default function ScotlandTab() {
           <div className="chart-header">
             <h2>Income per household</h2>
             <p className="chart-description">
-              Income growth is the other side of the poverty story. As household incomes rise, fewer
-              families fall below poverty thresholds. This chart shows annual disposable income per
-              household, with solid lines for official ONS data and dashed lines for PolicyEngine
-              projections. The gap between mean and median reflects income inequality—when the mean
-              exceeds the median, higher earners are pulling up the average.
+              Annual disposable income per household. Solid lines: official ONS data (GDHI / households).
+              Dashed lines: PolicyEngine projections through 2030.
             </p>
           </div>
           <ResponsiveContainer width="100%" height={300}>
