@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import {
   LineChart,
   Line,
@@ -234,10 +234,51 @@ const OFFICIAL_STATS = {
   },
 };
 
+// Section definitions for navigation
+const SECTIONS = [
+  { id: "introduction", label: "Introduction" },
+  { id: "economic-outlook", label: "Economic outlook" },
+  { id: "validation", label: "Validation" },
+  { id: "scottish-budget", label: "Scottish Budget 2026" },
+];
+
 export default function ScotlandTab() {
   const [loading, setLoading] = useState(true);
   const [baselineData, setBaselineData] = useState([]);
   const [povertyType, setPovertyType] = useState("absoluteBHC"); // absoluteBHC, absoluteAHC, relativeBHC, relativeAHC
+  const [activeSection, setActiveSection] = useState("introduction");
+
+  // Refs for section elements
+  const sectionRefs = useRef({});
+
+  // Scroll to section handler
+  const scrollToSection = useCallback((sectionId) => {
+    const element = sectionRefs.current[sectionId];
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, []);
+
+  // Track active section on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 150; // Offset for header
+
+      for (let i = SECTIONS.length - 1; i >= 0; i--) {
+        const section = SECTIONS[i];
+        const element = sectionRefs.current[section.id];
+        if (element && element.offsetTop <= scrollPosition) {
+          setActiveSection(section.id);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial check
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Load Scotland baseline data
   useEffect(() => {
@@ -317,8 +358,21 @@ export default function ScotlandTab() {
 
   return (
     <div className="scotland-tab">
+      {/* Section Navigation Sidebar */}
+      <nav className="section-nav">
+        {SECTIONS.map((section) => (
+          <button
+            key={section.id}
+            className={`section-nav-dot ${activeSection === section.id ? "active" : ""}`}
+            onClick={() => scrollToSection(section.id)}
+            title={section.label}
+            aria-label={`Navigate to ${section.label}`}
+          />
+        ))}
+      </nav>
+
       {/* Introduction */}
-      <h2 className="section-title">Introduction</h2>
+      <h2 className="section-title" id="introduction" ref={(el) => (sectionRefs.current["introduction"] = el)}>Introduction</h2>
       <div className="section-box">
         <p className="chart-description">
           This dashboard projects Scotland's economy and poverty levels under current policy, and
@@ -369,7 +423,7 @@ export default function ScotlandTab() {
       </div>
 
       {/* Economic outlook section */}
-      <h2 className="section-title">Economic outlook</h2>
+      <h2 className="section-title" id="economic-outlook" ref={(el) => (sectionRefs.current["economic-outlook"] = el)}>Economic outlook</h2>
       <p className="chart-description">
         This section shows PolicyEngine projections for household incomes and poverty rates through
         2030, assuming current legislated policy with no further changes.
@@ -603,7 +657,7 @@ export default function ScotlandTab() {
       </div>
 
       {/* Validation Section */}
-      <h2 className="section-title">Validation</h2>
+      <h2 className="section-title" id="validation" ref={(el) => (sectionRefs.current["validation"] = el)}>Validation</h2>
       <p className="chart-description">
         This section compares PolicyEngine estimates with official government statistics for
         population, income, and poverty.
@@ -1041,7 +1095,7 @@ export default function ScotlandTab() {
       </div>
 
       {/* Scottish Budget 2026 section */}
-      <h2 className="section-title">Scottish Budget 2026</h2>
+      <h2 className="section-title" id="scottish-budget" ref={(el) => (sectionRefs.current["scottish-budget"] = el)}>Scottish Budget 2026</h2>
       <p className="chart-description">
         The Scottish Government is expected to announce measures on child poverty, income tax, and
         council tax. This section examines the likely policies and their estimated costs.
